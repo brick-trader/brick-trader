@@ -1,9 +1,17 @@
 import { Module } from '@nestjs/common';
+import { PrismaModule } from 'nestjs-prisma';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
-  imports: [],
+  imports: [
+    PrismaModule.forRoot({
+      prismaServiceOptions: {
+        prismaOptions: { log: ['info'] },
+        explicitConnect: true,
+      },
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
