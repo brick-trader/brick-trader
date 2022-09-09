@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx lint-staged
-npx nuxi typecheck
+pnpm lint-staged
+pnpm nuxi typecheck
