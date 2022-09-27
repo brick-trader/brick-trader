@@ -2,22 +2,13 @@ import { Module } from "@nestjs/common";
 import { PrismaModule } from "nestjs-prisma";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { HistoricalDataController } from "./historical-data/historical-data.controller";
-import { HistoricalDataService } from "./historical-data/historical-data.service";
+import { HistoricalDataModule } from "./historical-data/historical-data.module";
 import { PrismaService } from "./prisma.service";
-import { TickerController } from "./ticker/ticker.controller";
-import { TickerService } from "./ticker/ticker.service";
+import { TickerModule } from "./ticker/ticker.module";
 
 @Module({
-  imports: [
-    PrismaModule.forRoot({
-      prismaServiceOptions: {
-        prismaOptions: { log: ["info"] },
-        explicitConnect: true,
-      },
-    }),
-  ],
-  controllers: [AppController, TickerController, HistoricalDataController],
-  providers: [AppService, PrismaService, TickerService, HistoricalDataService],
+  imports: [TickerModule, HistoricalDataModule],
+  controllers: [AppController],
+  providers: [AppService, PrismaService],
 })
 export class AppModule {}
