@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
 import { Ticker, Prisma, HistoricalData } from "@prisma/client";
 import yahooFinance from "yahoo-finance2";
@@ -80,7 +80,7 @@ export class TickerService {
     if (tickerWithHistoricalData) {
       if (tickerWithHistoricalData.historicalData.length !== 0) {
         // get historical data from external api
-        // start with the last date in the database
+        // if the date range is not included in the database
         const startDate = tickerWithHistoricalData.historicalData[0].date;
         const endDate =
           tickerWithHistoricalData.historicalData[
@@ -101,7 +101,10 @@ export class TickerService {
                 return data as HistoricalData[];
               });
           } catch (error) {
-            console.log(error);
+            throw new InternalServerErrorException(
+              error,
+              "Error while fetching historical data from external API",
+            );
           }
         }
 
@@ -118,12 +121,15 @@ export class TickerService {
                 }),
             );
           } catch (error) {
-            console.log(error);
+            throw new InternalServerErrorException(
+              error,
+              "Error while fetching historical data from external API",
+            );
           }
         }
       } else {
         // get historical data from external api
-        // start with the given date in the database
+        // start with the given date
         const startDate = (
           historicalDataWhereInput.date as Prisma.DateTimeFilter
         ).gte;
@@ -158,7 +164,7 @@ export class TickerService {
           });
         }
 
-        // get historical data from database
+        // get ticker with historical data from database
         tickerWithHistoricalData = await this.prisma.ticker.findUnique({
           where: tickerWhereUniqueInput,
           include: {
