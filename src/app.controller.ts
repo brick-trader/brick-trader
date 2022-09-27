@@ -21,12 +21,12 @@ export class AppController {
     private readonly historicalDataService: HistoricalDataService,
   ) {}
 
-  @Get("historical-datas")
+  @Get("historical-data")
   async getHistoricalDatas(): Promise<HistoricalDataModel[]> {
     return this.historicalDataService.historicalDatas({});
   }
 
-  @Post("historical-datas")
+  @Post("historical-data")
   async createHistoricalData(
     @Body()
     historicalData: {
@@ -56,7 +56,7 @@ export class AppController {
     });
   }
 
-  @Get("historical-datas/:id")
+  @Get("historical-data/:id")
   async getHistoricalDataById(
     @Param("id") id: string,
   ): Promise<HistoricalDataModel> {
@@ -83,5 +83,24 @@ export class AppController {
   @Get("tickers/:id")
   async getTickerById(@Param("id") id: string): Promise<TickerModel> {
     return this.tickerService.ticker({ id: Number(id) });
+  }
+
+  @Get("tickers/:id/historical-data/:date")
+  async getTickerWithFilteredHistoricalData(
+    @Param("id") id: string,
+    @Param("date") date: string,
+  ): Promise<
+    TickerModel & {
+      historicalData: HistoricalDataModel[];
+    }
+  > {
+    return this.tickerService.getTickerWithFilteredHistoricalData(
+      { id: Number(id) },
+      {
+        date: {
+          gte: new Date(date),
+        },
+      },
+    );
   }
 }
