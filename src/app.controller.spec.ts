@@ -1,22 +1,31 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { Ticker } from "@prisma/client";
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
+import { HistoricalDataService } from "./historical_data.service";
+import { PrismaService } from "./prisma.service";
+import { TickerService } from "./ticker.service";
 
-describe('AppController', () => {
+describe("AppController", () => {
   let appController: AppController;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+      providers: [
+        AppService,
+        PrismaService,
+        TickerService,
+        HistoricalDataService,
+      ],
     }).compile();
 
     appController = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+  describe("get tickers", () => {
+    it("should be an array of tickers", () => {
+      expect(appController.getTickers()).toBeInstanceOf(Promise<Ticker[]>);
     });
   });
 });
