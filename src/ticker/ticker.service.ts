@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { PrismaService } from "./prisma.service";
+import { PrismaService } from "../prisma.service";
 import { Ticker, Prisma, HistoricalData } from "@prisma/client";
 import yahooFinance from "yahoo-finance2";
 
