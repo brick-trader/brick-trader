@@ -101,10 +101,16 @@ export class TickerService {
                 return data as HistoricalData[];
               });
           } catch (error) {
-            throw new InternalServerErrorException(
-              error,
-              "Error while fetching historical data from external API",
-            );
+            if (error instanceof yahooFinance.errors.HTTPError) {
+              console.warn(
+                `Skipping yahooFinance.historical("${tickerWithHistoricalData.symbol}"): [${error.name}] ${error.message}`,
+              );
+            } else {
+              throw new InternalServerErrorException(
+                error,
+                "Error while fetching historical data from external API",
+              );
+            }
           }
         }
 
@@ -121,10 +127,16 @@ export class TickerService {
                 }),
             );
           } catch (error) {
-            throw new InternalServerErrorException(
-              error,
-              "Error while fetching historical data from external API",
-            );
+            if (error instanceof yahooFinance.errors.HTTPError) {
+              console.warn(
+                `Skipping yahooFinance.historical("${tickerWithHistoricalData.symbol}"): [${error.name}] ${error.message}`,
+              );
+            } else {
+              throw new InternalServerErrorException(
+                error,
+                "Error while fetching historical data from external API",
+              );
+            }
           }
         }
       } else {
@@ -133,13 +145,26 @@ export class TickerService {
         const startDate = (
           historicalDataWhereInput.date as Prisma.DateTimeFilter
         ).gte;
-        newHistoricalData = await yahooFinance
-          .historical(tickerWithHistoricalData.symbol, {
-            period1: startDate,
-          })
-          .then((data) => {
-            return data as HistoricalData[];
-          });
+        try {
+          newHistoricalData = await yahooFinance
+            .historical(tickerWithHistoricalData.symbol, {
+              period1: startDate,
+            })
+            .then((data) => {
+              return data as HistoricalData[];
+            });
+        } catch (error) {
+          if (error instanceof yahooFinance.errors.HTTPError) {
+            console.warn(
+              `Skipping yahooFinance.historical("${tickerWithHistoricalData.symbol}"): [${error.name}] ${error.message}`,
+            );
+          } else {
+            throw new InternalServerErrorException(
+              error,
+              "Error while fetching historical data from external API",
+            );
+          }
+        }
       }
 
       if (newHistoricalData.length > 0) {
