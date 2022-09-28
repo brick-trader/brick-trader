@@ -10,6 +10,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Test {
-  id    Int     @id @default(autoincrement())
+model Ticker {
+  id Int @id @default(autoincrement())
+
+  historicalData HistoricalData[]
+
+  symbol    String   @unique
+  name      String
+  updatedAt DateTime @updatedAt
+}
+
+model HistoricalData {
+  id Int @id @default(autoincrement())
+
+  ticker   Ticker @relation(fields: [tickerId], references: [id])
+  tickerId Int
+
+  date     DateTime
+  open     Float
+  high     Float
+  low      Float
+  close    Float
+  adjClose Float
+  volume   Int
 }
