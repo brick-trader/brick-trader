@@ -9,6 +9,6 @@ import { TickerModule } from "./ticker/ticker.module";
 @Module({
   imports: [TickerModule, HistoricalDataModule],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [AppService],
 })
 export class AppModule {}
