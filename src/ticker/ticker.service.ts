@@ -187,9 +187,7 @@ export class TickerService {
               },
             },
           });
-        }
 
-        if (newHistoricalData.length > 0) {
           await this.prisma.ticker.update({
             where: {
               id: tickerWithHistoricalData.id,
