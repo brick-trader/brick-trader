@@ -182,7 +182,7 @@ export class TickerService {
               volume: data.volume,
               ticker: {
                 connect: {
-                  id: tickerWithHistoricalData.id,
+                  symbol: tickerWithHistoricalData.symbol,
                 },
               },
             },
@@ -190,7 +190,7 @@ export class TickerService {
 
           await this.prisma.ticker.update({
             where: {
-              id: tickerWithHistoricalData.id,
+              symbol: tickerWithHistoricalData.symbol,
             },
             data: {
               updatedAt: new Date(),
