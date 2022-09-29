@@ -1,6 +1,14 @@
-import { Controller, Get, Param, Post, Body } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  ParseIntPipe,
+} from "@nestjs/common";
 import { HistoricalDataService } from "./historical-data.service";
 import { HistoricalData as HistoricalDataModel } from "@prisma/client";
+import { createHistoricalDataDto } from "./dtos/create-historical-data.dto";
 
 @Controller()
 export class HistoricalDataController {
@@ -14,19 +22,10 @@ export class HistoricalDataController {
   @Post("historical-data")
   async createHistoricalData(
     @Body()
-    historicalData: {
-      tickerId: number;
-      date: Date;
-      open: number;
-      high: number;
-      low: number;
-      close: number;
-      adjClose: number;
-      volume: number;
-    },
+    createHistoricalData: createHistoricalDataDto,
   ): Promise<HistoricalDataModel> {
     const { tickerId, date, open, high, low, close, adjClose, volume } =
-      historicalData;
+      createHistoricalData;
     return this.historicalDataService.createHistoricalData({
       ticker: {
         connect: { id: tickerId },
@@ -43,8 +42,8 @@ export class HistoricalDataController {
 
   @Get("historical-data/:id")
   async getHistoricalDataById(
-    @Param("id") id: string,
+    @Param("id", ParseIntPipe) id: number,
   ): Promise<HistoricalDataModel> {
-    return this.historicalDataService.historicalData({ id: Number(id) });
+    return this.historicalDataService.historicalData({ id });
   }
 }

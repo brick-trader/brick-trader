@@ -1,9 +1,19 @@
-import { Controller, Get, Param, Post, Body } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Param,
+  Query,
+  Post,
+  Body,
+  ParseIntPipe,
+  BadRequestException,
+} from "@nestjs/common";
 import { TickerService } from "./ticker.service";
 import {
   Ticker as TickerModel,
   HistoricalData as HistoricalDataModel,
 } from "@prisma/client";
+import { CreateTickerDto } from "./dtos/create-ticker.dto";
 
 @Controller()
 export class TickerController {
@@ -15,9 +25,9 @@ export class TickerController {
 
   @Post("tickers")
   async createTicker(
-    @Body() tickerData: { symbol: string; name: string },
+    @Body() createTickerDto: CreateTickerDto,
   ): Promise<TickerModel> {
-    const { symbol, name } = tickerData;
+    const { symbol, name } = createTickerDto;
     return this.tickerService.createTicker({
       symbol,
       name,
@@ -26,24 +36,28 @@ export class TickerController {
   }
 
   @Get("tickers/:id")
-  async getTickerById(@Param("id") id: string): Promise<TickerModel> {
-    return this.tickerService.ticker({ id: Number(id) });
+  async getTickerById(
+    @Param("id", ParseIntPipe) id: number,
+  ): Promise<TickerModel> {
+    return this.tickerService.ticker({ id });
   }
 
-  @Get("tickers/:id/historical-data/:date")
+  @Get("tickers/:id/historical-data")
   async getTickerWithFilteredHistoricalData(
-    @Param("id") id: string,
-    @Param("date") date: string,
+    @Param("id", ParseIntPipe) id: number,
+    @Query("start") start: Date,
   ): Promise<
     TickerModel & {
       historicalData: HistoricalDataModel[];
     }
   > {
+    if (!(start instanceof Date && !isNaN(start.valueOf())))
+      throw new BadRequestException("Must provide a valid start date");
     return this.tickerService.getTickerWithFilteredHistoricalData(
       { id: Number(id) },
       {
         date: {
-          gte: new Date(date),
+          gte: start,
         },
       },
     );
