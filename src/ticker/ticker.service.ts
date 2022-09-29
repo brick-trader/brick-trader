@@ -189,7 +189,7 @@ export class TickerService {
           });
         }
 
-        if (tickerWithHistoricalData.historicalData.length > 0) {
+        if (newHistoricalData.length > 0) {
           await this.prisma.ticker.update({
             where: {
               id: tickerWithHistoricalData.id,
