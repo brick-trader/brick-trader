@@ -35,16 +35,21 @@ export class TickerController {
     });
   }
 
-  @Get("tickers/:id")
-  async getTickerById(
-    @Param("id", ParseIntPipe) id: number,
-  ): Promise<TickerModel> {
-    return this.tickerService.ticker({ id });
+  @Get("tickers/:slug")
+  async getTickerById(@Param("slug") slug: any): Promise<TickerModel> {
+    const regExp = /[a-zA-Z]/g;
+
+    const id = parseInt(slug);
+    if (!regExp.test(slug) && !isNaN(id)) {
+      return this.tickerService.ticker({ id });
+    }
+
+    return this.tickerService.ticker({ symbol: slug });
   }
 
-  @Get("tickers/:id/historical-data")
+  @Get("tickers/:slug/historical-data")
   async getTickerWithFilteredHistoricalData(
-    @Param("id", ParseIntPipe) id: number,
+    @Param("slug") slug: any,
     @Query("start") start: Date,
   ): Promise<
     TickerModel & {
@@ -53,8 +58,23 @@ export class TickerController {
   > {
     if (!(start instanceof Date && !isNaN(start.valueOf())))
       throw new BadRequestException("Must provide a valid start date");
-    return this.tickerService.getTickerWithFilteredHistoricalData(
-      { id: Number(id) },
+
+    const regExp = /[a-zA-Z]/g;
+
+    const id = parseInt(slug);
+    if (!regExp.test(slug) && !isNaN(id)) {
+      return this.tickerService.getTickerWithFilteredHistoricalData(
+        { id },
+        {
+          date: {
+            gte: start,
+          },
+        },
+      );
+    }
+
+    return this.tickerService.getTickerBySymbolWithFilteredHistoricalData(
+      { symbol: slug },
       {
         date: {
           gte: start,
