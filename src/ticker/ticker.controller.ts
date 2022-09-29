@@ -35,16 +35,14 @@ export class TickerController {
     });
   }
 
-  @Get("tickers/:id")
-  async getTickerById(
-    @Param("id", ParseIntPipe) id: number,
-  ): Promise<TickerModel> {
-    return this.tickerService.ticker({ id });
+  @Get("tickers/:symbol")
+  async getTickerById(@Param("symbol") symbol: string): Promise<TickerModel> {
+    return this.tickerService.ticker({ symbol });
   }
 
-  @Get("tickers/:id/historical-data")
+  @Get("tickers/:symbol/historical-data")
   async getTickerWithFilteredHistoricalData(
-    @Param("id", ParseIntPipe) id: number,
+    @Param("symbol") symbol: string,
     @Query("start") start: Date,
   ): Promise<
     TickerModel & {
@@ -53,8 +51,9 @@ export class TickerController {
   > {
     if (!(start instanceof Date && !isNaN(start.valueOf())))
       throw new BadRequestException("Must provide a valid start date");
-    return this.tickerService.getTickerWithFilteredHistoricalData(
-      { id: Number(id) },
+
+    return this.tickerService.getTickerBySymbolWithFilteredHistoricalData(
+      { symbol },
       {
         date: {
           gte: start,

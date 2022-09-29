@@ -1,8 +1,9 @@
-import { IsDate, IsInt, IsNumber } from "class-validator";
+import { IsDate, IsNumber, IsString, MinLength } from "class-validator";
 
 export class createHistoricalDataDto {
-  @IsInt()
-  tickerId: number;
+  @IsString()
+  @MinLength(1)
+  tickerSymbol: string;
   @IsDate()
   date: Date;
   @IsNumber()

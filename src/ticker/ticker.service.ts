@@ -182,9 +182,18 @@ export class TickerService {
               volume: data.volume,
               ticker: {
                 connect: {
-                  id: tickerWithHistoricalData.id,
+                  symbol: tickerWithHistoricalData.symbol,
                 },
               },
+            },
+          });
+
+          await this.prisma.ticker.update({
+            where: {
+              symbol: tickerWithHistoricalData.symbol,
+            },
+            data: {
+              updatedAt: new Date(),
             },
           });
         }
@@ -205,5 +214,55 @@ export class TickerService {
     }
 
     return tickerWithHistoricalData;
+  }
+
+  async getTickerBySymbolWithFilteredHistoricalData(
+    tickerWhereUniqueInput: Prisma.TickerWhereUniqueInput,
+    historicalDataWhereInput: Prisma.HistoricalDataWhereInput,
+  ): Promise<
+    | (Ticker & {
+        historicalData: HistoricalData[];
+      })
+    | null
+  > {
+    let ticker = await this.prisma.ticker.findUnique({
+      where: tickerWhereUniqueInput,
+    });
+
+    if (!ticker) {
+      // fetch ticker from external api
+      try {
+        ticker = await yahooFinance
+          .quote(tickerWhereUniqueInput.symbol)
+          .then((data) => {
+            return {
+              symbol: data.symbol,
+              name: data.shortName,
+              updatedAt: new Date(),
+            } as Ticker;
+          });
+
+        // add ticker to database
+        ticker = await this.prisma.ticker.create({
+          data: ticker,
+        });
+      } catch (error) {
+        if (error instanceof yahooFinance.errors.HTTPError) {
+          console.warn(
+            `Skipping yahooFinance.quote("${tickerWhereUniqueInput.symbol}"): [${error.name}] ${error.message}`,
+          );
+        } else {
+          throw new InternalServerErrorException(
+            error,
+            "Error while fetching ticker from external API",
+          );
+        }
+      }
+    }
+
+    return this.getTickerWithFilteredHistoricalData(
+      tickerWhereUniqueInput,
+      historicalDataWhereInput,
+    );
   }
 }

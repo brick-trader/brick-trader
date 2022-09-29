@@ -11,11 +11,10 @@ datasource db {
 }
 
 model Ticker {
-  id Int @id @default(autoincrement())
+  symbol String @id @unique
 
   historicalData HistoricalData[]
 
-  symbol    String   @unique
   name      String
   updatedAt DateTime @updatedAt
 }
@@ -23,8 +22,8 @@ model Ticker {
 model HistoricalData {
   id Int @id @default(autoincrement())
 
-  ticker   Ticker @relation(fields: [tickerId], references: [id])
-  tickerId Int
+  ticker       Ticker @relation(fields: [tickerSymbol], references: [symbol])
+  tickerSymbol String
 
   date     DateTime
   open     Float

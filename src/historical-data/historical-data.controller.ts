@@ -24,11 +24,11 @@ export class HistoricalDataController {
     @Body()
     createHistoricalData: createHistoricalDataDto,
   ): Promise<HistoricalDataModel> {
-    const { tickerId, date, open, high, low, close, adjClose, volume } =
+    const { tickerSymbol, date, open, high, low, close, adjClose, volume } =
       createHistoricalData;
     return this.historicalDataService.createHistoricalData({
       ticker: {
-        connect: { id: tickerId },
+        connect: { symbol: tickerSymbol },
       },
       date,
       open,
