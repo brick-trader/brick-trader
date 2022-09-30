@@ -19,6 +19,9 @@ const { data: stockData } = await useFetch<Ticker>(
 /* eslint-disable */
 const indicatorts = await import("indicatorts");
 const stock = new Stock(stockData.value);
+if (indicatorts && stock && process.client) {
+  console.log("Runtime ready");
+}
 /* eslint-enable */
 function test(code: string) {
   console.log(code);
