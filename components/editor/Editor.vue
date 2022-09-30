@@ -54,12 +54,14 @@ onMounted(() => {
       },
     ],
   };
+
   workspace = Blockly.inject("blocklyDiv", {
     // type declaration is wrong
     // track issue: https://github.com/google/blockly/issues/6215
     // eslint-disable-next-line
     // @ts-ignore
     toolbox: toolbox,
+    renderer: "custom_renderer",
   });
 });
 
