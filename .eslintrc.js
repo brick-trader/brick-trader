@@ -26,5 +26,12 @@ module.exports = {
     "vue/multi-word-component-names": "off",
     "vue/require-v-for-key": "warn",
     "vue/valid-v-for": "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        args: "after-used",
+        argsIgnorePattern: "^_",
+      },
+    ],
   },
 };
