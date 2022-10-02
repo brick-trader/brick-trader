@@ -52,6 +52,10 @@ onMounted(() => {
         kind: "block",
         type: "custom_rsi",
       },
+      {
+        kind: "block",
+        type: "ema",
+      },
     ],
   };
 
