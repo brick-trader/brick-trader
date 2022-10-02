@@ -68,6 +68,10 @@ onMounted(() => {
         kind: "block",
         type: "macd",
       },
+      {
+        kind: "block",
+        type: "psar",
+      },
     ],
   };
 
