@@ -76,6 +76,10 @@ onMounted(() => {
         kind: "block",
         type: "kdj",
       },
+      {
+        kind: "block",
+        type: "vwma",
+      },
     ],
   };
 
