@@ -4,6 +4,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       import("./custom-rsi"),
       import("./rsi"),
       import("./ema"),
+      import("./apo"),
       import("./theme/custom-renderer"),
     ]);
   });

@@ -56,6 +56,10 @@ onMounted(() => {
         kind: "block",
         type: "ema",
       },
+      {
+        kind: "block",
+        type: "apo",
+      },
     ],
   };
 
