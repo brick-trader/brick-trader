@@ -60,6 +60,10 @@ onMounted(() => {
         kind: "block",
         type: "apo",
       },
+      {
+        kind: "block",
+        type: "sma",
+      },
     ],
   };
 
