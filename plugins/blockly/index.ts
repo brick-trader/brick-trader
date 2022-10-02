@@ -8,6 +8,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       import("./sma"),
       import("./macd"),
       import("./psar"),
+      import("./kdj"),
       import("./theme/custom-renderer"),
     ]);
   });

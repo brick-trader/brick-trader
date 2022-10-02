@@ -72,6 +72,10 @@ onMounted(() => {
         kind: "block",
         type: "psar",
       },
+      {
+        kind: "block",
+        type: "kdj",
+      },
     ],
   };
 
