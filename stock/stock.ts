@@ -6,6 +6,7 @@ export class Stock {
   private _closings: number[] | undefined;
   private _highs: number[] | undefined;
   private _lows: number[] | undefined;
+  private _volumes: number[] | undefined;
   constructor(ticker: Ticker) {
     this._ticker = ticker;
   }
@@ -36,5 +37,12 @@ export class Stock {
       this._lows = this._ticker.historicalData.map((data) => data.low);
     }
     return this._lows;
+  }
+
+  public get volumes(): number[] {
+    if (this._volumes === undefined) {
+      this._volumes = this._ticker.historicalData.map((data) => data.volume);
+    }
+    return this._volumes;
   }
 }

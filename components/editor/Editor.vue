@@ -52,6 +52,34 @@ onMounted(() => {
         kind: "block",
         type: "custom_rsi",
       },
+      {
+        kind: "block",
+        type: "ema",
+      },
+      {
+        kind: "block",
+        type: "apo",
+      },
+      {
+        kind: "block",
+        type: "sma",
+      },
+      {
+        kind: "block",
+        type: "macd",
+      },
+      {
+        kind: "block",
+        type: "psar",
+      },
+      {
+        kind: "block",
+        type: "kdj",
+      },
+      {
+        kind: "block",
+        type: "vwma",
+      },
     ],
   };
 
