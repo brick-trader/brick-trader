@@ -64,6 +64,10 @@ onMounted(() => {
         kind: "block",
         type: "sma",
       },
+      {
+        kind: "block",
+        type: "macd",
+      },
     ],
   };
 
