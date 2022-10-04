@@ -80,6 +80,10 @@ onMounted(() => {
         kind: "block",
         type: "vwma",
       },
+      {
+        kind: "block",
+        type: "strategy",
+      },
     ],
   };
 
