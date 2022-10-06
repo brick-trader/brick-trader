@@ -84,6 +84,10 @@ onMounted(() => {
         kind: "block",
         type: "strategy",
       },
+      {
+        kind: "block",
+        type: "action",
+      },
     ],
   };
 
