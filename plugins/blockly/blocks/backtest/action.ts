@@ -29,6 +29,6 @@ Blockly.JavaScript["action"] = function (block) {
   );
   const code = `${
     value_decision === "" ? "[]" : value_decision
-  }.map((value) => {if (value) return indicatorts.Action.${dropdown_action};})`;
+  }.map((value) => value ? indicatorts.Action.${dropdown_action} : indicatorts.Action.HOLD)`;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
