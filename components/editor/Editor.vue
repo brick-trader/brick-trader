@@ -88,6 +88,10 @@ onMounted(() => {
         kind: "block",
         type: "action",
       },
+      {
+        kind: "block",
+        type: "merge_actions",
+      },
     ],
   };
 
