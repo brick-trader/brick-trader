@@ -116,17 +116,12 @@ Blockly.JavaScript["apply_first_match"] = function (block: Blockly.Block) {
   const code = `runtime.fn.applyFirstMatch(${block.inputList
     .filter((input) => input.name.startsWith("ACTIONS"))
     .map((input) => {
-      let action: string = Blockly.JavaScript.valueToCode(
+      const action: string = Blockly.JavaScript.valueToCode(
         block,
         input.name,
         Blockly.JavaScript.ORDER_ATOMIC,
       );
-
-      if (action === "") {
-        action = "[]";
-      }
-
-      return action;
+      return action === "" ? "[]" : action;
     })
     .join(",")})`;
   return code;
