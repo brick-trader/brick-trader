@@ -1,10 +1,29 @@
 <template>
-  <div id="blocklyDiv" style="height: 480px; width: 600px"></div>
+  <div id="blocklyDiv" ref="blocklyDiv"></div>
   <button @click="emits('generate', generateCode())">Generate Code</button>
 </template>
 
 <script setup lang="ts">
 import Blockly, { Workspace } from "blockly";
+
+const blocklyDiv = ref<HTMLElement>();
+
+// TODO: use a better way to set blocklyDiv size
+onMounted(() => {
+  let w = window.innerWidth * 0.95;
+  let h = window.innerHeight * 0.95;
+
+  blocklyDiv.value.style.width = w + "px";
+  blocklyDiv.value.style.height = h + "px";
+
+  window.addEventListener("resize", () => {
+    w = window.innerWidth * 0.95;
+    h = window.innerHeight * 0.95;
+
+    blocklyDiv.value.style.width = w + "px";
+    blocklyDiv.value.style.height = h + "px";
+  });
+});
 
 let workspace: Workspace | null = null;
 const emits = defineEmits<{
@@ -95,6 +114,10 @@ onMounted(() => {
       {
         kind: "block",
         type: "compare",
+      },
+      {
+        kind: "block",
+        type: "boolean_algebra",
       },
     ],
   };
