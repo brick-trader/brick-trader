@@ -7,6 +7,7 @@
 </template>
 
 <script setup lang="ts">
+import { Action } from "indicatorts";
 import { Stock } from "./stock/stock";
 import { Ticker } from "./types/stock/ticker";
 
@@ -19,7 +20,17 @@ const { data: stockData } = await useFetch<Ticker>(
 /* eslint-disable */
 const indicatorts = await import("indicatorts");
 const stock = new Stock(stockData.value);
-if (indicatorts && stock && process.client) {
+function mergeActions(actions1: Action[], actions2: Action[]) {
+  return actions1.map((action, index) => {
+    if (
+      action === indicatorts.Action.HOLD &&
+      actions2[index] !== indicatorts.Action.HOLD
+    )
+      return actions2[index];
+    return action;
+  });
+}
+if (indicatorts && stock && mergeActions && process.client) {
   console.log("Runtime ready");
 }
 /* eslint-enable */

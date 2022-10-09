@@ -80,6 +80,18 @@ onMounted(() => {
         kind: "block",
         type: "vwma",
       },
+      {
+        kind: "block",
+        type: "strategy",
+      },
+      {
+        kind: "block",
+        type: "action",
+      },
+      {
+        kind: "block",
+        type: "merge_actions",
+      },
     ],
   };
 

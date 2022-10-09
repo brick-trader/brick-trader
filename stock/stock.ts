@@ -2,13 +2,22 @@ import { Ticker } from "~~/types/stock/ticker";
 
 export class Stock {
   private readonly _ticker: Ticker;
+  private _dates: Date[] | undefined;
   private _openings: number[] | undefined;
   private _closings: number[] | undefined;
   private _highs: number[] | undefined;
   private _lows: number[] | undefined;
   private _volumes: number[] | undefined;
+
   constructor(ticker: Ticker) {
     this._ticker = ticker;
+  }
+
+  public get dates(): Date[] {
+    if (this._dates === undefined) {
+      this._dates = this._ticker.historicalData.map((data) => data.date);
+    }
+    return this._dates;
   }
 
   public get openings(): number[] {
