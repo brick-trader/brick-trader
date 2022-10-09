@@ -30,7 +30,121 @@ function applyFirstMatch(actions1: Action[], actions2: Action[]) {
     return action;
   });
 }
-if (indicatorts && stock && applyFirstMatch && process.client) {
+
+function compare(
+  left: number[],
+  op: string,
+  right: number | number[],
+): boolean[] {
+  const result: boolean[] = left.map((value, index) => {
+    switch (op) {
+      case "GT":
+        if (Array.isArray(right)) {
+          return value > right[index];
+        }
+        return value > right;
+      case "LT":
+        if (Array.isArray(right)) {
+          return value < right[index];
+        }
+
+        return value < right;
+      case "EQ":
+        if (Array.isArray(right)) {
+          return value === right[index];
+        }
+
+        return value === right;
+      case "GE":
+        if (Array.isArray(right)) {
+          return value >= right[index];
+        }
+
+        return value >= right;
+      case "LE":
+        if (Array.isArray(right)) {
+          return value <= right[index];
+        }
+
+        return value <= right;
+      case "NE":
+        if (Array.isArray(right)) {
+          return value !== right[index];
+        }
+
+        return value !== right;
+      default:
+        return false;
+    }
+  });
+
+  console.log(result);
+
+  return result;
+}
+
+function boolean_algebra(
+  left: boolean[],
+  op: string,
+  right: boolean[] | boolean,
+): boolean[] {
+  const result: boolean[] = left.map((value, index) => {
+    switch (op) {
+      case "AND":
+        if (Array.isArray(right)) {
+          return value && right[index];
+        }
+        return value && right;
+      case "OR":
+        if (Array.isArray(right)) {
+          return value || right[index];
+        }
+
+        return value || right;
+      case "XOR":
+        if (Array.isArray(right)) {
+          return value !== right[index];
+        }
+
+        return value !== right;
+      default:
+        return false;
+    }
+  });
+
+  console.log(result);
+
+  return result;
+}
+
+function cross(left: number[], op: string, right: number[]): boolean[] {
+  const result: boolean[] = left.map((value, index) => {
+    if (index === 0) return false;
+
+    switch (op) {
+      case "CROSSOVER":
+        return value > right[index] && left[index - 1] < right[index - 1];
+      case "CROSSDOWN":
+        return value < right[index] && left[index - 1] > right[index - 1];
+      default:
+        return false;
+    }
+  });
+
+  console.log(result);
+
+  return result;
+}
+
+if (
+  indicatorts &&
+  stock &&
+  applyFirstMatch &&
+  compare &&
+  boolean_algebra &&
+  cross &&
+  process.client
+) {
   console.log("Runtime ready");
 }
 /* eslint-enable */
