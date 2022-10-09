@@ -123,9 +123,9 @@ function cross(left: number[], op: string, right: number[]): boolean[] {
 
     switch (op) {
       case "CROSSOVER":
-        return value < right[index] && left[index - 1] > right[index - 1];
-      case "CROSSDOWN":
         return value > right[index] && left[index - 1] < right[index - 1];
+      case "CROSSDOWN":
+        return value < right[index] && left[index - 1] > right[index - 1];
       default:
         return false;
     }
