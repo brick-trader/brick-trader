@@ -98,6 +98,7 @@ onMounted(() => {
       {
         kind: "block",
         type: "apply_first_match",
+        mutator: "action_container",
       },
       {
         kind: "block",
