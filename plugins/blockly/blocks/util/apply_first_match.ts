@@ -1,6 +1,6 @@
 import Blockly from "blockly";
 
-Blockly.Blocks["merge_actions"] = {
+Blockly.Blocks["apply_first_match"] = {
   init: function () {
     this.appendValueInput("ACTIONS_ONE").setCheck("Action[]");
     this.appendValueInput("ACTIONS_TWO").setCheck("Action[]");
@@ -11,7 +11,7 @@ Blockly.Blocks["merge_actions"] = {
   },
 };
 
-Blockly.JavaScript["merge_actions"] = function (block) {
+Blockly.JavaScript["apply_first_match"] = function (block) {
   const value_actions_1: string = Blockly.JavaScript.valueToCode(
     block,
     "ACTIONS_ONE",
@@ -22,7 +22,7 @@ Blockly.JavaScript["merge_actions"] = function (block) {
     "ACTIONS_TWO",
     Blockly.JavaScript.ORDER_ATOMIC,
   );
-  const code = `mergeActions(${
+  const code = `applyFirstMatch(${
     value_actions_1 === "" ? "[]" : value_actions_1
   }, ${value_actions_2 === "" ? "[]" : value_actions_2})`;
   return [code, Blockly.JavaScript.ORDER_NONE];
