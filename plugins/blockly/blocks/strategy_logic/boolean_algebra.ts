@@ -1,9 +1,3 @@
-// add blockly block with three input
-// left input is a list of boolean
-// middle input is a boolean operator: and, or, xor, nand, nor, xnor
-// right input is a list of boolean or a singe boolean
-// output is a list of boolean
-
 import Blockly from "blockly";
 
 Blockly.Blocks["boolean_algebra"] = {

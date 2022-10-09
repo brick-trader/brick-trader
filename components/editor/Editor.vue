@@ -37,18 +37,6 @@ onMounted(() => {
     contents: [
       {
         kind: "block",
-        type: "controls_if",
-      },
-      {
-        kind: "block",
-        type: "controls_repeat_ext",
-      },
-      {
-        kind: "block",
-        type: "logic_compare",
-      },
-      {
-        kind: "block",
         type: "math_number",
       },
       {
@@ -118,6 +106,10 @@ onMounted(() => {
       {
         kind: "block",
         type: "boolean_algebra",
+      },
+      {
+        kind: "block",
+        type: "cross",
       },
     ],
   };

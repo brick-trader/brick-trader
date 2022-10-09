@@ -1,9 +1,3 @@
-// add blockly block with three input
-// left input is a list of float
-// middle input is a operator: <, <=, >, >=, ==, !=
-// right input is a list of float or a singe float
-// output is a list of boolean
-
 import Blockly from "blockly";
 
 Blockly.Blocks["compare"] = {
