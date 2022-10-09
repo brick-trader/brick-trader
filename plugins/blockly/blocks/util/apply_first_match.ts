@@ -23,7 +23,7 @@ Blockly.JavaScript["apply_first_match"] = function (block) {
     "ACTIONS_TWO",
     Blockly.JavaScript.ORDER_ATOMIC,
   );
-  const code = `applyFirstMatch(${
+  const code = `runtime.fn.applyFirstMatch(${
     value_actions_1 === "" ? "[]" : value_actions_1
   }, ${value_actions_2 === "" ? "[]" : value_actions_2})`;
   return [code, Blockly.JavaScript.ORDER_NONE];

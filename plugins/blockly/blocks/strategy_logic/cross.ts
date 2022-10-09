@@ -30,7 +30,7 @@ Blockly.JavaScript["cross"] = function (block) {
     "RIGHT",
     Blockly.JavaScript.ORDER_ATOMIC,
   );
-  const code = `cross(${
+  const code = `runtime.fn.cross(${
     value_left === "" ? "[]" : value_left
   }, "${dropdown_op}", ${value_right === "" ? "[]" : value_right})`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];

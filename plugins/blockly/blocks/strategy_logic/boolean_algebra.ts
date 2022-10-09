@@ -34,7 +34,7 @@ Blockly.JavaScript["boolean_algebra"] = function (block) {
     "RIGHT",
     Blockly.JavaScript.ORDER_ATOMIC,
   );
-  const code = `boolean_algebra(${
+  const code = `runtime.fn.booleanAlgebra(${
     value_left === "" ? "[]" : value_left
   }, "${dropdown_op}", ${value_right === "" ? "[]" : value_right})`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
