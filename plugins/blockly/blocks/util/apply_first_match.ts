@@ -11,20 +11,20 @@ Blockly.Blocks["apply_first_match"] = {
     this.setHelpUrl("");
 
     this.setMutator(new Blockly.Mutator(["additional_action"]));
-    this.addtional_num_actions = 0;
+    this.numAdditionalActions = 0;
   },
   mutationToDom: function () {
-    if (!this.addtional_num_actions) {
+    if (!this.numAdditionalActions) {
       return null;
     }
     const container = document.createElement("mutation");
-    container.setAttribute("actions", this.addtional_num_actions);
+    container.setAttribute("actions", this.numAdditionalActions);
     return container;
   },
   domToMutation: function (xmlElement: HTMLElement) {
-    this.addtional_num_actions =
+    this.numAdditionalActions =
       parseInt(xmlElement.getAttribute("actions"), 10) || 0;
-    for (let i = 1; i <= this.addtional_num_actions; i++) {
+    for (let i = 1; i <= this.numAdditionalActions; i++) {
       this.appendValueInput("ACTIONS" + i).setCheck("Action[]");
     }
   },
@@ -35,7 +35,7 @@ Blockly.Blocks["apply_first_match"] = {
     containerBlock.initSvg();
 
     let connection = containerBlock.getInput("STACK").connection;
-    for (let i = 1; i <= this.addtional_num_actions; i++) {
+    for (let i = 1; i <= this.numAdditionalActions; i++) {
       const actionBlock = workspace.newBlock(
         "additional_action",
       ) as Blockly.BlockSvg;
@@ -48,16 +48,16 @@ Blockly.Blocks["apply_first_match"] = {
   },
   compose: function (containerBlock: Blockly.BlockSvg) {
     // Disconnect the else input blocks and remove the inputs.
-    for (let i = 1; i <= this.addtional_num_actions; i++) {
+    for (let i = 1; i <= this.numAdditionalActions; i++) {
       this.removeInput("ACTIONS" + i);
     }
-    this.addtional_num_actions = 0;
+    this.numAdditionalActions = 0;
 
     let actionBlock = containerBlock.getInputTargetBlock("STACK");
     while (actionBlock) {
-      this.addtional_num_actions++;
+      this.numAdditionalActions++;
       const actionInput = this.appendValueInput(
-        "ACTIONS" + this.addtional_num_actions,
+        "ACTIONS" + this.numAdditionalActions,
       ).setCheck("Action[]");
 
       if ((actionBlock as any).valueConnection_) {
@@ -115,13 +115,19 @@ Blockly.Extensions.registerMutator("add_action", {
 Blockly.JavaScript["apply_first_match"] = function (block: Blockly.Block) {
   const code = `runtime.fn.applyFirstMatch(${block.inputList
     .filter((input) => input.name.startsWith("ACTIONS"))
-    .map((input) =>
-      Blockly.JavaScript.valueToCode(
+    .map((input) => {
+      let action: string = Blockly.JavaScript.valueToCode(
         block,
         input.name,
         Blockly.JavaScript.ORDER_ATOMIC,
-      ),
-    )
+      );
+
+      if (action === "") {
+        action = "[]";
+      }
+
+      return action;
+    })
     .join(",")})`;
   return code;
 };
