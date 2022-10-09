@@ -7,7 +7,7 @@ export function applyFirstMatch(
   const result = actions.map((action, index) => {
     if (action === Action.HOLD) {
       for (const restAction of restActions) {
-        if (restAction[index] !== Action.HOLD) {
+        if (restAction[index] && restAction[index] !== Action.HOLD) {
           return restAction[index];
         }
       }
