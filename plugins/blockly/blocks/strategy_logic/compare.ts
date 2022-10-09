@@ -34,7 +34,7 @@ Blockly.JavaScript["compare"] = function (block) {
     "RIGHT",
     Blockly.JavaScript.ORDER_ATOMIC,
   );
-  const code = `compare(${
+  const code = `runtime.fn.compare(${
     value_left === "" ? "[]" : value_left
   }, "${dropdown_op}", ${value_right === "" ? "0" : value_right})`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
