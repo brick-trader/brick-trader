@@ -29,5 +29,9 @@
       "prettier --write",
       "eslint --fix"
     ]
+  },
+  "dependencies": {
+    "blockly": "^8.0.5",
+    "indicatorts": "^1.0.10"
   }
 }
