@@ -2,6 +2,7 @@ import Blockly from "blockly";
 
 Blockly.Blocks["apply_first_match"] = {
   init: function () {
+    this.appendDummyInput().appendField("Apply first match");
     this.appendValueInput("ACTIONS_ONE").setCheck("Action[]");
     this.appendValueInput("ACTIONS_TWO").setCheck("Action[]");
     this.setOutput(true, "Action[]");
