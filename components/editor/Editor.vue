@@ -97,7 +97,7 @@ onMounted(() => {
       },
       {
         kind: "block",
-        type: "merge_actions",
+        type: "apply_first_match",
       },
       {
         kind: "block",
