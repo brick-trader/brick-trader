@@ -92,6 +92,10 @@ onMounted(() => {
         kind: "block",
         type: "merge_actions",
       },
+      {
+        kind: "block",
+        type: "compare",
+      },
     ],
   };
 
