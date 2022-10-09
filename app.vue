@@ -20,7 +20,7 @@ const { data: stockData } = await useFetch<Ticker>(
 /* eslint-disable */
 const indicatorts = await import("indicatorts");
 const stock = new Stock(stockData.value);
-function mergeActions(actions1: Action[], actions2: Action[]) {
+function applyFirstMatch(actions1: Action[], actions2: Action[]) {
   return actions1.map((action, index) => {
     if (
       action === indicatorts.Action.HOLD &&
@@ -30,7 +30,7 @@ function mergeActions(actions1: Action[], actions2: Action[]) {
     return action;
   });
 }
-if (indicatorts && stock && mergeActions && process.client) {
+if (indicatorts && stock && applyFirstMatch && process.client) {
   console.log("Runtime ready");
 }
 /* eslint-enable */
