@@ -113,7 +113,7 @@ Blockly.Extensions.registerMutator("add_action", {
 });
 
 Blockly.JavaScript["apply_first_match"] = function (block: Blockly.Block) {
-  const code = `apply_first_match(${block.inputList
+  const code = `runtime.fn.applyFirstMatch(${block.inputList
     .filter((input) => input.name.startsWith("ACTIONS"))
     .map((input) =>
       Blockly.JavaScript.valueToCode(

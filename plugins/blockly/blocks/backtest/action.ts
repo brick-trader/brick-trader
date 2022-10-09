@@ -11,7 +11,7 @@ Blockly.Blocks["action"] = {
         "ACTION",
       )
       .appendField("when");
-    this.appendValueInput("DECISION").setCheck("Array");
+    this.appendValueInput("DECISION").setCheck("Boolean[]");
     this.setInputsInline(true);
     this.setOutput(true, "Action[]");
     this.setColour(230);
