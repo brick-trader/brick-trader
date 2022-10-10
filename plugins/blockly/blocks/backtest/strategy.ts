@@ -5,7 +5,6 @@ Blockly.Blocks["strategy"] = {
     this.appendDummyInput()
       .appendField("Strategy name: ")
       .appendField(new Blockly.FieldTextInput("NewStrategy"), "STRATEGY_NAME");
-    this.appendStatementInput("STRATEGY").setCheck(null);
     this.appendValueInput("ACTION").setCheck("Action[]").appendField("Action");
     this.setOutput(true, "StrategyInfo");
     this.setColour(210);
@@ -25,7 +24,8 @@ Blockly.JavaScript["strategy"] = function (block) {
     "ACTION",
     Blockly.JavaScript.ORDER_ATOMIC,
   );
-  const code = `{name: "${text_strategy_name}", strategy: (stock) => {${statements_strategy}
-    return ${value_action === "" ? "[]" : value_action};}}`;
+  const code = `{name: "${text_strategy_name}", strategy: (stock) => ${
+    value_action === "" ? "[]" : value_action
+  }}`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };

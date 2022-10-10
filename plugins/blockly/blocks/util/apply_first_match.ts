@@ -4,8 +4,7 @@ Blockly.Blocks["apply_first_match"] = {
   init: function () {
     this.appendDummyInput().appendField("apply first match");
     this.appendValueInput("ACTIONS0").setCheck("Action[]");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+    this.setOutput(true, "Action[]");
     this.setColour(230);
     this.setTooltip("");
     this.setHelpUrl("");
@@ -124,5 +123,5 @@ Blockly.JavaScript["apply_first_match"] = function (block: Blockly.Block) {
       return action === "" ? "[]" : action;
     })
     .join(",")})`;
-  return code;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };

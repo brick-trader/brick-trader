@@ -112,6 +112,10 @@ onMounted(() => {
         kind: "block",
         type: "cross",
       },
+      {
+        kind: "block",
+        type: "backtest",
+      },
     ],
   };
 
