@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { Stock } from "./stock/stock";
 import { Ticker } from "./types/stock/ticker";
-import { runtime } from "~/plugins/blockly/runtume";
+import { runtime } from "~/plugins/blockly/runtime";
 const indicatorts = await import("indicatorts");
 
 const config = useRuntimeConfig();
