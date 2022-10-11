@@ -17,6 +17,6 @@ Blockly.JavaScript["backtest"] = function (block) {
     "STRATEGY_INFO",
     Blockly.JavaScript.ORDER_ATOMIC,
   );
-  const code = `indicatorts.backtest(stock, [${value_strategy_info}])`;
+  const code = `runtime.fn.backtest(stock, [${value_strategy_info}])`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
