@@ -1,6 +1,6 @@
+import * as indicatorts from "indicatorts";
 import { StrategyInfo, StrategyResult } from "indicatorts";
 import { Stock } from "~~/stock/stock";
-const indicatorts = await import("indicatorts");
 
 export function backtest(
   stock: Stock,
