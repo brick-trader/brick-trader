@@ -116,6 +116,10 @@ onMounted(() => {
         kind: "block",
         type: "backtest",
       },
+      {
+        kind: "block",
+        type: "price",
+      },
     ],
   };
 
