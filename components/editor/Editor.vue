@@ -1,8 +1,8 @@
 <template>
   <div id="blocklyDiv" ref="blocklyDiv"></div>
   <button @click="emits('generate', generateCode())">Generate Code</button>
-  <button @click="saveWorkspace">Save</button>
-  <button @click="loadWorkspace">Load</button>
+  <button @click="exportWorkspace">Export</button>
+  <button @click="importWorkspace">Import</button>
 </template>
 
 <script setup lang="ts">
@@ -32,12 +32,12 @@ const emits = defineEmits<{
   (event: "generate", code: string): void;
 }>();
 
-function saveWorkspace() {
-  const blocks = Blockly.serialization.workspaces.save(workspace);
+function exportWorkspace() {
+  const currentWorkspace = Blockly.serialization.workspaces.save(workspace);
   // download blocks
   const dataStr =
     "data:text/json;charset=utf-8," +
-    encodeURIComponent(JSON.stringify(blocks));
+    encodeURIComponent(JSON.stringify(currentWorkspace));
   const downloadAnchorNode = document.createElement("a");
   downloadAnchorNode.setAttribute("href", dataStr);
   // with date
@@ -50,8 +50,7 @@ function saveWorkspace() {
   downloadAnchorNode.remove();
 }
 
-function loadWorkspace() {
-  // upload json file and load blocks
+function importWorkspace() {
   const input = document.createElement("input");
   input.type = "file";
   input.accept = ".json";
@@ -63,8 +62,20 @@ function loadWorkspace() {
       reader.onload = (e) => {
         const text = e.target?.result;
         if (text) {
-          const blocks = JSON.parse(text as string);
-          Blockly.serialization.workspaces.load(blocks, workspace);
+          const importWorkspace = JSON.parse(text as string);
+          const originalWorkspace =
+            Blockly.serialization.workspaces.save(workspace);
+
+          if (Object.keys(originalWorkspace).length === 0) {
+            Blockly.serialization.workspaces.load(importWorkspace, workspace);
+            return;
+          }
+
+          originalWorkspace.blocks.blocks =
+            originalWorkspace.blocks.blocks.concat(
+              importWorkspace.blocks.blocks,
+            );
+          Blockly.serialization.workspaces.load(originalWorkspace, workspace);
         }
       };
       reader.readAsText(file);
