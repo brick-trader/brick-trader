@@ -130,7 +130,21 @@ onMounted(() => {
     // @ts-ignore
     toolbox: toolbox,
     renderer: "custom_renderer",
-    theme: "custom_theme",
+    // theme: "custom_theme",
+    move: {
+      scrollbars: {
+        horizontal: true,
+        vertical: true,
+      },
+      drag: true,
+      wheel: false,
+    },
+    grid: {
+      spacing: 50,
+      length: 50,
+      colour: "#f0f0f0",
+    },
+    trashcan: true,
   });
 });
 
