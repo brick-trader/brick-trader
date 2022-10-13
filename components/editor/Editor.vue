@@ -1,6 +1,8 @@
 <template>
   <div id="blocklyDiv" ref="blocklyDiv"></div>
   <button @click="emits('generate', generateCode())">Generate Code</button>
+  <button @click="saveWorkspace">Save</button>
+  <button @click="loadWorkspace">Load</button>
 </template>
 
 <script setup lang="ts">
@@ -29,6 +31,48 @@ let workspace: Workspace | null = null;
 const emits = defineEmits<{
   (event: "generate", code: string): void;
 }>();
+
+function saveWorkspace() {
+  const blocks = Blockly.serialization.workspaces.save(workspace);
+  // download blocks
+  const dataStr =
+    "data:text/json;charset=utf-8," +
+    encodeURIComponent(JSON.stringify(blocks));
+  const downloadAnchorNode = document.createElement("a");
+  downloadAnchorNode.setAttribute("href", dataStr);
+  // with date
+  downloadAnchorNode.setAttribute(
+    "download",
+    `blocks-${new Date().toISOString()}.json`,
+  );
+  document.body.appendChild(downloadAnchorNode);
+  downloadAnchorNode.click();
+  downloadAnchorNode.remove();
+}
+
+function loadWorkspace() {
+  // upload json file and load blocks
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".json";
+
+  input.onchange = (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const text = e.target?.result;
+        if (text) {
+          const blocks = JSON.parse(text as string);
+          Blockly.serialization.workspaces.load(blocks, workspace);
+        }
+      };
+      reader.readAsText(file);
+    }
+  };
+
+  input.click();
+}
 
 // in setup life hook, dom is not ready yet
 onMounted(() => {
