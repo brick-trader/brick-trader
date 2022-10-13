@@ -130,6 +130,7 @@ onMounted(() => {
     // @ts-ignore
     toolbox: toolbox,
     renderer: "custom_renderer",
+    theme: "custom_theme",
   });
 });
 
