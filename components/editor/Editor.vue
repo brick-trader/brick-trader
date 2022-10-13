@@ -10,23 +10,6 @@ import Blockly, { Workspace } from "blockly";
 
 const blocklyDiv = ref<HTMLElement>();
 
-// TODO: use a better way to set blocklyDiv size
-onMounted(() => {
-  let w = window.innerWidth * 0.95;
-  let h = window.innerHeight * 0.95;
-
-  blocklyDiv.value.style.width = w + "px";
-  blocklyDiv.value.style.height = h + "px";
-
-  window.addEventListener("resize", () => {
-    w = window.innerWidth * 0.95;
-    h = window.innerHeight * 0.95;
-
-    blocklyDiv.value.style.width = w + "px";
-    blocklyDiv.value.style.height = h + "px";
-  });
-});
-
 let workspace: Workspace | null = null;
 const emits = defineEmits<{
   (event: "generate", code: string): void;
@@ -34,16 +17,16 @@ const emits = defineEmits<{
 
 function exportWorkspace() {
   const currentWorkspace = Blockly.serialization.workspaces.save(workspace);
-  // download blocks
+
   const dataStr =
     "data:text/json;charset=utf-8," +
     encodeURIComponent(JSON.stringify(currentWorkspace));
   const downloadAnchorNode = document.createElement("a");
   downloadAnchorNode.setAttribute("href", dataStr);
-  // with date
+
   downloadAnchorNode.setAttribute(
     "download",
-    `blocks-${new Date().toISOString()}.json`,
+    `workspace-${new Date().toISOString()}.json`,
   );
   document.body.appendChild(downloadAnchorNode);
   downloadAnchorNode.click();
@@ -87,6 +70,21 @@ function importWorkspace() {
 
 // in setup life hook, dom is not ready yet
 onMounted(() => {
+  // TODO: use a better way to set blocklyDiv size
+  let w = window.innerWidth * 0.95;
+  let h = window.innerHeight * 0.95;
+
+  blocklyDiv.value.style.width = w + "px";
+  blocklyDiv.value.style.height = h + "px";
+
+  window.addEventListener("resize", () => {
+    w = window.innerWidth * 0.95;
+    h = window.innerHeight * 0.95;
+
+    blocklyDiv.value.style.width = w + "px";
+    blocklyDiv.value.style.height = h + "px";
+  });
+
   const toolbox = {
     kind: "flyoutToolbox",
     contents: [
