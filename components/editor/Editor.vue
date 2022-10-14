@@ -1,6 +1,5 @@
 <template>
   <div id="blocklyDiv" ref="blocklyDiv"></div>
-  <button @click="emits('generate', generateCode())">Generate Code</button>
   <button @click="exportWorkspace">Export</button>
   <button @click="importWorkspace">Import</button>
 </template>
@@ -10,13 +9,14 @@ import Blockly, { Workspace } from "blockly";
 
 const blocklyDiv = ref<HTMLElement>();
 
-let workspace: Workspace | null = null;
-const emits = defineEmits<{
-  (event: "generate", code: string): void;
-}>();
+let workspace = shallowRef<Workspace>();
+
+defineExpose({ workspace });
 
 function exportWorkspace() {
-  const currentWorkspace = Blockly.serialization.workspaces.save(workspace);
+  const currentWorkspace = Blockly.serialization.workspaces.save(
+    workspace.value,
+  );
 
   const dataStr =
     "data:text/json;charset=utf-8," +
@@ -46,11 +46,15 @@ function importWorkspace() {
         const text = e.target?.result;
         if (text) {
           const importWorkspace = JSON.parse(text as string);
-          const originalWorkspace =
-            Blockly.serialization.workspaces.save(workspace);
+          const originalWorkspace = Blockly.serialization.workspaces.save(
+            workspace.value,
+          );
 
           if (Object.keys(originalWorkspace).length === 0) {
-            Blockly.serialization.workspaces.load(importWorkspace, workspace);
+            Blockly.serialization.workspaces.load(
+              importWorkspace,
+              workspace.value,
+            );
             return;
           }
 
@@ -58,7 +62,10 @@ function importWorkspace() {
             originalWorkspace.blocks.blocks.concat(
               importWorkspace.blocks.blocks,
             );
-          Blockly.serialization.workspaces.load(originalWorkspace, workspace);
+          Blockly.serialization.workspaces.load(
+            originalWorkspace,
+            workspace.value,
+          );
         }
       };
       reader.readAsText(file);
@@ -167,16 +174,12 @@ onMounted(() => {
       },
       {
         kind: "block",
-        type: "backtest",
-      },
-      {
-        kind: "block",
         type: "price",
       },
     ],
   };
 
-  workspace = Blockly.inject("blocklyDiv", {
+  workspace.value = Blockly.inject("blocklyDiv", {
     // type declaration is wrong
     // track issue: https://github.com/google/blockly/issues/6215
     // eslint-disable-next-line
@@ -200,9 +203,4 @@ onMounted(() => {
     trashcan: true,
   });
 });
-
-function generateCode() {
-  if (!workspace) return;
-  return Blockly.JavaScript.workspaceToCode(workspace);
-}
 </script>
