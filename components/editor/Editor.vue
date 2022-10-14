@@ -1,6 +1,8 @@
 <template>
   <div id="blocklyDiv" ref="blocklyDiv"></div>
   <button @click="emits('generate', generateCode())">Generate Code</button>
+  <button @click="exportWorkspace">Export</button>
+  <button @click="importWorkspace">Import</button>
 </template>
 
 <script setup lang="ts">
@@ -8,8 +10,67 @@ import Blockly, { Workspace } from "blockly";
 
 const blocklyDiv = ref<HTMLElement>();
 
-// TODO: use a better way to set blocklyDiv size
+let workspace: Workspace | null = null;
+const emits = defineEmits<{
+  (event: "generate", code: string): void;
+}>();
+
+function exportWorkspace() {
+  const currentWorkspace = Blockly.serialization.workspaces.save(workspace);
+
+  const dataStr =
+    "data:text/json;charset=utf-8," +
+    encodeURIComponent(JSON.stringify(currentWorkspace));
+  const downloadAnchorNode = document.createElement("a");
+  downloadAnchorNode.setAttribute("href", dataStr);
+
+  downloadAnchorNode.setAttribute(
+    "download",
+    `workspace-${new Date().toISOString()}.json`,
+  );
+  document.body.appendChild(downloadAnchorNode);
+  downloadAnchorNode.click();
+  downloadAnchorNode.remove();
+}
+
+function importWorkspace() {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".json";
+
+  input.onchange = (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const text = e.target?.result;
+        if (text) {
+          const importWorkspace = JSON.parse(text as string);
+          const originalWorkspace =
+            Blockly.serialization.workspaces.save(workspace);
+
+          if (Object.keys(originalWorkspace).length === 0) {
+            Blockly.serialization.workspaces.load(importWorkspace, workspace);
+            return;
+          }
+
+          originalWorkspace.blocks.blocks =
+            originalWorkspace.blocks.blocks.concat(
+              importWorkspace.blocks.blocks,
+            );
+          Blockly.serialization.workspaces.load(originalWorkspace, workspace);
+        }
+      };
+      reader.readAsText(file);
+    }
+  };
+
+  input.click();
+}
+
+// in setup life hook, dom is not ready yet
 onMounted(() => {
+  // TODO: use a better way to set blocklyDiv size
   let w = window.innerWidth * 0.95;
   let h = window.innerHeight * 0.95;
 
@@ -23,15 +84,7 @@ onMounted(() => {
     blocklyDiv.value.style.width = w + "px";
     blocklyDiv.value.style.height = h + "px";
   });
-});
 
-let workspace: Workspace | null = null;
-const emits = defineEmits<{
-  (event: "generate", code: string): void;
-}>();
-
-// in setup life hook, dom is not ready yet
-onMounted(() => {
   const toolbox = {
     kind: "flyoutToolbox",
     contents: [
@@ -130,6 +183,21 @@ onMounted(() => {
     // @ts-ignore
     toolbox: toolbox,
     renderer: "custom_renderer",
+    // theme: "custom_theme",
+    move: {
+      scrollbars: {
+        horizontal: true,
+        vertical: true,
+      },
+      drag: true,
+      wheel: false,
+    },
+    grid: {
+      spacing: 50,
+      length: 50,
+      colour: "#f0f0f0",
+    },
+    trashcan: true,
   });
 });
 
