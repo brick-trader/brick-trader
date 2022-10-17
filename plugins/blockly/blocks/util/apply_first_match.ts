@@ -8,6 +8,7 @@ Blockly.Blocks["apply_first_match"] = {
     this.setColour(230);
     this.setTooltip("");
     this.setHelpUrl("");
+    this.setStyle("strategy");
 
     this.setMutator(new Blockly.Mutator(["additional_action"]));
     this.numAdditionalActions = 0;
@@ -87,6 +88,7 @@ Blockly.Blocks["action_container"] = {
     this.setColour(230);
     this.setTooltip("");
     this.setHelpUrl("");
+    this.setStyle("strategy");
     this.contextMenu = false;
   },
 };
@@ -99,6 +101,7 @@ Blockly.Blocks["additional_action"] = {
     this.setColour(230);
     this.setTooltip("");
     this.setHelpUrl("");
+    this.setStyle("strategy");
     this.contextMenu = false;
   },
 };

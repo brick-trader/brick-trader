@@ -12,6 +12,7 @@ Blockly.Blocks["custom_rsi"] = {
     this.setColour(230);
     this.setTooltip("");
     this.setHelpUrl("");
+    this.setStyle("strategy");
   },
 };
 

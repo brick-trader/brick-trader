@@ -10,6 +10,7 @@ Blockly.Blocks["strategy"] = {
     this.setColour(210);
     this.setTooltip("");
     this.setHelpUrl("");
+    this.setStyle("strategy");
   },
 };
 

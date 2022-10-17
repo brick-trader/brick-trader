@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@blockly/theme-dark': ^4.0.0
   '@typescript-eslint/eslint-plugin': ^5.36.2
   '@typescript-eslint/parser': ^5.36.2
   blockly: ^8.0.5
@@ -17,6 +18,7 @@ specifiers:
   vue-eslint-parser: ^9.0.3
 
 dependencies:
+  '@blockly/theme-dark': 4.0.0_blockly@8.0.5
   blockly: 8.0.5
   indicatorts: 1.0.10
 
@@ -341,6 +343,15 @@ packages:
       '@babel/helper-validator-identifier': 7.18.6
       to-fast-properties: 2.0.0
     dev: true
+
+  /@blockly/theme-dark/4.0.0_blockly@8.0.5:
+    resolution: {integrity: sha512-JCah9PULu/K4E8485CzvWTpWMDB8zAsqKxLtAGu106eSUKgaOrB6WR3nzoA10nmoUcZdh/fk/UPcHUB/XsHkhg==}
+    engines: {node: '>=8.17.0'}
+    peerDependencies:
+      blockly: ^9.0.0
+    dependencies:
+      blockly: 8.0.5
+    dev: false
 
   /@cloudflare/kv-asset-handler/0.2.0:
     resolution: {integrity: sha512-MVbXLbTcAotOPUj0pAMhVtJ+3/kFkwJqc5qNOleOZTv6QkZZABDMS21dSrSlVswEHwrpWC03e4fWytjqKvuE2A==}
