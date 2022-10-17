@@ -1,4 +1,5 @@
 import Blockly from "blockly/core";
+// import 'https://fonts.googleapis.com/css2?family=Merriweather&display=swap';
 
 const defaultBlockStyles = {
   colour_blocks: {
@@ -109,12 +110,13 @@ export default Blockly.Theme.defineTheme("custom_theme", {
   blockStyles: defaultBlockStyles,
   categoryStyles: categoryStyles,
   componentStyles: {
-    workspaceBackgroundColour: "#FBE9E7", // right workspace
+    // right workspace
     toolboxBackgroundColour: "#ddd",
     toolboxForegroundColour: "#1a1a1a",
-    flyoutBackgroundColour: "#EFEBE9", // sub sidebar color
+    flyoutBackgroundColour: "#8a8a8a", // sub sidebar color
     flyoutForegroundColour: "#1a1a1a", // sidebar word
-    flyoutOpacity: 1,
+    flyoutOpacity: 0.5,
+    toolboxOpacity: 0.5,
     scrollbarColour: "#fff",
     insertionMarkerColour: "#fff",
     insertionMarkerOpacity: 0.1,
@@ -123,8 +125,7 @@ export default Blockly.Theme.defineTheme("custom_theme", {
     blackBackground: "#ddd",
   },
   fontStyle: {
-    family: "Roboto Condensed, sans-serif",
-    weight: "bold",
+    family: "Silkscreen, cursive",
     size: 12,
   },
 });

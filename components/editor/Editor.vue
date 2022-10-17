@@ -3,7 +3,6 @@
   <button @click="exportWorkspace">Export</button>
   <button @click="importWorkspace">Import</button>
 </template>
-
 <script setup lang="ts">
 import Blockly, { Workspace } from "blockly";
 
@@ -361,3 +360,6 @@ onMounted(() => {
   });
 });
 </script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Silkscreen&display=swap");
+</style>
