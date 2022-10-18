@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "blockly": "^8.0.5",
+    "chart.js": "^3.9.1",
     "indicatorts": "^1.0.10"
   }
 }
