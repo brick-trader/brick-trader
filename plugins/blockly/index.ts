@@ -4,7 +4,6 @@ export default defineNuxtPlugin((nuxtApp) => {
       import("./blocks"),
       import("./theme/custom-renderer"),
       import("./theme/custom-theme"),
-      import("./runtime"),
     ]);
   });
 });

@@ -342,7 +342,6 @@ onMounted(() => {
     toolbox: toolbox,
     renderer: "custom_renderer",
     theme: "custom_theme",
-    // theme: "custom_theme",
     move: {
       scrollbars: {
         horizontal: true,
