@@ -125,7 +125,7 @@ export default Blockly.Theme.defineTheme("custom_theme", {
     blackBackground: "#ddd",
   },
   fontStyle: {
-    family: "Silkscreen, cursive",
+    family: "Quantico, monospace",
     size: 12,
   },
 });

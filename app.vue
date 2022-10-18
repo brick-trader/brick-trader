@@ -65,3 +65,14 @@ function backtest(): Backtest {
   return t;
 }
 </script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Silkscreen&display=swap");
+*,
+*::before,
+*::after {
+  font-family: "Quantico", monospace;
+}
+.blocklyTreeLabel {
+  font-family: "Quantico", monospace;
+}
+</style>
