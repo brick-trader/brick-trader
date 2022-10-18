@@ -2,13 +2,24 @@ import Blockly from "blockly";
 
 Blockly.Blocks["strategy"] = {
   init: function () {
-    this.appendDummyInput()
-      .appendField("Strategy name: ")
-      .appendField(new Blockly.FieldTextInput("NewStrategy"), "STRATEGY_NAME");
+    this.appendDummyInput().appendField(
+      new Blockly.FieldTextInput("NewStrategy"),
+      "STRATEGY_NAME",
+    );
     this.appendDummyInput().appendField("");
     this.appendDummyInput().appendField("Apply actions: ");
-    this.appendValueInput("ACTIONS0").setCheck("Action[]");
-    this.setOutput(true, "Action[]");
+    this.appendDummyInput().appendField("");
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["sell", "SELL"],
+          ["buy", "BUY"],
+        ]),
+        "DECISION0",
+      )
+      .appendField("when");
+    this.appendValueInput("ACTION0").setCheck("Boolean[]");
+    this.setOutput(true, "Strategy");
     this.setColour(230);
     this.setTooltip("");
     this.setHelpUrl("");
@@ -22,14 +33,23 @@ Blockly.Blocks["strategy"] = {
       return null;
     }
     const container = document.createElement("mutation");
-    container.setAttribute("actions", this.numAdditionalActions);
+    container.setAttribute("num_additional_actions", this.numAdditionalActions);
     return container;
   },
   domToMutation: function (xmlElement: HTMLElement) {
     this.numAdditionalActions =
-      parseInt(xmlElement.getAttribute("actions"), 10) || 0;
+      parseInt(xmlElement.getAttribute("num_additional_actions"), 10) || 0;
     for (let i = 1; i <= this.numAdditionalActions; i++) {
-      this.appendValueInput("ACTIONS" + i).setCheck("Action[]");
+      this.appendDummyInput()
+        .appendField(
+          new Blockly.FieldDropdown([
+            ["sell", "SELL"],
+            ["buy", "BUY"],
+          ]),
+          "DECISION" + i,
+        )
+        .appendField("when");
+      this.appendValueInput("ACTION" + i).setCheck("Boolean[]");
     }
   },
   decompose: function (workspace: Blockly.Workspace) {
@@ -53,19 +73,29 @@ Blockly.Blocks["strategy"] = {
   compose: function (containerBlock: Blockly.BlockSvg) {
     // Disconnect the else input blocks and remove the inputs.
     for (let i = 1; i <= this.numAdditionalActions; i++) {
-      this.removeInput("ACTIONS" + i);
+      this.removeInput("DECISION" + i);
+      this.removeInput("ACTION" + i);
     }
     this.numAdditionalActions = 0;
 
     let actionBlock = containerBlock.getInputTargetBlock("STACK");
     while (actionBlock) {
       this.numAdditionalActions++;
-      const actionInput = this.appendValueInput(
-        "ACTIONS" + this.numAdditionalActions,
-      ).setCheck("Action[]");
-
+      const input = this.appendDummyInput()
+        .appendField(
+          new Blockly.FieldDropdown([
+            ["sell", "SELL"],
+            ["buy", "BUY"],
+          ]),
+          "DECISION" + this.numAdditionalActions,
+        )
+        .appendField("when");
+      this.appendValueInput("ACTION" + this.numAdditionalActions).setCheck(
+        "Boolean[]",
+      );
+      // Reconnect any child blocks.
       if ((actionBlock as any).valueConnection_) {
-        actionInput.connection.connect((actionBlock as any).valueConnection_);
+        input.connection.connect((actionBlock as any).valueConnection_);
       }
       actionBlock =
         actionBlock.nextConnection && actionBlock.nextConnection.targetBlock();
@@ -75,9 +105,12 @@ Blockly.Blocks["strategy"] = {
     let actionBlock = containerBlock.getInputTargetBlock("STACK");
     let i = 1;
     while (actionBlock) {
-      const actionInput = this.getInput("ACTIONS" + i);
+      const inputDecision = this.getInput("DECISION" + i);
+      const inputAction = this.getInput("ACTION" + i);
+      (actionBlock as any).decisionConnection_ =
+        inputDecision && inputDecision.connection.targetConnection;
       (actionBlock as any).valueConnection_ =
-        actionInput && actionInput.connection.targetConnection;
+        inputAction && inputAction.connection.targetConnection;
       i++;
       actionBlock =
         actionBlock.nextConnection && actionBlock.nextConnection.targetBlock();
@@ -119,19 +152,52 @@ Blockly.Extensions.registerMutator("add_action", {
 });
 
 Blockly.JavaScript["strategy"] = function (block: Blockly.Block) {
-  const actions = `runtime.fn.applyFirstMatch(${block.inputList
-    .filter((input) => input.name.startsWith("ACTIONS"))
-    .map((input) => {
-      const action: string = Blockly.JavaScript.valueToCode(
+  const text_strategy_name: string = block.getFieldValue("STRATEGY_NAME");
+
+  console.log(text_strategy_name);
+  console.log(block.inputList);
+
+  const desition_list = block.inputList
+    .filter((input) => input.fieldRow.length > 0)
+    .filter((input) =>
+      (input.fieldRow[0].name === undefined
+        ? ""
+        : input.fieldRow[0].name
+      ).startsWith("DECISION"),
+    );
+  const actions_list = block.inputList.filter((input) =>
+    input.name.startsWith("ACTION"),
+  );
+
+  console.log(desition_list);
+  console.log(actions_list);
+
+  if (actions_list.length !== desition_list.length) {
+    return [
+      `({name: "${text_strategy_name}", strategy: (stock) => []})`,
+      Blockly.JavaScript.ORDER_ATOMIC,
+    ];
+  }
+
+  const actions = `runtime.fn.applyFirstMatch(${actions_list
+    .map((action, index) => {
+      const action_code: string = Blockly.JavaScript.valueToCode(
         block,
-        input.name,
+        action.name,
         Blockly.JavaScript.ORDER_ATOMIC,
       );
-      return action === "" ? "[]" : action;
+      const decision_code: string = desition_list[index].fieldRow[0].getValue();
+
+      return `(${
+        action_code === "" ? "[]" : action_code
+      }).map((value) => value ? indicatorts.Action.${decision_code} : indicatorts.Action.HOLD)`;
     })
     .join(",")})`;
 
-  const text_strategy_name: string = block.getFieldValue("STRATEGY_NAME");
+  console.log(actions);
+
   const code = `({name: "${text_strategy_name}", strategy: (stock) => ${actions}})`;
+
+  console.log(code);
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };

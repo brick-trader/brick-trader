@@ -263,10 +263,6 @@ onMounted(() => {
           },
           {
             kind: "block",
-            type: "action",
-          },
-          {
-            kind: "block",
             type: "compare",
           },
           {
@@ -424,10 +420,6 @@ onMounted(() => {
             kind: "block",
             type: "strategy",
             mutator: "add_action",
-          },
-          {
-            kind: "block",
-            type: "action",
           },
           {
             kind: "block",

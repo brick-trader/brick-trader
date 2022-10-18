@@ -1,3 +1,3 @@
 import "./line";
-import "./backtest";
+import "./strategy";
 import "./strategy_logic";
