@@ -66,7 +66,7 @@ function backtest(): Backtest {
 }
 </script>
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Silkscreen&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quantico&display=swap");
 *,
 *::before,
 *::after {
