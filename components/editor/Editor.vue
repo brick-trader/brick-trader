@@ -259,15 +259,11 @@ onMounted(() => {
           {
             kind: "block",
             type: "strategy",
+            mutator: "add_action",
           },
           {
             kind: "block",
             type: "action",
-          },
-          {
-            kind: "block",
-            type: "apply_first_match",
-            mutator: "add_action",
           },
           {
             kind: "block",
@@ -280,10 +276,6 @@ onMounted(() => {
           {
             kind: "block",
             type: "cross",
-          },
-          {
-            kind: "block",
-            type: "backtest",
           },
           {
             kind: "block",
@@ -431,15 +423,11 @@ onMounted(() => {
           {
             kind: "block",
             type: "strategy",
+            mutator: "add_action",
           },
           {
             kind: "block",
             type: "action",
-          },
-          {
-            kind: "block",
-            type: "apply_first_match",
-            mutator: "add_action",
           },
           {
             kind: "block",
@@ -452,10 +440,6 @@ onMounted(() => {
           {
             kind: "block",
             type: "cross",
-          },
-          {
-            kind: "block",
-            type: "backtest",
           },
           {
             kind: "block",
