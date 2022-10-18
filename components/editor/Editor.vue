@@ -148,11 +148,31 @@ onMounted(() => {
               },
               {
                 kind: "block",
+                type: "aroon",
+              },
+              {
+                kind: "block",
+                type: "bop",
+              },
+              {
+                kind: "block",
+                type: "cfo",
+              },
+              {
+                kind: "block",
+                type: "cmi",
+              },
+              {
+                kind: "block",
+                type: "dema",
+              },
+              {
+                kind: "block",
                 type: "ema",
               },
               {
                 kind: "block",
-                type: "sma",
+                type: "kdj",
               },
               {
                 kind: "block",
@@ -160,11 +180,55 @@ onMounted(() => {
               },
               {
                 kind: "block",
+                type: "mi",
+              },
+              {
+                kind: "block",
+                type: "mmax",
+              },
+              {
+                kind: "block",
+                type: "mmin",
+              },
+              {
+                kind: "block",
+                type: "msum",
+              },
+              {
+                kind: "block",
                 type: "psar",
               },
               {
                 kind: "block",
-                type: "kdj",
+                type: "qstick",
+              },
+              {
+                kind: "block",
+                type: "rma",
+              },
+              {
+                kind: "block",
+                type: "sma",
+              },
+              {
+                kind: "block",
+                type: "tema",
+              },
+              {
+                kind: "block",
+                type: "trima",
+              },
+              {
+                kind: "block",
+                type: "trix",
+              },
+              {
+                kind: "block",
+                type: "typical_price",
+              },
+              {
+                kind: "block",
+                type: "vortex",
               },
               {
                 kind: "block",
@@ -278,7 +342,31 @@ onMounted(() => {
           },
           {
             kind: "block",
-            type: "sma",
+            type: "aroon",
+          },
+          {
+            kind: "block",
+            type: "bop",
+          },
+          {
+            kind: "block",
+            type: "cfo",
+          },
+          {
+            kind: "block",
+            type: "cmi",
+          },
+          {
+            kind: "block",
+            type: "dema",
+          },
+          {
+            kind: "block",
+            type: "ema",
+          },
+          {
+            kind: "block",
+            type: "kdj",
           },
           {
             kind: "block",
@@ -286,11 +374,55 @@ onMounted(() => {
           },
           {
             kind: "block",
+            type: "mi",
+          },
+          {
+            kind: "block",
+            type: "mmax",
+          },
+          {
+            kind: "block",
+            type: "mmin",
+          },
+          {
+            kind: "block",
+            type: "msum",
+          },
+          {
+            kind: "block",
             type: "psar",
           },
           {
             kind: "block",
-            type: "kdj",
+            type: "qstick",
+          },
+          {
+            kind: "block",
+            type: "rma",
+          },
+          {
+            kind: "block",
+            type: "sma",
+          },
+          {
+            kind: "block",
+            type: "tema",
+          },
+          {
+            kind: "block",
+            type: "trima",
+          },
+          {
+            kind: "block",
+            type: "trix",
+          },
+          {
+            kind: "block",
+            type: "typical_price",
+          },
+          {
+            kind: "block",
+            type: "vortex",
           },
           {
             kind: "block",
