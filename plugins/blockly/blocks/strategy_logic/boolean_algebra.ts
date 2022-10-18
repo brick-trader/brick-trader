@@ -19,6 +19,7 @@ Blockly.Blocks["boolean_algebra"] = {
     this.setColour(230);
     this.setTooltip("");
     this.setHelpUrl("");
+    this.setStyle("strategy");
   },
 };
 

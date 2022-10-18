@@ -86,3 +86,14 @@ function showChart() {
   chartVisable.value = true;
 }
 </script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Quantico&display=swap");
+*,
+*::before,
+*::after {
+  font-family: "Quantico", monospace;
+}
+.blocklyTreeLabel {
+  font-family: "Quantico", monospace;
+}
+</style>
