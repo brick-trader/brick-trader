@@ -1,15 +1,82 @@
 <template>
   <div id="blocklyDiv" ref="blocklyDiv"></div>
-  <button @click="emits('generate', generateCode())">Generate Code</button>
+  <button @click="exportWorkspace">Export</button>
+  <button @click="importWorkspace">Import</button>
 </template>
-
 <script setup lang="ts">
 import Blockly, { Workspace } from "blockly";
 
 const blocklyDiv = ref<HTMLElement>();
 
-// TODO: use a better way to set blocklyDiv size
+let workspace = shallowRef<Workspace>();
+
+defineExpose({ workspace });
+
+function exportWorkspace() {
+  const currentWorkspace = Blockly.serialization.workspaces.save(
+    workspace.value,
+  );
+
+  const dataStr =
+    "data:text/json;charset=utf-8," +
+    encodeURIComponent(JSON.stringify(currentWorkspace));
+  const downloadAnchorNode = document.createElement("a");
+  downloadAnchorNode.setAttribute("href", dataStr);
+
+  downloadAnchorNode.setAttribute(
+    "download",
+    `workspace-${new Date().toISOString()}.json`,
+  );
+  document.body.appendChild(downloadAnchorNode);
+  downloadAnchorNode.click();
+  downloadAnchorNode.remove();
+}
+
+function importWorkspace() {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".json";
+
+  input.onchange = (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const text = e.target?.result;
+        if (text) {
+          const importWorkspace = JSON.parse(text as string);
+          const originalWorkspace = Blockly.serialization.workspaces.save(
+            workspace.value,
+          );
+
+          if (Object.keys(originalWorkspace).length === 0) {
+            Blockly.serialization.workspaces.load(
+              importWorkspace,
+              workspace.value,
+            );
+            return;
+          }
+
+          originalWorkspace.blocks.blocks =
+            originalWorkspace.blocks.blocks.concat(
+              importWorkspace.blocks.blocks,
+            );
+          Blockly.serialization.workspaces.load(
+            originalWorkspace,
+            workspace.value,
+          );
+        }
+      };
+      reader.readAsText(file);
+    }
+  };
+
+  input.click();
+}
+
+// in setup life hook, dom is not ready yet
 onMounted(() => {
+  // TODO: use a better way to set blocklyDiv size
   let w = window.innerWidth * 0.95;
   let h = window.innerHeight * 0.95;
 
@@ -23,110 +90,276 @@ onMounted(() => {
     blocklyDiv.value.style.width = w + "px";
     blocklyDiv.value.style.height = h + "px";
   });
-});
 
-let workspace: Workspace | null = null;
-const emits = defineEmits<{
-  (event: "generate", code: string): void;
-}>();
-
-// in setup life hook, dom is not ready yet
-onMounted(() => {
   const toolbox = {
-    kind: "flyoutToolbox",
+    kind: "categoryToolbox",
     contents: [
       {
-        kind: "block",
-        type: "math_number",
+        kind: "category",
+        name: "Math",
+        colour: "#f78b2d",
+        contents: [
+          {
+            kind: "label",
+            text: "Math Blocks",
+          },
+          {
+            kind: "block",
+            type: "math_number",
+          },
+          {
+            kind: "block",
+            type: "math_arithmetic",
+          },
+        ],
       },
       {
-        kind: "block",
-        type: "math_arithmetic",
+        kind: "category",
+        name: "Result",
+        colour: "#21a346",
+        contents: [
+          {
+            kind: "label",
+            text: "Result Blocks",
+          },
+          {
+            kind: "block",
+            type: "text",
+          },
+          {
+            kind: "block",
+            type: "text_print",
+          },
+        ],
       },
       {
-        kind: "block",
-        type: "text",
+        kind: "category",
+        name: "Strategy",
+        colour: "#9B52E4",
+        contents: [
+          {
+            kind: "category",
+            name: "Trend Indicators",
+            colour: "#9B52E4",
+            contents: [
+              {
+                kind: "block",
+                type: "apo",
+              },
+              {
+                kind: "block",
+                type: "ema",
+              },
+              {
+                kind: "block",
+                type: "sma",
+              },
+              {
+                kind: "block",
+                type: "macd",
+              },
+              {
+                kind: "block",
+                type: "psar",
+              },
+              {
+                kind: "block",
+                type: "kdj",
+              },
+              {
+                kind: "block",
+                type: "vwma",
+              },
+            ],
+          },
+          {
+            kind: "category",
+            name: "Momentum Indicator",
+            colour: "#9B52E4",
+            contents: [
+              {
+                kind: "block",
+                type: "rsi",
+              },
+              {
+                kind: "block",
+                type: "custom_rsi",
+              },
+            ],
+          },
+          {
+            kind: "label",
+            text: "Strategy Blocks",
+          },
+
+          {
+            kind: "block",
+            type: "strategy",
+          },
+          {
+            kind: "block",
+            type: "action",
+          },
+          {
+            kind: "block",
+            type: "apply_first_match",
+            mutator: "add_action",
+          },
+          {
+            kind: "block",
+            type: "compare",
+          },
+          {
+            kind: "block",
+            type: "boolean_algebra",
+          },
+          {
+            kind: "block",
+            type: "cross",
+          },
+          {
+            kind: "block",
+            type: "backtest",
+          },
+          {
+            kind: "block",
+            type: "price",
+          },
+        ],
       },
       {
-        kind: "block",
-        type: "text_print",
-      },
-      {
-        kind: "block",
-        type: "rsi",
-      },
-      {
-        kind: "block",
-        type: "custom_rsi",
-      },
-      {
-        kind: "block",
-        type: "ema",
-      },
-      {
-        kind: "block",
-        type: "apo",
-      },
-      {
-        kind: "block",
-        type: "sma",
-      },
-      {
-        kind: "block",
-        type: "macd",
-      },
-      {
-        kind: "block",
-        type: "psar",
-      },
-      {
-        kind: "block",
-        type: "kdj",
-      },
-      {
-        kind: "block",
-        type: "vwma",
-      },
-      {
-        kind: "block",
-        type: "strategy",
-      },
-      {
-        kind: "block",
-        type: "action",
-      },
-      {
-        kind: "block",
-        type: "apply_first_match",
-        mutator: "add_action",
-      },
-      {
-        kind: "block",
-        type: "compare",
-      },
-      {
-        kind: "block",
-        type: "boolean_algebra",
-      },
-      {
-        kind: "block",
-        type: "cross",
+        kind: "category",
+        name: "All",
+        colour: "#00B0FF",
+        contents: [
+          {
+            kind: "label",
+            text: "Math Blocks",
+          },
+          {
+            kind: "block",
+            type: "math_number",
+          },
+          {
+            kind: "block",
+            type: "math_arithmetic",
+          },
+          {
+            kind: "label",
+            text: "Result Blocks",
+          },
+          {
+            kind: "block",
+            type: "text",
+          },
+          {
+            kind: "block",
+            type: "text_print",
+          },
+          {
+            kind: "label",
+            text: "Strategy Blocks",
+          },
+          {
+            kind: "block",
+            type: "rsi",
+          },
+          {
+            kind: "block",
+            type: "custom_rsi",
+          },
+          {
+            kind: "block",
+            type: "ema",
+          },
+          {
+            kind: "block",
+            type: "apo",
+          },
+          {
+            kind: "block",
+            type: "sma",
+          },
+          {
+            kind: "block",
+            type: "macd",
+          },
+          {
+            kind: "block",
+            type: "psar",
+          },
+          {
+            kind: "block",
+            type: "kdj",
+          },
+          {
+            kind: "block",
+            type: "vwma",
+          },
+          {
+            kind: "block",
+            type: "strategy",
+          },
+          {
+            kind: "block",
+            type: "action",
+          },
+          {
+            kind: "block",
+            type: "apply_first_match",
+            mutator: "add_action",
+          },
+          {
+            kind: "block",
+            type: "compare",
+          },
+          {
+            kind: "block",
+            type: "boolean_algebra",
+          },
+          {
+            kind: "block",
+            type: "cross",
+          },
+          {
+            kind: "block",
+            type: "backtest",
+          },
+          {
+            kind: "block",
+            type: "price",
+          },
+        ],
       },
     ],
   };
 
-  workspace = Blockly.inject("blocklyDiv", {
+  workspace.value = Blockly.inject("blocklyDiv", {
     // type declaration is wrong
     // track issue: https://github.com/google/blockly/issues/6215
     // eslint-disable-next-line
     // @ts-ignore
     toolbox: toolbox,
     renderer: "custom_renderer",
+    theme: "custom_theme",
+    // theme: "custom_theme",
+    move: {
+      scrollbars: {
+        horizontal: true,
+        vertical: true,
+      },
+      drag: true,
+      wheel: false,
+    },
+    grid: {
+      spacing: 50,
+      length: 50,
+      colour: "#f0f0f0",
+    },
+    trashcan: true,
   });
 });
-
-function generateCode() {
-  if (!workspace) return;
-  return Blockly.JavaScript.workspaceToCode(workspace);
-}
 </script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Silkscreen&display=swap");
+</style>

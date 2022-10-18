@@ -24,7 +24,7 @@ class CustomConstantsProvider extends Blockly.blockRendering.ConstantProvider {
      * @type {number}
      * @override
      */
-    this.NOTCH_WIDTH = 20;
+    this.NOTCH_WIDTH = 10;
 
     /**
      * The height of the notch used for previous and next connections.
@@ -38,13 +38,13 @@ class CustomConstantsProvider extends Blockly.blockRendering.ConstantProvider {
      * @type {number}
      * @override
      */
-    this.CORNER_RADIUS = 2;
+    this.CORNER_RADIUS = 8;
     /**
      * The height of the puzzle tab used for input and output connections.
      * @type {number}
      * @override
      */
-    this.TAB_HEIGHT = 8;
+    this.TAB_HEIGHT = 15;
   }
   /**
    * @override
@@ -71,7 +71,7 @@ class CustomConstantsProvider extends Blockly.blockRendering.ConstantProvider {
         if (checks && checks.indexOf("String") != -1) {
           return this.RECT_INPUT_OUTPUT;
         }
-        return this.PUZZLE_TAB;
+        return this.RECT_INPUT_OUTPUT;
       case Blockly.PREVIOUS_STATEMENT:
       case Blockly.NEXT_STATEMENT:
         return this.NOTCH;
