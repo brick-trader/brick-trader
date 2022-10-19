@@ -9,16 +9,16 @@ Blockly.Blocks["strategy"] = {
     this.appendDummyInput().appendField("");
     this.appendDummyInput().appendField("Apply actions: ");
     this.appendDummyInput().appendField("");
-    this.appendDummyInput()
+    this.appendDummyInput("ACTION_DECISION0")
       .appendField(
         new Blockly.FieldDropdown([
           ["sell", "SELL"],
           ["buy", "BUY"],
         ]),
-        "DECISION0",
+        "ACTION0",
       )
       .appendField("when");
-    this.appendValueInput("ACTION0").setCheck("Boolean[]");
+    this.appendValueInput("SIGNALS0").setCheck("Boolean[]");
     this.setOutput(true, "Strategy");
     this.setColour(230);
     this.setTooltip("");
@@ -46,10 +46,10 @@ Blockly.Blocks["strategy"] = {
             ["sell", "SELL"],
             ["buy", "BUY"],
           ]),
-          "DECISION" + i,
+          "ACTION" + i,
         )
         .appendField("when");
-      this.appendValueInput("ACTION" + i).setCheck("Boolean[]");
+      this.appendValueInput("SIGNALS" + i).setCheck("Boolean[]");
     }
   },
   decompose: function (workspace: Blockly.Workspace) {
@@ -71,31 +71,29 @@ Blockly.Blocks["strategy"] = {
     return containerBlock;
   },
   compose: function (containerBlock: Blockly.BlockSvg) {
-    // Disconnect the else input blocks and remove the inputs.
     for (let i = 1; i <= this.numAdditionalActions; i++) {
-      this.removeInput("DECISION" + i);
-      this.removeInput("ACTION" + i);
+      this.removeInput("ACTION_DECISION" + i);
+      this.removeInput("SIGNALS" + i);
     }
     this.numAdditionalActions = 0;
 
     let actionBlock = containerBlock.getInputTargetBlock("STACK");
     while (actionBlock) {
       this.numAdditionalActions++;
-      const input = this.appendDummyInput()
+      this.appendDummyInput("ACTION_DECISION" + this.numAdditionalActions)
         .appendField(
           new Blockly.FieldDropdown([
             ["sell", "SELL"],
             ["buy", "BUY"],
           ]),
-          "DECISION" + this.numAdditionalActions,
+          "ACTION" + this.numAdditionalActions,
         )
         .appendField("when");
-      this.appendValueInput("ACTION" + this.numAdditionalActions).setCheck(
-        "Boolean[]",
-      );
-      // Reconnect any child blocks.
+      const signalsBlock = this.appendValueInput(
+        "SIGNALS" + this.numAdditionalActions,
+      ).setCheck("Boolean[]");
       if ((actionBlock as any).valueConnection_) {
-        input.connection.connect((actionBlock as any).valueConnection_);
+        signalsBlock.connection.connect((actionBlock as any).valueConnection_);
       }
       actionBlock =
         actionBlock.nextConnection && actionBlock.nextConnection.targetBlock();
@@ -105,12 +103,9 @@ Blockly.Blocks["strategy"] = {
     let actionBlock = containerBlock.getInputTargetBlock("STACK");
     let i = 1;
     while (actionBlock) {
-      const inputDecision = this.getInput("DECISION" + i);
-      const inputAction = this.getInput("ACTION" + i);
-      (actionBlock as any).decisionConnection_ =
-        inputDecision && inputDecision.connection.targetConnection;
+      const inputSignals = this.getInput("SIGNALS" + i);
       (actionBlock as any).valueConnection_ =
-        inputAction && inputAction.connection.targetConnection;
+        inputSignals && inputSignals.connection.targetConnection;
       i++;
       actionBlock =
         actionBlock.nextConnection && actionBlock.nextConnection.targetBlock();
@@ -154,47 +149,41 @@ Blockly.Extensions.registerMutator("add_action", {
 Blockly.JavaScript["strategy"] = function (block: Blockly.Block) {
   const text_strategy_name: string = block.getFieldValue("STRATEGY_NAME");
 
-  console.log(text_strategy_name);
   console.log(block.inputList);
 
-  const desition_list = block.inputList
-    .filter((input) => input.fieldRow.length > 0)
+  const action_list = block.inputList
+    .filter((input) => input.name.startsWith("ACTION_DECISION"))
     .filter((input) =>
       (input.fieldRow[0].name === undefined
         ? ""
         : input.fieldRow[0].name
-      ).startsWith("DECISION"),
+      ).startsWith("ACTION"),
     );
-  const actions_list = block.inputList.filter((input) =>
-    input.name.startsWith("ACTION"),
+  const signals_list = block.inputList.filter((input) =>
+    input.name.startsWith("SIGNALS"),
   );
 
-  console.log(desition_list);
-  console.log(actions_list);
-
-  if (actions_list.length !== desition_list.length) {
+  if (signals_list.length !== action_list.length) {
     return [
       `({name: "${text_strategy_name}", strategy: (stock) => []})`,
       Blockly.JavaScript.ORDER_ATOMIC,
     ];
   }
 
-  const actions = `runtime.fn.applyFirstMatch(${actions_list
-    .map((action, index) => {
-      const action_code: string = Blockly.JavaScript.valueToCode(
+  const actions = `runtime.fn.applyFirstMatch(${signals_list
+    .map((signals, index) => {
+      const signals_data: string = Blockly.JavaScript.valueToCode(
         block,
-        action.name,
+        signals.name,
         Blockly.JavaScript.ORDER_ATOMIC,
       );
-      const decision_code: string = desition_list[index].fieldRow[0].getValue();
+      const dropdown_action: string = action_list[index].fieldRow[0].getValue();
 
       return `(${
-        action_code === "" ? "[]" : action_code
-      }).map((value) => value ? indicatorts.Action.${decision_code} : indicatorts.Action.HOLD)`;
+        signals_data === "" ? "[]" : signals_data
+      }).map((value) => value ? indicatorts.Action.${dropdown_action} : indicatorts.Action.HOLD)`;
     })
     .join(",")})`;
-
-  console.log(actions);
 
   const code = `({name: "${text_strategy_name}", strategy: (stock) => ${actions}})`;
 
