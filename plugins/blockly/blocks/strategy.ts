@@ -51,6 +51,29 @@ Blockly.Blocks["strategy"] = {
         .appendField("when");
       this.appendValueInput("SIGNALS" + i).setCheck("Boolean[]");
     }
+
+    /**
+     * Force add name (ACTION_DECISION + index) to ACTION blocks' dummy input parent
+     * because when blockly doing serialization,
+     * it won't serialize dummy input with name,
+     * but only serialize its child dropdown field,
+     * which is the ACTION block.
+     *
+     * But when using mutator,
+     * it will use the parent name (dummy input's name)
+     * to connect the corresponding field.
+     */
+    let action_index = 0;
+    this.inputList.forEach((input) => {
+      if (input.fieldRow.length > 0) {
+        if (
+          input.fieldRow[0].name &&
+          input.fieldRow[0].name.startsWith("ACTION")
+        ) {
+          input.name = "ACTION_DECISION" + action_index++;
+        }
+      }
+    });
   },
   decompose: function (workspace: Blockly.Workspace) {
     const containerBlock = workspace.newBlock(
@@ -153,11 +176,9 @@ Blockly.JavaScript["strategy"] = function (block: Blockly.Block) {
 
   const action_list = block.inputList
     .filter((input) => input.name.startsWith("ACTION_DECISION"))
-    .filter((input) =>
-      (input.fieldRow[0].name === undefined
-        ? ""
-        : input.fieldRow[0].name
-      ).startsWith("ACTION"),
+    .filter(
+      (input) =>
+        input.fieldRow[0].name && input.fieldRow[0].name.startsWith("ACTION"),
     );
   const signals_list = block.inputList.filter((input) =>
     input.name.startsWith("SIGNALS"),
