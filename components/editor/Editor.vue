@@ -252,6 +252,17 @@ onMounted(() => {
             ],
           },
           {
+            kind: "category",
+            name: "Volume Indicator",
+            colour: "#9B52E4",
+            contents: [
+              {
+                kind: "block",
+                type: "mfi",
+              },
+            ],
+          },
+          {
             kind: "label",
             text: "Strategy Blocks",
           },
@@ -415,6 +426,10 @@ onMounted(() => {
           {
             kind: "block",
             type: "vwma",
+          },
+          {
+            kind: "block",
+            type: "mfi",
           },
           {
             kind: "block",
