@@ -1,12 +1,21 @@
 <script setup lang="ts">
 import gsap from "gsap";
 import { Power2, Power3, Expo, Circ } from "gsap";
+import Cube from "~/components/cube/Cube.vue";
 
 onMounted(() => {});
 </script>
 
 <template>
   <div id="container">
+    <div id="left-cube">
+      <Cube />
+    </div>
+
+    <div id="right-cube">
+      <Cube />
+    </div>
+
     <div id="laptop-img"></div>
 
     <div id="left-panel">
@@ -56,7 +65,7 @@ onMounted(() => {});
 #container {
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(45deg, #a86fe0, #5700ad);
+  background: linear-gradient(45deg, #cea4f8, #7723ca, #5500aa);
 }
 
 #laptop-img {
@@ -161,5 +170,27 @@ onMounted(() => {});
   margin-top: 0.5em;
   margin-left: 3rem;
   transform: scale(2);
+}
+
+#left-cube {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  opacity: 0.5;
+  transform: scale(3);
+}
+
+#right-cube {
+  position: absolute;
+  bottom: 100%;
+  right: 2.5%;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  opacity: 0.5;
+  transform: scale(4);
 }
 </style>
