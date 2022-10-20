@@ -19,7 +19,6 @@ Blockly.Blocks["strategy"] = {
       )
       .appendField("when");
     this.appendValueInput("SIGNALS0").setCheck("Boolean[]");
-    this.setOutput(true, "Strategy");
     this.setColour(230);
     this.setTooltip("");
     this.setHelpUrl("");
@@ -209,5 +208,5 @@ Blockly.JavaScript["strategy"] = function (block: Blockly.Block) {
   const code = `({name: "${text_strategy_name}", strategy: (stock) => ${actions}})`;
 
   console.log(code);
-  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+  return code;
 };
