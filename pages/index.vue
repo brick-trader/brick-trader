@@ -69,7 +69,7 @@ function onGetStartedClicked() {
     </div>
 
     <div id="left-panel">
-      <div id="title">© Block Trader</div>
+      <div id="title">© Brick Trader</div>
 
       <div id="subtitle">
         <p>Build your own trading</p>
