@@ -3,6 +3,12 @@ import gsap from "gsap";
 import { Power2 } from "gsap";
 import Cube from "~/components/cube/Cube.vue";
 
+definePageMeta({
+  pageTransition: {
+    mode: "default",
+  },
+});
+
 onMounted(() => {
   const latopImageHeight = 0.75 * window.innerHeight;
   const latopImageWidth = (latopImageHeight * 2400) / 1350;

@@ -17,6 +17,13 @@ import Blockly from "blockly";
 import { Action, StrategyInfo } from "indicatorts";
 import { Backtest } from "~~/types/backtest/backtest";
 import { Stock } from "~~/stock/stock";
+
+definePageMeta({
+  pageTransition: {
+    mode: "default",
+  },
+});
+
 const indicatorts = await import("indicatorts");
 
 const config = useRuntimeConfig();
