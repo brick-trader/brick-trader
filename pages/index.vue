@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import gsap from "gsap";
-import { Power2, Power3, Expo, Circ } from "gsap";
+import { Power2 } from "gsap";
 import Cube from "~/components/cube/Cube.vue";
 
 onMounted(() => {
@@ -46,6 +46,12 @@ onMounted(() => {
     "-=0.5",
   );
 });
+
+const router = useRouter();
+
+function onGetStartedClicked() {
+  router.push("/editor");
+}
 </script>
 
 <template>
@@ -80,8 +86,8 @@ onMounted(() => {
       </div>
 
       <div id="buttons">
-        <div id="start-btn">
-          <a href="/editor">Get Started</a>
+        <div id="start-btn" ref="startBtn" @click="onGetStartedClicked">
+          Get Started
         </div>
         <div id="github-btn">
           <a
@@ -199,20 +205,17 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #5700ad;
+  text-decoration: none;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 #start-btn:hover {
   background: #ff9f1c;
-  transform: scale(1.05);
-}
-
-#start-btn a {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #5700ad;
-  text-decoration: none;
+  transform: scale(1.1);
 }
 
 #github-btn {
