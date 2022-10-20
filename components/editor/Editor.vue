@@ -148,11 +148,31 @@ onMounted(() => {
               },
               {
                 kind: "block",
+                type: "aroon",
+              },
+              {
+                kind: "block",
+                type: "bop",
+              },
+              {
+                kind: "block",
+                type: "cfo",
+              },
+              {
+                kind: "block",
+                type: "cmi",
+              },
+              {
+                kind: "block",
+                type: "dema",
+              },
+              {
+                kind: "block",
                 type: "ema",
               },
               {
                 kind: "block",
-                type: "sma",
+                type: "kdj",
               },
               {
                 kind: "block",
@@ -160,11 +180,55 @@ onMounted(() => {
               },
               {
                 kind: "block",
+                type: "mi",
+              },
+              {
+                kind: "block",
+                type: "mmax",
+              },
+              {
+                kind: "block",
+                type: "mmin",
+              },
+              {
+                kind: "block",
+                type: "msum",
+              },
+              {
+                kind: "block",
                 type: "psar",
               },
               {
                 kind: "block",
-                type: "kdj",
+                type: "qstick",
+              },
+              {
+                kind: "block",
+                type: "rma",
+              },
+              {
+                kind: "block",
+                type: "sma",
+              },
+              {
+                kind: "block",
+                type: "tema",
+              },
+              {
+                kind: "block",
+                type: "trima",
+              },
+              {
+                kind: "block",
+                type: "trix",
+              },
+              {
+                kind: "block",
+                type: "typical_price",
+              },
+              {
+                kind: "block",
+                type: "vortex",
               },
               {
                 kind: "block",
@@ -188,6 +252,17 @@ onMounted(() => {
             ],
           },
           {
+            kind: "category",
+            name: "Volume Indicator",
+            colour: "#9B52E4",
+            contents: [
+              {
+                kind: "block",
+                type: "mfi",
+              },
+            ],
+          },
+          {
             kind: "label",
             text: "Strategy Blocks",
           },
@@ -195,14 +270,6 @@ onMounted(() => {
           {
             kind: "block",
             type: "strategy",
-          },
-          {
-            kind: "block",
-            type: "action",
-          },
-          {
-            kind: "block",
-            type: "apply_first_match",
             mutator: "add_action",
           },
           {
@@ -216,10 +283,6 @@ onMounted(() => {
           {
             kind: "block",
             type: "cross",
-          },
-          {
-            kind: "block",
-            type: "backtest",
           },
           {
             kind: "block",
@@ -278,15 +341,27 @@ onMounted(() => {
           },
           {
             kind: "block",
-            type: "sma",
+            type: "aroon",
           },
           {
             kind: "block",
-            type: "macd",
+            type: "bop",
           },
           {
             kind: "block",
-            type: "psar",
+            type: "cfo",
+          },
+          {
+            kind: "block",
+            type: "cmi",
+          },
+          {
+            kind: "block",
+            type: "dema",
+          },
+          {
+            kind: "block",
+            type: "ema",
           },
           {
             kind: "block",
@@ -294,19 +369,71 @@ onMounted(() => {
           },
           {
             kind: "block",
+            type: "macd",
+          },
+          {
+            kind: "block",
+            type: "mi",
+          },
+          {
+            kind: "block",
+            type: "mmax",
+          },
+          {
+            kind: "block",
+            type: "mmin",
+          },
+          {
+            kind: "block",
+            type: "msum",
+          },
+          {
+            kind: "block",
+            type: "psar",
+          },
+          {
+            kind: "block",
+            type: "qstick",
+          },
+          {
+            kind: "block",
+            type: "rma",
+          },
+          {
+            kind: "block",
+            type: "sma",
+          },
+          {
+            kind: "block",
+            type: "tema",
+          },
+          {
+            kind: "block",
+            type: "trima",
+          },
+          {
+            kind: "block",
+            type: "trix",
+          },
+          {
+            kind: "block",
+            type: "typical_price",
+          },
+          {
+            kind: "block",
+            type: "vortex",
+          },
+          {
+            kind: "block",
             type: "vwma",
           },
           {
             kind: "block",
+            type: "mfi",
+          },
+          {
+            kind: "block",
             type: "strategy",
-          },
-          {
-            kind: "block",
-            type: "action",
-          },
-          {
-            kind: "block",
-            type: "apply_first_match",
             mutator: "add_action",
           },
           {
@@ -320,10 +447,6 @@ onMounted(() => {
           {
             kind: "block",
             type: "cross",
-          },
-          {
-            kind: "block",
-            type: "backtest",
           },
           {
             kind: "block",
