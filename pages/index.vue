@@ -3,7 +3,49 @@ import gsap from "gsap";
 import { Power2, Power3, Expo, Circ } from "gsap";
 import Cube from "~/components/cube/Cube.vue";
 
-onMounted(() => {});
+onMounted(() => {
+  const latopImageHeight = 0.75 * window.innerHeight;
+  const latopImageWidth = (latopImageHeight * 2400) / 1350;
+
+  gsap.fromTo(
+    "#laptop-img-container",
+    { width: `0px`, height: `${latopImageHeight}px` },
+    {
+      duration: 2.5,
+      width: `${latopImageWidth}px`,
+      height: `${latopImageHeight}px`,
+      ease: Power2.easeInOut,
+    },
+  );
+  const tl = gsap.timeline();
+
+  tl.fromTo(
+    "#title",
+    { x: -100, opacity: 0 },
+    { x: 0, opacity: 1, duration: 1, ease: Power2.easeOut },
+  );
+
+  tl.fromTo(
+    "#subtitle",
+    { x: -100, opacity: 0 },
+    { x: 0, opacity: 1, duration: 1, ease: Power2.easeOut },
+    "-=0.5",
+  );
+
+  tl.fromTo(
+    "#description",
+    { x: 100, opacity: 0 },
+    { x: 0, opacity: 1, duration: 1, ease: Power2.easeOut },
+    "-=0.5",
+  );
+
+  tl.fromTo(
+    "#buttons",
+    { x: 100, opacity: 0 },
+    { x: 0, opacity: 1, duration: 1, ease: Power2.easeOut },
+    "-=0.5",
+  );
+});
 </script>
 
 <template>
@@ -16,7 +58,9 @@ onMounted(() => {});
       <Cube />
     </div>
 
-    <div id="laptop-img"></div>
+    <div id="laptop-img-container">
+      <div id="laptop-img"></div>
+    </div>
 
     <div id="left-panel">
       <div id="title">© Block Trader</div>
@@ -68,17 +112,23 @@ onMounted(() => {});
   background: linear-gradient(45deg, #cea4f8, #7723ca, #5500aa);
 }
 
-#laptop-img {
+#laptop-img-container {
   position: absolute;
-  top: 40%;
-  left: 87%;
-  width: 75%;
-  height: 75%;
-  transform: translate(-50%, -50%);
+  top: 45%;
+  left: 52%;
+  transform: translate(0, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#laptop-img {
+  width: 100%;
+  height: 100%;
   background-image: url("../assets/brick-trader-laptop.png");
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: left;
 }
 
 #left-panel {
@@ -91,7 +141,7 @@ onMounted(() => {});
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding-left: 10em;
+  padding-left: 10rem;
 }
 
 #title {
@@ -101,6 +151,7 @@ onMounted(() => {});
   text-align: center;
   font-family: "Silkscreen";
   text-shadow: 0 0 2px #fff;
+  opacity: 0;
 }
 
 #subtitle {
@@ -112,6 +163,7 @@ onMounted(() => {});
   text-align: left;
   font-weight: bold;
   letter-spacing: 1.5px;
+  opacity: 0;
 }
 
 #blocks-text {
@@ -128,13 +180,15 @@ onMounted(() => {});
   text-align: left;
   letter-spacing: 1.5px;
   margin-top: 2rem;
+  opacity: 0;
 }
 
 #buttons {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
+  opacity: 0;
 }
 
 #start-btn {
@@ -167,7 +221,7 @@ onMounted(() => {});
   align-items: center;
   cursor: pointer;
   transition: transform 0.3s ease;
-  margin-top: 0.5em;
+  margin-top: 0.5rem;
   margin-left: 3rem;
   transform: scale(2);
 }
