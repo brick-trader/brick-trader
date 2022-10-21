@@ -119,9 +119,11 @@ function onGetStartedClicked() {
 
 <style scoped>
 #container {
+  position: relative;
   width: 100vw;
   height: 100vh;
   background: linear-gradient(45deg, #cea4f8, #7723ca, #5500aa);
+  overflow: hidden;
 }
 
 #laptop-img-container {
