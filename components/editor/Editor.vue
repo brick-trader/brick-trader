@@ -1,8 +1,11 @@
 <template>
-  <div id="blocklyDiv" ref="blocklyDiv"></div>
-  <button @click="exportWorkspace">Export</button>
-  <button @click="importWorkspace">Import</button>
+  <div id="editor-container">
+    <div id="blocklyDiv" ref="blocklyDiv"></div>
+  </div>
+  <!-- <button @click="exportWorkspace">Export</button>
+  <button @click="importWorkspace">Import</button> -->
 </template>
+
 <script setup lang="ts">
 import Blockly, { Workspace } from "blockly";
 import { useEditor } from "~~/stores/editor";
@@ -93,19 +96,17 @@ function saveEditorState(workspace: Blockly.Workspace) {
 
 // in setup life hook, dom is not ready yet
 onMounted(() => {
-  // TODO: use a better way to set blocklyDiv size
-  let w = window.innerWidth * 0.95;
-  let h = window.innerHeight * 0.95;
+  const emInPx = parseFloat(
+    getComputedStyle(document.documentElement).fontSize,
+  );
 
-  blocklyDiv.value.style.width = w + "px";
-  blocklyDiv.value.style.height = h + "px";
+  // TODO: use a better way to set blocklyDiv size
+  blocklyDiv.value.style.width = window.innerWidth + "px";
+  blocklyDiv.value.style.height = window.innerHeight - 2 * emInPx + "px";
 
   window.addEventListener("resize", () => {
-    w = window.innerWidth * 0.95;
-    h = window.innerHeight * 0.95;
-
-    blocklyDiv.value.style.width = w + "px";
-    blocklyDiv.value.style.height = h + "px";
+    blocklyDiv.value.style.width = window.innerWidth + "px";
+    blocklyDiv.value.style.height = window.innerHeight - 2 * emInPx + "px";
   });
 
   const toolbox = {
@@ -509,3 +510,10 @@ onMounted(() => {
   }
 });
 </script>
+
+<style scoped>
+#editor-container {
+  height: calc(100vh - 2em);
+  overflow: hidden;
+}
+</style>
