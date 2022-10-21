@@ -1,8 +1,6 @@
 <script setup lang="ts">
 const route = useRoute();
 const path = computed(() => route.path);
-
-console.log(path.value);
 </script>
 
 <template>
