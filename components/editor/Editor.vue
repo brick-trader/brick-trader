@@ -102,11 +102,11 @@ onMounted(() => {
 
   // TODO: use a better way to set blocklyDiv size
   blocklyDiv.value.style.width = window.innerWidth + "px";
-  blocklyDiv.value.style.height = window.innerHeight - 2 * emInPx + "px";
+  blocklyDiv.value.style.height = window.innerHeight - 4 * emInPx + "px";
 
   window.addEventListener("resize", () => {
     blocklyDiv.value.style.width = window.innerWidth + "px";
-    blocklyDiv.value.style.height = window.innerHeight - 2 * emInPx + "px";
+    blocklyDiv.value.style.height = window.innerHeight - 4 * emInPx + "px";
   });
 
   const toolbox = {
@@ -513,7 +513,7 @@ onMounted(() => {
 
 <style scoped>
 #editor-container {
-  height: calc(100vh - 2em);
+  height: calc(100vh - 4em);
   overflow: hidden;
 }
 </style>
