@@ -1,35 +1,134 @@
-# Nuxt 3 Minimal Starter
+<div id="top"></div>
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+<!-- PROJECT SHIELDS -->
 
-## Setup
+[<div align="center"> ![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![MIT License][license-shield]][license-url]
+[![Issues][issues-shield]][issues-url]
+[![Issues Closed][issues-closed-shield]</div>][issues-closed-url]
 
-Make sure to install the dependencies:
+<br />
 
-```bash
-pnpm install --shamefully-hoist
-```
+<!-- PROJECT LOGO -->
 
-## Development Server
+![brick-trader-frontend](https://socialify.git.ci/brick-trader/brick-trader-frontend/image?font=KoHo&name=1&owner=1&pattern=Circuit%20Board&theme=Light&description=1)
 
-Start the development server on http://localhost:3000
+<br />
+<div align="center">
+<p align="center">
+    <a href="https://github.com/brick-trader/brick-trader-frontend"><strong>Explore Usage »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/brick-trader/brick-trader-frontend/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/brick-trader/brick-trader-frontend/issues">Request Feature</a>
+  </p>
+</div>
 
-```bash
-pnpm run dev
-```
+<!-- TABLE OF CONTENTS -->
 
-## Production
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-Build the application for production:
+<!-- ABOUT THE PROJECT -->
 
-```bash
-pnpm run build
-```
+## Screenshots
 
-Locally preview production build:
+![product](https://github.com/brick-trader/brick-trader-frontend/blob/main/assets/product.png)
 
-```bash
-pnpm run preview
-```
+## About The Project
 
-Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
+`brick-trader` is a web-based trading strategy builder that allows you to build your own trading strategy with blocks, and we also provides a backtesting tool to test your strategy.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
+
+## Getting Started
+
+To use `brick-trader`, head over to [our website](https://github.com/brick-trader/brick-trader-frontend).
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- ROADMAP -->
+
+## Roadmap
+
+- [ ] Add more tests.
+
+See the [open issues](https://github.com/brick-trader/brick-trader-frontend/issues)
+for a full list of proposed features (and known issues).
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- CONTRIBUTING -->
+
+## Contributing
+
+Contributions are what make the open source community such an amazing place to
+learn, inspire, and create. Any contributions you make are **greatly
+appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and
+create a pull request. You can also simply open an issue with the tag
+"enhancement". Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feat/amazing-feature`)
+3. Commit your Changes with
+   [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+4. Push to the Branch (`git push origin feat/amazing-feature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- LICENSE -->
+
+## License
+
+Distributed under the GPL-3.0 License. See
+[LICENSE](https://github.com/brick-trader/brick-trader-frontend/blob/main/LICENSE)
+for more information.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- CONTACT -->
+
+## Contact
+
+### Author
+
+- HSING-HAN, WU (Xyphuz)
+  - Mail me: <xyphuzwu@gmail.com>
+  - About me: <https://www.xyphuz.com>
+  - GitHub: <https://github.com/wst24365888>
+
+### Project Link
+
+- <https://github.com/brick-trader/brick-trader-frontend>
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+[contributors-shield]: https://img.shields.io/github/contributors/brick-trader/brick-trader-frontend.svg?style=for-the-badge
+[contributors-url]: https://github.com/brick-trader/brick-trader-frontend/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/brick-trader/brick-trader-frontend.svg?style=for-the-badge
+[forks-url]: https://github.com/brick-trader/brick-trader-frontend/network/members
+[stars-shield]: https://img.shields.io/github/stars/brick-trader/brick-trader-frontend.svg?style=for-the-badge
+[stars-url]: https://github.com/brick-trader/brick-trader-frontend/stargazers
+[issues-shield]: https://img.shields.io/github/issues/brick-trader/brick-trader-frontend.svg?style=for-the-badge
+[issues-url]: https://github.com/brick-trader/brick-trader-frontend/issues
+[issues-closed-shield]: https://img.shields.io/github/issues-closed/brick-trader/brick-trader-frontend.svg?style=for-the-badge
+[issues-closed-url]: https://github.com/brick-trader/brick-trader-frontend/issues?q=is%3Aissue+is%3Aclosed
+[license-shield]: https://img.shields.io/github/license/brick-trader/brick-trader-frontend.svg?style=for-the-badge
+[license-url]: https://github.com/brick-trader/brick-trader-frontend/blob/main/LICENSE
