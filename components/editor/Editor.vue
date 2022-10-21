@@ -5,7 +5,10 @@
 </template>
 <script setup lang="ts">
 import Blockly, { Workspace } from "blockly";
+import { useEditor } from "~~/stores/editor";
+import { useStrategy } from "~~/stores/strategy";
 
+const editorState = useEditor();
 const blocklyDiv = ref<HTMLElement>();
 
 let workspace = shallowRef<Workspace>();
@@ -72,6 +75,20 @@ function importWorkspace() {
   };
 
   input.click();
+}
+
+function saveStrategyState(workspace: Blockly.Workspace) {
+  if (!workspace) return;
+  const code = Blockly.JavaScript.workspaceToCode(workspace);
+  console.log(code);
+  // TODO: remove unnecessary code
+  useStrategy().code = code;
+}
+
+function saveEditorState(workspace: Blockly.Workspace) {
+  if (!workspace) return;
+  const currentWorkspace = Blockly.serialization.workspaces.save(workspace);
+  editorState.workspaceSnapshot = currentWorkspace;
 }
 
 // in setup life hook, dom is not ready yet
@@ -480,5 +497,15 @@ onMounted(() => {
     },
     trashcan: true,
   });
+  workspace.value.addChangeListener(() => saveStrategyState(workspace.value));
+  workspace.value.addChangeListener(() => saveEditorState(workspace.value));
+
+  if (editorState.workspaceSnapshot) {
+    // load previous state
+    Blockly.serialization.workspaces.load(
+      editorState.workspaceSnapshot,
+      workspace.value,
+    );
+  }
 });
 </script>
