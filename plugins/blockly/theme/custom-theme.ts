@@ -68,6 +68,16 @@ const defaultBlockStyles = {
     colourSecondary: "#816ea7",
     colourTertiary: "#9B52E4",
   },
+  trend: {
+    colourPrimary: "#00BCD4",
+    colourSecondary: "#00BCD4",
+    colourTertiary: "#00BCD4",
+  },
+  function: {
+    colourPrimary: "#EC407A",
+    colourSecondary: "#EC407A",
+    colourTertiary: "#EC407A",
+  },
 };
 
 const categoryStyles = {
@@ -99,7 +109,7 @@ const categoryStyles = {
     colour: "#4b2d84",
   },
   strategy: {
-    colourPrimary: "##6200EE",
+    colourPrimary: "#6200EE",
     colourSecondary: "#816ea7",
     colourTertiary: "#83759e",
   },

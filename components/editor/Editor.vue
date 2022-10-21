@@ -124,74 +124,15 @@ onMounted(() => {
           },
           {
             kind: "block",
-            type: "text",
-          },
-          {
-            kind: "block",
             type: "text_print",
           },
         ],
       },
       {
         kind: "category",
-        name: "Strategy",
-        colour: "#9B52E4",
+        name: "Function",
+        colour: "#EC407A",
         contents: [
-          {
-            kind: "category",
-            name: "Trend Indicators",
-            colour: "#9B52E4",
-            contents: [
-              {
-                kind: "block",
-                type: "apo",
-              },
-              {
-                kind: "block",
-                type: "ema",
-              },
-              {
-                kind: "block",
-                type: "sma",
-              },
-              {
-                kind: "block",
-                type: "macd",
-              },
-              {
-                kind: "block",
-                type: "psar",
-              },
-              {
-                kind: "block",
-                type: "kdj",
-              },
-              {
-                kind: "block",
-                type: "vwma",
-              },
-            ],
-          },
-          {
-            kind: "category",
-            name: "Momentum Indicator",
-            colour: "#9B52E4",
-            contents: [
-              {
-                kind: "block",
-                type: "rsi",
-              },
-              {
-                kind: "block",
-                type: "custom_rsi",
-              },
-            ],
-          },
-          {
-            kind: "label",
-            text: "Strategy Blocks",
-          },
-
           {
             kind: "block",
             type: "strategy",
@@ -229,6 +170,56 @@ onMounted(() => {
       },
       {
         kind: "category",
+        name: "Trend Indicators",
+        colour: "#00BCD4",
+        contents: [
+          {
+            kind: "block",
+            type: "apo",
+          },
+          {
+            kind: "block",
+            type: "ema",
+          },
+          {
+            kind: "block",
+            type: "sma",
+          },
+          {
+            kind: "block",
+            type: "macd",
+          },
+          {
+            kind: "block",
+            type: "psar",
+          },
+          {
+            kind: "block",
+            type: "kdj",
+          },
+          {
+            kind: "block",
+            type: "vwma",
+          },
+        ],
+      },
+      {
+        kind: "category",
+        name: "Momentum Indicator",
+        colour: "#9B52E4",
+        contents: [
+          {
+            kind: "block",
+            type: "rsi",
+          },
+          {
+            kind: "block",
+            type: "custom_rsi",
+          },
+        ],
+      },
+      {
+        kind: "category",
         name: "All",
         colour: "#00B0FF",
         contents: [
@@ -247,10 +238,6 @@ onMounted(() => {
           {
             kind: "label",
             text: "Result Blocks",
-          },
-          {
-            kind: "block",
-            type: "text",
           },
           {
             kind: "block",
@@ -342,6 +329,7 @@ onMounted(() => {
     toolbox: toolbox,
     renderer: "custom_renderer",
     theme: "custom_theme",
+    // theme: "custom_theme",
     move: {
       scrollbars: {
         horizontal: true,
