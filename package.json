@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev -p 3001",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -33,6 +33,7 @@
   "dependencies": {
     "blockly": "^8.0.5",
     "chart.js": "^3.9.1",
+    "gsap": "^3.11.3",
     "indicatorts": "^1.0.10"
   }
 }
