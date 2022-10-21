@@ -1,11 +1,15 @@
 <script setup lang="ts">
+const props = defineProps<{
+  defaultQuery?: string;
+}>();
+
 const emits = defineEmits<{
   (e: "do-search", value: string): void;
 }>();
 
 const config = useRuntimeConfig();
 
-const query = ref("");
+const query = ref(props.defaultQuery ?? "");
 const list = ref([]);
 
 watch(

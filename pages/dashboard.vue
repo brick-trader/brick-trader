@@ -17,9 +17,13 @@ const indicatorts = await import("indicatorts");
 
 const config = useRuntimeConfig();
 const symbol = ref("2330.TW");
+const dateFilterInput = ref("1980-01-01");
+const dateFilter = computed(() => new Date(dateFilterInput.value));
 const url = computed(
   () =>
-    `${config.public.apiBaseUrl}/tickers/${symbol.value}/historical-data?start=1980-01-01`,
+    `${config.public.apiBaseUrl}/tickers/${
+      symbol.value
+    }/historical-data?start=${dateFilter.value.toISOString()}`,
 );
 // TODO: change stock
 const { data: stockData, refresh } = await useFetch<Ticker>(url);
@@ -109,12 +113,21 @@ function updateDashboard() {
   backtestData.value = backtest(strategyCode);
   chartData.value = generateChart(backtestData.value);
 }
+
+watch(
+  () => dateFilterInput.value,
+  async () => {
+    await refresh();
+    updateDashboard();
+  },
+);
 </script>
 
 <template>
   <div class="dashboard">
-    <div class="search-container">
+    <div class="container">
       <DashboardStockSearch
+        :default-query="symbol"
         @do-search="
           async (newSymbol) => {
             symbol = newSymbol;
@@ -123,6 +136,7 @@ function updateDashboard() {
           }
         "
       />
+      <input v-model="dateFilterInput" type="date" />
     </div>
     <ClientOnly v-if="backtestData">
       <DashboardCard title="Total Actions">
@@ -156,7 +170,7 @@ function updateDashboard() {
   margin: 0.25rem;
 }
 
-.search-container {
+.container {
   width: 100%;
   display: flex;
   justify-content: center;
