@@ -9,7 +9,13 @@ definePageMeta({
   },
 });
 
+const leftCubeScale = ref(0);
+const rightCubeScale = ref(0);
+
 onMounted(() => {
+  leftCubeScale.value = (3 * window.innerWidth) / 1920;
+  rightCubeScale.value = (4 * window.innerWidth) / 1920;
+
   const latopImageHeight = 0.75 * window.innerHeight;
   const latopImageWidth = (latopImageHeight * 2400) / 1350;
 
@@ -245,7 +251,7 @@ function onGetStartedClicked() {
   transform-style: preserve-3d;
   perspective: 1000px;
   opacity: 0.5;
-  transform: scale(3);
+  transform: scale(v-bind(leftCubeScale));
 }
 
 #right-cube {
@@ -256,6 +262,6 @@ function onGetStartedClicked() {
   transform-style: preserve-3d;
   perspective: 1000px;
   opacity: 0.5;
-  transform: scale(4);
+  transform: scale(v-bind(rightCubeScale));
 }
 </style>
