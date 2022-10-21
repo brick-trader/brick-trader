@@ -4,6 +4,7 @@ import { Power2 } from "gsap";
 import Cube from "~/components/cube/Cube.vue";
 
 definePageMeta({
+  layout: "landing",
   pageTransition: {
     mode: "default",
   },
