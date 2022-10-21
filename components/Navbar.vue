@@ -24,7 +24,7 @@ nav > div {
   padding-right: 2rem;
   background: #ff9f1c;
 
-  font-size: 1.25em;
+  font-size: 1.25rem;
   font-weight: bold;
 }
 
