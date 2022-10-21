@@ -6,6 +6,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.36.2
   blockly: ^8.0.5
   chart.js: ^3.9.1
+  date-and-time: ^2.4.1
   eslint: ^8.23.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-prettier: ^4.2.1
@@ -24,6 +25,7 @@ dependencies:
   '@pinia/nuxt': 0.4.3_typescript@4.8.3
   blockly: 8.0.5
   chart.js: 3.9.1
+  date-and-time: 2.4.1
   gsap: 3.11.3
   indicatorts: 1.0.10
   pinia: 2.0.23_typescript@4.8.3
@@ -1947,6 +1949,10 @@ packages:
       abab: 2.0.6
       whatwg-mimetype: 2.3.0
       whatwg-url: 7.1.0
+    dev: false
+
+  /date-and-time/2.4.1:
+    resolution: {integrity: sha512-fG+ClATev+wHryqxOoGcTTegr5RhYE+tz/XHUkTQ/zvpWqQ90oOxjOhuMQ02bw87Oy9N3qBENCHHHSKdWJjgTg==}
     dev: false
 
   /debug/2.6.9:
