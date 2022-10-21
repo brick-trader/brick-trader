@@ -88,7 +88,7 @@ function saveStrategyState(workspace: Blockly.Workspace) {
 function saveEditorState(workspace: Blockly.Workspace) {
   if (!workspace) return;
   const currentWorkspace = Blockly.serialization.workspaces.save(workspace);
-  editorState.workspace = currentWorkspace;
+  editorState.workspaceSnapshot = currentWorkspace;
 }
 
 // in setup life hook, dom is not ready yet
@@ -500,10 +500,10 @@ onMounted(() => {
   workspace.value.addChangeListener(() => saveStrategyState(workspace.value));
   workspace.value.addChangeListener(() => saveEditorState(workspace.value));
 
-  if (editorState.workspace) {
+  if (editorState.workspaceSnapshot) {
     // load previous state
     Blockly.serialization.workspaces.load(
-      editorState.workspace,
+      editorState.workspaceSnapshot,
       workspace.value,
     );
   }

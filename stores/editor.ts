@@ -1,14 +1,14 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
 
 export interface EditorState {
-  workspace: {
+  workspaceSnapshot: {
     [x: string]: any;
   } | null;
 }
 
 export const useEditor = defineStore("editor", {
   state: (): EditorState => ({
-    workspace: null,
+    workspaceSnapshot: null,
   }),
   actions: {},
 });
