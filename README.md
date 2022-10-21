@@ -94,7 +94,7 @@ for more information.
 
 ## Contact
 
-### Author
+### Contributors
 
 - HSING-HAN, WU (Xyphuz)
   - Mail me: <xyphuzwu@gmail.com>
