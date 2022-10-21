@@ -30,14 +30,12 @@ if (indicatorts && stock && runtime && process.client) {
 
 const strategyCode = useStrategy().code;
 
-if (!strategyCode) {
+if (!strategyCode && process.client) {
   console.log("Strategy not found");
 }
 
 const backtestData = ref(backtest(strategyCode));
-console.log(backtestData.value);
 const chartData = ref(generateChart(backtestData.value));
-console.log(chartData.value);
 
 function calculateStrategyActions(
   actions: Action[],
