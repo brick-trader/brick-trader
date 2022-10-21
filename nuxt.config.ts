@@ -16,10 +16,7 @@ export default defineNuxtConfig({
         "/api": {
           target: "http://localhost:3000",
           changeOrigin: true,
-          rewrite: (path) => {
-            console.log(path);
-            return path.replace(/^\/api/, "");
-          },
+          rewrite: (path) => path.replace(/^\/api/, ""),
         },
       },
     },
