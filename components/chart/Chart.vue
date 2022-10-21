@@ -1,11 +1,14 @@
-<template>
-  <canvas ref="chartCanvas"></canvas>
-</template>
-
 <script setup lang="ts">
 import { Chart } from "chart.js";
 
-const chartCanvas = ref<HTMLCanvasElement>(null);
+const options = {
+  elements: {
+    point: {
+      radius: 0,
+    },
+  },
+};
+const chartCanvas = ref<HTMLCanvasElement | null>(null);
 const props = defineProps<{
   data: any;
 }>();
@@ -15,13 +18,7 @@ onMounted(() => {
   chart.value = new Chart(chartCanvas.value, {
     type: "line",
     data: props.data,
-    options: {
-      elements: {
-        point: {
-          radius: 0,
-        },
-      },
-    },
+    options,
   });
 });
 
@@ -32,14 +29,21 @@ watch(
     chart.value = new Chart(chartCanvas.value, {
       type: "line",
       data: props.data,
-      options: {
-        elements: {
-          point: {
-            radius: 0,
-          },
-        },
-      },
+      options,
     });
   },
 );
 </script>
+
+<template>
+  <div class="chart-container">
+    <canvas ref="chartCanvas"></canvas>
+  </div>
+</template>
+
+<style scoped>
+.chart-container {
+  position: relative;
+  width: 90vw;
+}
+</style>

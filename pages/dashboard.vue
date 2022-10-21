@@ -1,11 +1,3 @@
-<template>
-  <div>
-    <ClientOnly>
-      <Chart :data="chartData" />
-    </ClientOnly>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { Ticker } from "~~/types/stock/ticker";
 import { runtime } from "~/plugins/blockly/runtime";
@@ -13,6 +5,7 @@ import { Action, StrategyInfo } from "indicatorts";
 import { Backtest } from "~~/types/backtest/backtest";
 import { Stock } from "~~/stock/stock";
 import { useStrategy } from "~~/stores/strategy";
+import date from "date-and-time";
 
 definePageMeta({
   pageTransition: {
@@ -77,14 +70,18 @@ function backtest(code: string): Backtest {
   const strategy: StrategyInfo = eval(code);
   const actions = strategy.strategy(stock);
   // TODO: verify type
-  const gains = indicatorts.applyActions(stock.closings, actions);
+  const gains = indicatorts
+    .applyActions(stock.closings, actions)
+    .map((gain) => Math.round(gain * 100));
   const { actionCount, winCount } = calculateStrategyActions(
     actions,
     stock.closings,
   );
   const winRate = Math.round((winCount / actionCount) * 100);
-  const result = indicatorts.backtest(stock, [strategy])[0].gain;
-  const t = { gains, winRate, result };
+  const result = Math.round(
+    indicatorts.backtest(stock, [strategy])[0].gain * 100,
+  );
+  const t = { gains, winRate, actionCount, winCount, result };
   console.log(t);
   return t;
 }
@@ -93,7 +90,7 @@ function generateChart(backtestData: Backtest) {
   if (!backtestData) return;
 
   return {
-    labels: stock.dates,
+    labels: stock.dates.map((d) => date.format(d, "YYYY-MM-DD")),
     datasets: [
       {
         label: "Gain",
@@ -106,3 +103,38 @@ function generateChart(backtestData: Backtest) {
   };
 }
 </script>
+
+<template>
+  <div class="dashboard">
+    <ClientOnly v-if="backtestData">
+      <DashboardCard title="Total Actions">
+        <p>{{ backtestData.actionCount }}</p>
+      </DashboardCard>
+      <DashboardCard title="Total Win">
+        <p>{{ backtestData.winCount }}</p>
+      </DashboardCard>
+      <DashboardCard title="Win Rate">
+        <p>{{ isNaN(backtestData.winRate) ? 0 : backtestData.winRate }}%</p>
+      </DashboardCard>
+      <DashboardCard title="Final Gain">
+        <p>{{ backtestData.result }}%</p>
+      </DashboardCard>
+      <DashboardCard title="Chart">
+        <Chart :data="chartData" />
+      </DashboardCard>
+    </ClientOnly>
+  </div>
+</template>
+
+<style scoped>
+.dashboard {
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.dashboard > div {
+  margin: 0.25rem;
+}
+</style>
