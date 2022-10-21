@@ -155,11 +155,11 @@ function onGetStartedClicked() {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding-left: 10rem;
+  padding-left: calc(5vw + 4em);
 }
 
 #title {
-  font-size: 2rem;
+  font-size: calc(1vw + 0.8em);
   color: #111;
   font-weight: bold;
   text-align: center;
@@ -169,11 +169,11 @@ function onGetStartedClicked() {
 }
 
 #subtitle {
-  font-size: 4rem;
+  font-size: calc(2vw + 1.6em);
   color: #fff;
   font-weight: 400;
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 0.5em;
   text-align: left;
   font-weight: bold;
   letter-spacing: 1.5px;
@@ -186,14 +186,14 @@ function onGetStartedClicked() {
 }
 
 #description {
-  font-size: 1.5rem;
+  font-size: calc(0.75vw + 0.6em);
   color: #ddd;
   font-weight: 400;
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 1em;
   text-align: left;
   letter-spacing: 1.5px;
-  margin-top: 2rem;
+  margin-top: 1em;
   opacity: 0;
 }
 
@@ -201,19 +201,19 @@ function onGetStartedClicked() {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 2.5rem;
+  margin-top: 2.5em;
   opacity: 0;
 }
 
 #start-btn {
-  width: 10rem;
-  height: 3rem;
+  width: 8em;
+  height: 2.5em;
   background: #ff9f1c;
   border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.25rem;
+  font-size: 1.25em;
   font-weight: bold;
   color: #5700ad;
   text-decoration: none;
@@ -232,8 +232,8 @@ function onGetStartedClicked() {
   align-items: center;
   cursor: pointer;
   transition: transform 0.3s ease;
-  margin-top: 0.5rem;
-  margin-left: 3rem;
+  margin-top: 0.5em;
+  margin-left: 3em;
   transform: scale(2);
 }
 
