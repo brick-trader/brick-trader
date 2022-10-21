@@ -109,10 +109,9 @@ for more information.
 
 ### Contributors
 
-- HSING-HAN, WU (Xyphuz)
-  - Mail me: <xyphuzwu@gmail.com>
-  - About me: <https://www.xyphuz.com>
-  - GitHub: <https://github.com/wst24365888>
+<a href="https://github.com/brick-trader/brick-trader-frontend/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=brick-trader/brick-trader-frontend" />
+</a>
 
 ### Project Link
 
