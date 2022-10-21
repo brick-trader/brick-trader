@@ -1,8 +1,13 @@
 <template>
-  <div id="blocklyDiv" ref="blocklyDiv"></div>
-  <button @click="exportWorkspace">Export</button>
-  <button @click="importWorkspace">Import</button>
+  <div id="editor-container">
+    <div id="blocklyDiv" ref="blocklyDiv"></div>
+    <div id="button-container">
+      <button @click="exportWorkspace">Export</button>
+      <button @click="importWorkspace">Import</button>
+    </div>
+  </div>
 </template>
+
 <script setup lang="ts">
 import Blockly, { Workspace } from "blockly";
 import { useEditor } from "~~/stores/editor";
@@ -93,19 +98,17 @@ function saveEditorState(workspace: Blockly.Workspace) {
 
 // in setup life hook, dom is not ready yet
 onMounted(() => {
-  // TODO: use a better way to set blocklyDiv size
-  let w = window.innerWidth * 0.95;
-  let h = window.innerHeight * 0.95;
+  const emInPx = parseFloat(
+    getComputedStyle(document.documentElement).fontSize,
+  );
 
-  blocklyDiv.value.style.width = w + "px";
-  blocklyDiv.value.style.height = h + "px";
+  // TODO: use a better way to set blocklyDiv size
+  blocklyDiv.value.style.width = window.innerWidth + "px";
+  blocklyDiv.value.style.height = window.innerHeight - 4 * emInPx + "px";
 
   window.addEventListener("resize", () => {
-    w = window.innerWidth * 0.95;
-    h = window.innerHeight * 0.95;
-
-    blocklyDiv.value.style.width = w + "px";
-    blocklyDiv.value.style.height = h + "px";
+    blocklyDiv.value.style.width = window.innerWidth + "px";
+    blocklyDiv.value.style.height = window.innerHeight - 4 * emInPx + "px";
   });
 
   const toolbox = {
@@ -509,3 +512,40 @@ onMounted(() => {
   }
 });
 </script>
+
+<style scoped>
+#editor-container {
+  height: calc(100vh - 4em);
+  overflow: hidden;
+}
+
+#button-container {
+  position: absolute;
+  bottom: 5.5em;
+  right: 0;
+  width: 7.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5em;
+}
+
+button {
+  width: 5em;
+  height: 5em;
+  color: #fff;
+  background-color: #a0a0a0;
+  border: 1px solid #a0a0a0;
+  border-radius: 5px;
+  margin-bottom: 2em;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+}
+
+button:hover {
+  opacity: 1;
+}
+</style>
