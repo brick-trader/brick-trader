@@ -1,9 +1,11 @@
 <template>
   <div id="editor-container">
     <div id="blocklyDiv" ref="blocklyDiv"></div>
+    <div id="button-container">
+      <button @click="exportWorkspace">Export</button>
+      <button @click="importWorkspace">Import</button>
+    </div>
   </div>
-  <!-- <button @click="exportWorkspace">Export</button>
-  <button @click="importWorkspace">Import</button> -->
 </template>
 
 <script setup lang="ts">
@@ -515,5 +517,35 @@ onMounted(() => {
 #editor-container {
   height: calc(100vh - 4em);
   overflow: hidden;
+}
+
+#button-container {
+  position: absolute;
+  bottom: 5.5em;
+  right: 0;
+  width: 7.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5em;
+}
+
+button {
+  width: 5em;
+  height: 5em;
+  color: #fff;
+  background-color: #a0a0a0;
+  border: 1px solid #a0a0a0;
+  border-radius: 5px;
+  margin-bottom: 2em;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+}
+
+button:hover {
+  opacity: 1;
 }
 </style>
