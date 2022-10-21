@@ -16,7 +16,9 @@ export class Stock {
 
   public get dates(): Date[] {
     if (this._dates === undefined) {
-      this._dates = this._ticker.historicalData.map((data) => data.date);
+      this._dates = this._ticker.historicalData.map(
+        (data) => new Date(data.date),
+      );
     }
     return this._dates;
   }

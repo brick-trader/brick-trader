@@ -1,7 +1,7 @@
 export interface HistoricalData {
   adjClose: number;
   close: number;
-  date: Date;
+  date: string;
   high: number;
   id: number;
   low: number;
