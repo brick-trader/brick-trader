@@ -7,7 +7,7 @@ export interface DashboardState {
   endDateFilterInput: string;
 }
 
-export const useDashboard = defineStore("editor", {
+export const useDashboard = defineStore("dashboard", {
   state: (): DashboardState => ({
     symbol: "2330.TW",
     startDateFilterInput: "2020-01-01",
