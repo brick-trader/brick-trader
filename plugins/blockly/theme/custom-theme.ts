@@ -29,10 +29,7 @@ const defaultBlockStyles = {
   math_blocks: {
     colourPrimary: "#f78b2d",
     colourSecondary: "#f3ec8e",
-    colourTertiary: "#f78b2d",
-    family: "Georgia, serif",
-    weight: "bold",
-    size: 24,
+    colourTertiary: "#f79b3d",
   },
   procedure_blocks: {
     colourPrimary: "#590721",
@@ -46,7 +43,7 @@ const defaultBlockStyles = {
   text_blocks: {
     colourPrimary: "#21a346",
     colourSecondary: "#5ecfaf",
-    colourTertiary: "#04684c",
+    colourTertiary: "#31b356",
   },
   variable_blocks: {
     colourPrimary: "#4b2d84",
@@ -66,22 +63,22 @@ const defaultBlockStyles = {
   strategy: {
     colourPrimary: "#00BCD4",
     colourSecondary: "#00BCD4",
-    colourTertiary: "#00BCD4",
+    colourTertiary: "#10CCE4",
   },
   trend: {
-    colourPrimary: "#9B52E4",
-    colourSecondary: "#9B52E4",
-    colourTertiary: "#9B52E4",
+    colourPrimary: "#FF9F1C",
+    colourSecondary: "#FF9F1C",
+    colourTertiary: "#FFAF2C",
   },
   function: {
-    colourPrimary: "#EC407A",
-    colourSecondary: "#EC407A",
-    colourTertiary: "#EC407A",
+    colourPrimary: "#9B52E4",
+    colourSecondary: "#9B52E4",
+    colourTertiary: "#AB62F4",
   },
   volume: {
     colourPrimary: "#4b5aff",
     colourSecondary: "#4b5aff",
-    colourTertiary: "#4b5aff",
+    colourTertiary: "#5b6aFf",
   },
 };
 
