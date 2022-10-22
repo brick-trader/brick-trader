@@ -30,7 +30,7 @@ const styles = computed(() => {
   position: relative;
   animation: loader 2s infinite ease;
   background-color: #ff9f1c;
-  z-index: 999;
+  z-index: 9999;
 }
 .spinner * {
   line-height: 0;

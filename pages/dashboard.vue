@@ -12,6 +12,8 @@ import { Power2 } from "gsap";
 import Loading from "~/components/Loading.vue";
 import Vue3ChartJs from "@j-t-mcc/vue3-chartjs";
 
+const fetchData = ref(false);
+
 definePageMeta({
   pageTransition: {
     mode: "default",
@@ -173,6 +175,15 @@ function animateDashboardValue() {
   );
 }
 
+/**
+ * Control Loading Screen Status
+ */
+async function doRefresh(): Promise<void> {
+  fetchData.value = true;
+  await refresh();
+  fetchData.value = false;
+}
+
 function updateChart() {
   if (chartRef.value === null) return;
 
@@ -190,7 +201,7 @@ function updateDashboard() {
 }
 
 async function refreshData() {
-  await refresh();
+  await doRefresh();
   updateDashboard();
 }
 
@@ -206,14 +217,14 @@ onMounted(() => {
 <template>
   <div class="dashboard">
     <div class="container">
-      <div ref="mask" class="mask"></div>
-      <Loading ref="loading" />
+      <div v-if="fetchData" class="mask"></div>
+      <Loading v-if="fetchData" />
       <DashboardStockSearch
         :default-query="symbol"
         @do-search="
           async (newSymbol) => {
             symbol = newSymbol;
-            await refresh();
+            await doRefresh();
             updateDashboard();
           }
         "
@@ -279,7 +290,7 @@ onMounted(() => {
   width: 100%;
   display: flex;
   justify-content: center;
-  z-index: 999;
+  z-index: 99;
 }
 
 .container > input {
@@ -359,7 +370,7 @@ hr {
   left: 0;
   min-height: 100%;
   min-width: 100%;
-  z-index: 9999;
+  z-index: 999;
   background-color: #000;
   opacity: 0.5;
 }
