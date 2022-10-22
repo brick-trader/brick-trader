@@ -16,13 +16,20 @@ definePageMeta({
 const indicatorts = await import("indicatorts");
 
 const config = useRuntimeConfig();
-// TODO: change stock
-const { data: stockData } = await useFetch<Ticker>(
-  `${config.public.apiBaseUrl}/tickers/2330.TW/historical-data?start=1980-01-01`,
+const symbol = ref("2330.TW");
+const dateFilterInput = ref("1980-01-01");
+const dateFilter = computed(() => new Date(dateFilterInput.value));
+const url = computed(
+  () =>
+    `${config.public.apiBaseUrl}/tickers/${
+      symbol.value
+    }/historical-data?start=${dateFilter.value.toISOString()}`,
 );
+// TODO: change stock
+const { data: stockData, refresh } = await useFetch<Ticker>(url);
 
 // prepare runtime
-const stock = new Stock(stockData.value);
+let stock = new Stock(stockData.value);
 
 if (indicatorts && stock && runtime && process.client) {
   console.log("Backtest runtime ready");
@@ -100,10 +107,37 @@ function generateChart(backtestData: Backtest) {
     ],
   };
 }
+
+function updateDashboard() {
+  stock = new Stock(stockData.value);
+  backtestData.value = backtest(strategyCode);
+  chartData.value = generateChart(backtestData.value);
+}
+
+watch(
+  () => dateFilterInput.value,
+  async () => {
+    await refresh();
+    updateDashboard();
+  },
+);
 </script>
 
 <template>
   <div class="dashboard">
+    <div class="container">
+      <DashboardStockSearch
+        :default-query="symbol"
+        @do-search="
+          async (newSymbol) => {
+            symbol = newSymbol;
+            await refresh();
+            updateDashboard();
+          }
+        "
+      />
+      <input v-model="dateFilterInput" type="date" />
+    </div>
     <ClientOnly v-if="backtestData">
       <DashboardCard title="Total Actions">
         <p>{{ backtestData.actionCount }}</p>
@@ -134,5 +168,12 @@ function generateChart(backtestData: Backtest) {
 
 .dashboard > div {
   margin: 0.25rem;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 50;
 }
 </style>
