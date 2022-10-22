@@ -27,9 +27,9 @@ const defaultBlockStyles = {
    *  orange blocks which represent math operator blocks
    */
   math_blocks: {
-    colourPrimary: "#f78b2d",
-    colourSecondary: "#f3ec8e",
-    colourTertiary: "#f79b3d",
+    colourPrimary: "#F78B2D",
+    colourSecondary: "#F3EC8E",
+    colourTertiary: "#F79B3D",
   },
   procedure_blocks: {
     colourPrimary: "#590721",
@@ -56,9 +56,9 @@ const defaultBlockStyles = {
     colourTertiary: "#83759e",
   },
   function_blocks: {
-    colourPrimary: "#1a1a1a",
-    colourSecondary: "#816ea7",
-    colourTertiary: "#83759e",
+    colourPrimary: "#1A1A1A",
+    colourSecondary: "#816EA7",
+    colourTertiary: "#83759E",
   },
   strategy: {
     colourPrimary: "#00BCD4",
@@ -76,9 +76,9 @@ const defaultBlockStyles = {
     colourTertiary: "#AB62F4",
   },
   volume: {
-    colourPrimary: "#4b5aff",
-    colourSecondary: "#4b5aff",
-    colourTertiary: "#5b6aFf",
+    colourPrimary: "#4B5AFF",
+    colourSecondary: "#4B5AFF",
+    colourTertiary: "#5B6AFF",
   },
 };
 
