@@ -10,12 +10,13 @@ const emits = defineEmits<{
 const config = useRuntimeConfig();
 
 const query = ref(props.defaultQuery ?? "");
+const currentSymbol = ref("");
 const list = ref([]);
 
 watch(
   () => query.value,
   async () => {
-    if (query.value === "") {
+    if (query.value === "" || query.value === currentSymbol.value) {
       list.value = [];
       return;
     }
@@ -30,6 +31,8 @@ watch(
 );
 
 function doSearch(symbol: string) {
+  currentSymbol.value = symbol;
+  query.value = symbol;
   emits("do-search", symbol);
   list.value = [];
 }
