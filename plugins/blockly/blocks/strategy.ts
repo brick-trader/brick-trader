@@ -107,7 +107,7 @@ Blockly.Blocks["strategy"] = {
       this.removeInput("ACTION_DECISION" + i);
       this.removeInput("SIGNALS" + i);
     }
-    this.numAdditionalActions = 0;
+    this.numAdditionalActions = 1;
 
     let actionBlock = containerBlock.getInputTargetBlock("STACK");
     while (actionBlock) {
