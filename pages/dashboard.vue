@@ -7,6 +7,8 @@ import { Stock } from "~~/stock/stock";
 import { useStrategy } from "~~/stores/strategy";
 import date from "date-and-time";
 import { useDashboard } from "~~/stores/dashboard";
+import gsap from "gsap";
+import { Power2 } from "gsap";
 
 definePageMeta({
   pageTransition: {
@@ -122,6 +124,27 @@ function updateDashboard() {
   stock = new Stock(stockData.value);
   backtestData.value = backtest(strategyCode);
   chartData.value = generateChart(backtestData.value);
+
+  const backtestDataSnapshot = backtestData.value;
+  gsap.fromTo(
+    backtestData.value,
+    {
+      gains: backtestDataSnapshot.gains,
+      winRate: 0,
+      result: 0,
+      actionCount: 0,
+      winCount: 0,
+    },
+    {
+      gains: backtestData.value.gains,
+      winRate: backtestData.value.winRate,
+      result: backtestData.value.result,
+      actionCount: backtestData.value.actionCount,
+      winCount: backtestData.value.winCount,
+      duration: 2,
+      ease: Power2.easeOut,
+    },
+  );
 }
 
 async function refreshData() {
@@ -132,6 +155,31 @@ async function refreshData() {
 // register filter listener
 watch(() => startDateFilterInput.value, refreshData);
 watch(() => endDateFilterInput.value, refreshData);
+
+onMounted(() => {
+  if (!backtestData.value) return;
+
+  const backtestDataSnapshot = backtestData.value;
+  gsap.fromTo(
+    backtestData.value,
+    {
+      gains: backtestDataSnapshot.gains,
+      winRate: 0,
+      result: 0,
+      actionCount: 0,
+      winCount: 0,
+    },
+    {
+      gains: backtestData.value.gains,
+      winRate: backtestData.value.winRate,
+      result: backtestData.value.result,
+      actionCount: backtestData.value.actionCount,
+      winCount: backtestData.value.winCount,
+      duration: 2,
+      ease: Power2.easeOut,
+    },
+  );
+});
 </script>
 
 <template>
@@ -162,16 +210,22 @@ watch(() => endDateFilterInput.value, refreshData);
     <ClientOnly v-if="backtestData">
       <div id="infos">
         <DashboardCard title="Total Closed Trades">
-          <p>{{ backtestData.actionCount }}</p>
+          <p>{{ Math.round(backtestData.actionCount) }}</p>
         </DashboardCard>
         <DashboardCard title="Total Win">
-          <p>{{ backtestData.winCount }}</p>
+          <p>{{ Math.round(backtestData.winCount) }}</p>
         </DashboardCard>
         <DashboardCard title="Win Rate">
-          <p>{{ isNaN(backtestData.winRate) ? 0 : backtestData.winRate }}%</p>
+          <p>
+            {{
+              isNaN(backtestData.winRate)
+                ? 0
+                : Math.round(backtestData.winRate)
+            }}%
+          </p>
         </DashboardCard>
         <DashboardCard title="Net Profit">
-          <p>{{ backtestData.result }}%</p>
+          <p>{{ Math.round(backtestData.result) }}%</p>
         </DashboardCard>
       </div>
       <div id="chart-container">
