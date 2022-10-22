@@ -26,15 +26,16 @@ if (!strategyState.isStrategyVaild()) useRouter().replace("/editor");
 
 const chartRef = ref<InstanceType<Vue3ChartJs> | null>(null);
 const dashboardState = useDashboard();
-const symbol = ref(dashboardState.symbol);
-const startDateFilterInput = ref(dashboardState.startDateFilterInput);
-const endDateFilterInput = ref(dashboardState.endDateFilterInput);
-const startDateFilter = computed(() => new Date(startDateFilterInput.value));
-const endDateFilter = computed(() => new Date(endDateFilterInput.value));
+const startDateFilter = computed(
+  () => new Date(dashboardState.startDateFilterInput),
+);
+const endDateFilter = computed(
+  () => new Date(dashboardState.endDateFilterInput),
+);
 const url = computed(
   () =>
     `${config.public.apiBaseUrl}/tickers/${
-      symbol.value
+      dashboardState.symbol
     }/historical-data?start=${startDateFilter.value.toISOString()}&end=${endDateFilter.value.toISOString()}`,
 );
 
@@ -199,8 +200,8 @@ async function refreshData() {
 }
 
 // register filter listener
-watch(() => startDateFilterInput.value, refreshData);
-watch(() => endDateFilterInput.value, refreshData);
+watch(() => dashboardState.startDateFilterInput, refreshData);
+watch(() => dashboardState.endDateFilterInput, refreshData);
 
 onMounted(() => {
   animateDashboardValue();
@@ -211,22 +212,22 @@ onMounted(() => {
   <div class="dashboard">
     <div class="container">
       <DashboardStockSearch
-        :default-query="symbol"
+        :default-query="dashboardState.symbol"
         @do-search="
           async (newSymbol) => {
-            symbol = newSymbol;
+            dashboardState.symbol = newSymbol;
             await refresh();
             updateDashboard();
           }
         "
       />
       <input
-        v-model="startDateFilterInput"
+        v-model="dashboardState.startDateFilterInput"
         type="date"
         @click="(event) => (event.target as HTMLInputElement).showPicker()"
       />
       <input
-        v-model="endDateFilterInput"
+        v-model="dashboardState.endDateFilterInput"
         type="date"
         @click="(event) => (event.target as HTMLInputElement).showPicker()"
       />
