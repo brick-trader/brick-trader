@@ -17,8 +17,8 @@ Blockly.Blocks["strategy"] = {
     this.appendDummyInput("ACTION_DECISION0")
       .appendField(
         new Blockly.FieldDropdown([
-          ["sell", "SELL"],
           ["buy", "BUY"],
+          ["sell", "SELL"],
         ]),
         "ACTION0",
       )
@@ -27,8 +27,8 @@ Blockly.Blocks["strategy"] = {
     this.appendDummyInput("ACTION_DECISION1")
       .appendField(
         new Blockly.FieldDropdown([
-          ["buy", "BUY"],
           ["sell", "SELL"],
+          ["buy", "BUY"],
         ]),
         "ACTION1",
       )

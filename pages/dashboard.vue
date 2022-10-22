@@ -130,6 +130,7 @@ function backtest(code: string): Backtest {
   const result = Math.round(
     indicatorts.backtest(stock, [strategy])[0].gain * 100,
   );
+
   return { gains, profitFactor, winRate, actionCount, result };
 }
 
@@ -158,15 +159,19 @@ function animateDashboardValue() {
     backtestData.value,
     {
       gains: backtestDataSnapshot.gains,
-      profitFactor: 0,
-      winRate: 0,
+      profitFactor: isNaN(backtestDataSnapshot.profitFactor) ? "NaN" : 0,
+      winRate: isNaN(backtestDataSnapshot.winRate) ? "NaN" : 0,
       result: 0,
       actionCount: 0,
     },
     {
       gains: backtestData.value.gains,
-      profitFactor: backtestData.value.profitFactor,
-      winRate: backtestData.value.winRate,
+      profitFactor: isNaN(backtestDataSnapshot.profitFactor)
+        ? "NaN"
+        : backtestData.value.profitFactor,
+      winRate: isNaN(backtestDataSnapshot.winRate)
+        ? "NaN"
+        : backtestData.value.winRate,
       result: backtestData.value.result,
       actionCount: backtestData.value.actionCount,
       duration: 2,
@@ -250,13 +255,19 @@ onMounted(() => {
           <p>
             {{
               isNaN(backtestData.winRate)
-                ? 0
-                : Math.round(backtestData.winRate)
-            }}%
+                ? "NaN"
+                : `${Math.round(backtestData.winRate)}%`
+            }}
           </p>
         </DashboardCard>
         <DashboardCard title="Profit Factor">
-          <p>{{ backtestData.profitFactor.toFixed(2) }}</p>
+          <p>
+            {{
+              isNaN(backtestData.profitFactor)
+                ? "NaN"
+                : backtestData.profitFactor.toFixed(2)
+            }}
+          </p>
         </DashboardCard>
         <DashboardCard title="Net Profit">
           <p>{{ Math.round(backtestData.result) }}%</p>
