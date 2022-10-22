@@ -6,26 +6,17 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    size: {
-      default: "250px",
-    },
-    color: {
-      default: "#41b883",
-    },
-  },
-  computed: {
-    styles() {
-      return {
-        width: this.size,
-        height: this.size,
-        "--bg-color": this.color,
-      };
-    },
-  },
-};
+<script setup lang="ts">
+const size = "250px";
+const color = "#41b883";
+
+const styles = computed(() => {
+  return {
+    width: size,
+    height: size,
+    "--bg-color": color,
+  };
+});
 </script>
 
 <style scoped>
