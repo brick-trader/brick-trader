@@ -22,7 +22,7 @@ Blockly.Blocks["strategy"] = {
     this.setColour(230);
     this.setTooltip("");
     this.setHelpUrl("");
-    this.setStyle("strategy");
+    this.setStyle("function");
 
     this.setMutator(new Blockly.Mutator(["additional_action"]));
     this.numAdditionalActions = 0;

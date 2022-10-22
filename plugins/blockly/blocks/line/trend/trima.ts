@@ -22,7 +22,7 @@ Blockly.Blocks["trima"] = {
     this.setColour(230);
     this.setTooltip("");
     this.setHelpUrl("");
-    this.setStyle("strategy");
+    this.setStyle("trend");
   },
 };
 

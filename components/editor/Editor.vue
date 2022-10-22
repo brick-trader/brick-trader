@@ -144,144 +144,15 @@ onMounted(() => {
           },
           {
             kind: "block",
-            type: "text",
-          },
-          {
-            kind: "block",
             type: "text_print",
           },
         ],
       },
       {
         kind: "category",
-        name: "Strategy",
-        colour: "#9B52E4",
+        name: "Function",
+        colour: "#EC407A",
         contents: [
-          {
-            kind: "category",
-            name: "Trend Indicators",
-            colour: "#9B52E4",
-            contents: [
-              {
-                kind: "block",
-                type: "apo",
-              },
-              {
-                kind: "block",
-                type: "aroon",
-              },
-              {
-                kind: "block",
-                type: "bop",
-              },
-              {
-                kind: "block",
-                type: "cfo",
-              },
-              {
-                kind: "block",
-                type: "cmi",
-              },
-              {
-                kind: "block",
-                type: "dema",
-              },
-              {
-                kind: "block",
-                type: "ema",
-              },
-              {
-                kind: "block",
-                type: "kdj",
-              },
-              {
-                kind: "block",
-                type: "macd",
-              },
-              {
-                kind: "block",
-                type: "mi",
-              },
-              {
-                kind: "block",
-                type: "mmax",
-              },
-              {
-                kind: "block",
-                type: "mmin",
-              },
-              {
-                kind: "block",
-                type: "msum",
-              },
-              {
-                kind: "block",
-                type: "psar",
-              },
-              {
-                kind: "block",
-                type: "qstick",
-              },
-              {
-                kind: "block",
-                type: "rma",
-              },
-              {
-                kind: "block",
-                type: "sma",
-              },
-              {
-                kind: "block",
-                type: "tema",
-              },
-              {
-                kind: "block",
-                type: "trima",
-              },
-              {
-                kind: "block",
-                type: "trix",
-              },
-              {
-                kind: "block",
-                type: "typical_price",
-              },
-              {
-                kind: "block",
-                type: "vortex",
-              },
-              {
-                kind: "block",
-                type: "vwma",
-              },
-            ],
-          },
-          {
-            kind: "category",
-            name: "Momentum Indicator",
-            colour: "#9B52E4",
-            contents: [
-              {
-                kind: "block",
-                type: "rsi",
-              },
-              {
-                kind: "block",
-                type: "custom_rsi",
-              },
-            ],
-          },
-          {
-            kind: "category",
-            name: "Volume Indicator",
-            colour: "#9B52E4",
-            contents: [
-              {
-                kind: "block",
-                type: "mfi",
-              },
-            ],
-          },
           {
             kind: "label",
             text: "Strategy Blocks",
@@ -312,6 +183,131 @@ onMounted(() => {
       },
       {
         kind: "category",
+        name: "Trend Indicators",
+        colour: "#9b52e4",
+        contents: [
+          {
+            kind: "block",
+            type: "apo",
+          },
+          {
+            kind: "block",
+            type: "aroon",
+          },
+          {
+            kind: "block",
+            type: "bop",
+          },
+          {
+            kind: "block",
+            type: "cfo",
+          },
+          {
+            kind: "block",
+            type: "cmi",
+          },
+          {
+            kind: "block",
+            type: "dema",
+          },
+          {
+            kind: "block",
+            type: "ema",
+          },
+          {
+            kind: "block",
+            type: "kdj",
+          },
+          {
+            kind: "block",
+            type: "macd",
+          },
+          {
+            kind: "block",
+            type: "mi",
+          },
+          {
+            kind: "block",
+            type: "mmax",
+          },
+          {
+            kind: "block",
+            type: "mmin",
+          },
+          {
+            kind: "block",
+            type: "msum",
+          },
+          {
+            kind: "block",
+            type: "psar",
+          },
+          {
+            kind: "block",
+            type: "qstick",
+          },
+          {
+            kind: "block",
+            type: "rma",
+          },
+          {
+            kind: "block",
+            type: "sma",
+          },
+          {
+            kind: "block",
+            type: "tema",
+          },
+          {
+            kind: "block",
+            type: "trima",
+          },
+          {
+            kind: "block",
+            type: "trix",
+          },
+          {
+            kind: "block",
+            type: "typical_price",
+          },
+          {
+            kind: "block",
+            type: "vortex",
+          },
+          {
+            kind: "block",
+            type: "vwma",
+          },
+        ],
+      },
+      {
+        kind: "category",
+        name: "Momentum Indicator",
+        colour: "#00BCD4",
+        contents: [
+          {
+            kind: "block",
+            type: "rsi",
+          },
+          {
+            kind: "block",
+            type: "custom_rsi",
+          },
+        ],
+      },
+      {
+        kind: "category",
+        name: "Volume Indicator",
+        colour: "#4b5aff",
+        contents: [
+          {
+            kind: "block",
+            type: "mfi",
+          },
+        ],
+      },
+      {
+        kind: "category",
         name: "All",
         colour: "#00B0FF",
         contents: [
@@ -330,10 +326,6 @@ onMounted(() => {
           {
             kind: "label",
             text: "Result Blocks",
-          },
-          {
-            kind: "block",
-            type: "text",
           },
           {
             kind: "block",
@@ -485,6 +477,7 @@ onMounted(() => {
     toolbox: toolbox,
     renderer: "custom_renderer",
     theme: "custom_theme",
+    // theme: "custom_theme",
     move: {
       scrollbars: {
         horizontal: true,
