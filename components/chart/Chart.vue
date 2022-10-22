@@ -7,6 +7,14 @@ const options = {
       radius: 0,
     },
   },
+  scales: {
+    yAxes: {
+      title: {
+        display: true,
+        text: "Gain (%)",
+      },
+    },
+  },
 };
 const chartCanvas = ref<HTMLCanvasElement | null>(null);
 const props = defineProps<{
@@ -44,6 +52,6 @@ watch(
 <style scoped>
 .chart-container {
   position: relative;
-  width: 90vw;
+  width: 100%;
 }
 </style>
