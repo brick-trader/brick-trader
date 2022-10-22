@@ -58,7 +58,7 @@ function calculateStrategyActions(
   let winCount = 0;
   let lastBuy = -1;
   for (let i = 0; i < actions.length; i++) {
-    if (actions[i] === Action.BUY) {
+    if (actions[i] === Action.BUY && lastBuy === -1) {
       lastBuy = i;
       continue;
     }
@@ -69,6 +69,10 @@ function calculateStrategyActions(
       lastBuy = -1;
       continue;
     }
+  }
+  if (lastBuy !== -1) {
+    actionCount++;
+    if (closings[closings.length - 1] - closings[lastBuy] > 0) winCount++;
   }
   return { actionCount, winCount };
 }
