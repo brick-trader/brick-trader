@@ -147,8 +147,16 @@ watch(() => endDateFilterInput.value, refreshData);
           }
         "
       />
-      <input v-model="startDateFilterInput" type="date" />
-      <input v-model="endDateFilterInput" type="date" />
+      <input
+        v-model="startDateFilterInput"
+        type="date"
+        @click="(event) => (event.target as HTMLInputElement).showPicker()"
+      />
+      <input
+        v-model="endDateFilterInput"
+        type="date"
+        @click="(event) => (event.target as HTMLInputElement).showPicker()"
+      />
     </div>
     <hr />
     <ClientOnly v-if="backtestData">
@@ -200,6 +208,7 @@ watch(() => endDateFilterInput.value, refreshData);
   border-radius: 0.5rem;
   background-color: #fff;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .container > input:focus {
