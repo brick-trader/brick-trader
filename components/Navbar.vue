@@ -13,7 +13,13 @@ const isStrategyVaild = computed(() => useStrategy().isStrategyVaild());
         <div id="title">© Brick Trader</div>
       </NuxtLink>
     </div>
-    <div v-if="path != '/editor'" class="button">
+    <div
+      v-if="path != '/editor'"
+      :class="{
+        button: true,
+        'button-enable': true,
+      }"
+    >
       <NuxtLink to="/editor">
         <pre>▶   Continue Editing Strategy</pre>
       </NuxtLink>
@@ -38,7 +44,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   height: 4rem;
-  background: linear-gradient(45deg, #cea4f8, #7723ca, #5500aa);
+  background: #ff9f1c;
 }
 
 nav > div {
@@ -60,22 +66,21 @@ nav > div {
   justify-content: flex-start;
   padding: 0.5em 1em;
   border-radius: 5px;
-  font-weight: bold;
-  background: #c9c9c9;
+  background: #aaa;
 }
 
 .button-enable {
   cursor: pointer;
-  background: #ff9f1c;
+  background: #5700ad;
 }
 
 nav > div > a {
-  color: #5700ad;
+  color: #ffc779;
   text-decoration: none;
 }
 
 .disable-link {
-  color: #888;
+  color: #eee;
   pointer-events: none;
 }
 </style>
