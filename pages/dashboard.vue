@@ -17,16 +17,20 @@ const indicatorts = await import("indicatorts");
 
 const config = useRuntimeConfig();
 const symbol = ref("2330.TW");
-const dateFilterInput = ref("1980-01-01");
-const dateFilter = computed(() => new Date(dateFilterInput.value));
+const startDateFilterInput = ref("2020-01-01");
+const endDateFilterInput = ref(date.format(new Date(), "YYYY-MM-DD"));
+const startDateFilter = computed(() => new Date(startDateFilterInput.value));
+const endDateFilter = computed(() => new Date(endDateFilterInput.value));
 const url = computed(
-  () =>
-    `${config.public.apiBaseUrl}/tickers/${
-      symbol.value
-    }/historical-data?start=${dateFilter.value.toISOString()}`,
+  () => `${config.public.apiBaseUrl}/tickers/${symbol.value}/historical-data`,
 );
-// TODO: change stock
-const { data: stockData, refresh } = await useFetch<Ticker>(url);
+
+const { data: stockData, refresh } = await useFetch<Ticker>(url, {
+  params: {
+    start: startDateFilter.value.toISOString(),
+    end: endDateFilter.value.toISOString(),
+  },
+});
 
 // prepare runtime
 let stock = new Stock(stockData.value);
@@ -114,13 +118,14 @@ function updateDashboard() {
   chartData.value = generateChart(backtestData.value);
 }
 
-watch(
-  () => dateFilterInput.value,
-  async () => {
-    await refresh();
-    updateDashboard();
-  },
-);
+async function refreshData() {
+  await refresh();
+  updateDashboard();
+}
+
+// register filter listener
+watch(() => startDateFilterInput.value, refreshData);
+watch(() => endDateFilterInput.value, refreshData);
 </script>
 
 <template>
@@ -136,7 +141,8 @@ watch(
           }
         "
       />
-      <input v-model="dateFilterInput" type="date" />
+      <input v-model="startDateFilterInput" type="date" />
+      <input v-model="endDateFilterInput" type="date" />
     </div>
     <ClientOnly v-if="backtestData">
       <DashboardCard title="Total Actions">
