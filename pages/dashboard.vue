@@ -183,6 +183,7 @@ watch(() => endDateFilterInput.value, refreshData);
   width: 100%;
   display: flex;
   justify-content: center;
+  z-index: 999;
 }
 
 .container > input {
