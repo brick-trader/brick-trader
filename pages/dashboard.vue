@@ -90,6 +90,19 @@ function backtest(code: string): Backtest {
   const gains = indicatorts
     .applyActions(stock.closings, actions)
     .map((gain) => Math.round(gain * 100));
+
+  const deviations = gains.map((gain, i) => {
+    if (i === 0) return 0;
+    return gain - gains[i - 1];
+  });
+  const positiveDeviations = deviations
+    .filter((deviation) => deviation > 0)
+    .reduce((a, b) => a + b, 0);
+  const negativeDeviations = deviations
+    .filter((deviation) => deviation < 0)
+    .reduce((a, b) => a + b, 0);
+  const profitFactor = positiveDeviations / Math.abs(negativeDeviations);
+
   const { actionCount, winCount } = calculateStrategyActions(
     actions,
     stock.closings,
@@ -98,7 +111,7 @@ function backtest(code: string): Backtest {
   const result = Math.round(
     indicatorts.backtest(stock, [strategy])[0].gain * 100,
   );
-  const t = { gains, winRate, actionCount, winCount, result };
+  const t = { gains, profitFactor, winRate, actionCount, result };
   console.log(t);
   return t;
 }
@@ -128,17 +141,17 @@ function animateDashboardValue() {
     backtestData.value,
     {
       gains: backtestDataSnapshot.gains,
+      profitFactor: 0,
       winRate: 0,
       result: 0,
       actionCount: 0,
-      winCount: 0,
     },
     {
       gains: backtestData.value.gains,
+      profitFactor: backtestData.value.profitFactor,
       winRate: backtestData.value.winRate,
       result: backtestData.value.result,
       actionCount: backtestData.value.actionCount,
-      winCount: backtestData.value.winCount,
       duration: 2,
       ease: Power2.easeOut,
     },
@@ -196,9 +209,6 @@ onMounted(() => {
         <DashboardCard title="Total Closed Trades">
           <p>{{ Math.round(backtestData.actionCount) }}</p>
         </DashboardCard>
-        <DashboardCard title="Total Win">
-          <p>{{ Math.round(backtestData.winCount) }}</p>
-        </DashboardCard>
         <DashboardCard title="Win Rate">
           <p>
             {{
@@ -207,6 +217,9 @@ onMounted(() => {
                 : Math.round(backtestData.winRate)
             }}%
           </p>
+        </DashboardCard>
+        <DashboardCard title="Profit Factor">
+          <p>{{ backtestData.profitFactor.toFixed(2) }}</p>
         </DashboardCard>
         <DashboardCard title="Net Profit">
           <p>{{ Math.round(backtestData.result) }}%</p>
