@@ -376,11 +376,12 @@ hr {
 }
 
 .mask {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  min-height: 100%;
-  min-width: 100%;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
   z-index: 999;
   background-color: #000;
   opacity: 0.5;
