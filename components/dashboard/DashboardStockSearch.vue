@@ -70,6 +70,9 @@ function doSearch(symbol: string) {
   display: flex;
   height: 3rem;
   width: 32rem;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
 }
 
 .search-box > form {
@@ -80,20 +83,28 @@ function doSearch(symbol: string) {
 .search-box > form > input {
   width: 100%;
   height: 100%;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.search-box > form > input:focus {
+  outline: 1px solid #ddd;
 }
 
 .search-box > form > div > ul {
+  margin-top: 5px;
+  border-radius: 0.5rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .search-box > form > div > ul > li {
   display: flex;
   list-style: none;
   max-width: 100%;
-  padding: 0.5rem;
+  padding: 1rem;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

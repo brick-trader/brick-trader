@@ -6,6 +6,7 @@ import { Backtest } from "~~/types/backtest/backtest";
 import { Stock } from "~~/stock/stock";
 import { useStrategy } from "~~/stores/strategy";
 import date from "date-and-time";
+import { useDashboard } from "~~/stores/dashboard";
 
 definePageMeta({
   pageTransition: {
@@ -16,9 +17,10 @@ definePageMeta({
 const indicatorts = await import("indicatorts");
 
 const config = useRuntimeConfig();
-const symbol = ref("2330.TW");
-const startDateFilterInput = ref("2020-01-01");
-const endDateFilterInput = ref(date.format(new Date(), "YYYY-MM-DD"));
+const dashboardState = useDashboard();
+const symbol = ref(dashboardState.symbol);
+const startDateFilterInput = ref(dashboardState.startDateFilterInput);
+const endDateFilterInput = ref(dashboardState.endDateFilterInput);
 const startDateFilter = computed(() => new Date(startDateFilterInput.value));
 const endDateFilter = computed(() => new Date(endDateFilterInput.value));
 const url = computed(
@@ -56,7 +58,7 @@ function calculateStrategyActions(
   let winCount = 0;
   let lastBuy = -1;
   for (let i = 0; i < actions.length; i++) {
-    if (actions[i] === Action.BUY) {
+    if (actions[i] === Action.BUY && lastBuy === -1) {
       lastBuy = i;
       continue;
     }
@@ -67,6 +69,10 @@ function calculateStrategyActions(
       lastBuy = -1;
       continue;
     }
+  }
+  if (lastBuy !== -1) {
+    actionCount++;
+    if (closings[closings.length - 1] - closings[lastBuy] > 0) winCount++;
   }
   return { actionCount, winCount };
 }
@@ -141,25 +147,38 @@ watch(() => endDateFilterInput.value, refreshData);
           }
         "
       />
-      <input v-model="startDateFilterInput" type="date" />
-      <input v-model="endDateFilterInput" type="date" />
+      <input
+        v-model="startDateFilterInput"
+        type="date"
+        @click="(event) => (event.target as HTMLInputElement).showPicker()"
+      />
+      <input
+        v-model="endDateFilterInput"
+        type="date"
+        @click="(event) => (event.target as HTMLInputElement).showPicker()"
+      />
     </div>
+    <hr />
     <ClientOnly v-if="backtestData">
-      <DashboardCard title="Total Actions">
-        <p>{{ backtestData.actionCount }}</p>
-      </DashboardCard>
-      <DashboardCard title="Total Win">
-        <p>{{ backtestData.winCount }}</p>
-      </DashboardCard>
-      <DashboardCard title="Win Rate">
-        <p>{{ isNaN(backtestData.winRate) ? 0 : backtestData.winRate }}%</p>
-      </DashboardCard>
-      <DashboardCard title="Final Gain">
-        <p>{{ backtestData.result }}%</p>
-      </DashboardCard>
-      <DashboardCard title="Chart">
-        <Chart :data="chartData" />
-      </DashboardCard>
+      <div id="infos">
+        <DashboardCard title="Total Actions">
+          <p>{{ backtestData.actionCount }}</p>
+        </DashboardCard>
+        <DashboardCard title="Total Win">
+          <p>{{ backtestData.winCount }}</p>
+        </DashboardCard>
+        <DashboardCard title="Win Rate">
+          <p>{{ isNaN(backtestData.winRate) ? 0 : backtestData.winRate }}%</p>
+        </DashboardCard>
+        <DashboardCard title="Final Gain">
+          <p>{{ backtestData.result }}%</p>
+        </DashboardCard>
+      </div>
+      <div id="chart-container">
+        <DashboardCard title="Chart">
+          <Chart :data="chartData" />
+        </DashboardCard>
+      </div>
     </ClientOnly>
   </div>
 </template>
@@ -172,14 +191,72 @@ watch(() => endDateFilterInput.value, refreshData);
   justify-content: center;
 }
 
-.dashboard > div {
-  margin: 0.25rem;
-}
-
 .container {
+  margin-top: 3em;
+  padding: 0 1em;
   width: 100%;
   display: flex;
   justify-content: center;
-  z-index: 50;
+  z-index: 999;
+}
+
+.container > input {
+  margin-left: 1em;
+  min-width: 200px;
+  padding: 0 1em;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.container > input:focus {
+  outline: 1px solid #ddd;
+}
+
+#infos {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1em 0.5em 0 0.5em;
+}
+
+#infos > div {
+  margin: 0 0.5em;
+  flex: 1;
+  height: 100%;
+}
+
+#infos > div > p {
+  padding: 0.5em 0 0.2em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  color: #888;
+}
+
+#chart-container {
+  display: flex;
+  justify-content: center;
+  margin: 1em;
+  width: 100%;
+}
+
+#chart-container > div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+hr {
+  width: 100%;
+  margin: 3em 1em 2em 1em;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid #eee;
 }
 </style>
