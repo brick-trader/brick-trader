@@ -144,6 +144,7 @@ watch(() => endDateFilterInput.value, refreshData);
       <input v-model="startDateFilterInput" type="date" />
       <input v-model="endDateFilterInput" type="date" />
     </div>
+    <hr />
     <ClientOnly v-if="backtestData">
       <div id="infos">
         <DashboardCard title="Total Actions">
@@ -177,7 +178,7 @@ watch(() => endDateFilterInput.value, refreshData);
 }
 
 .container {
-  margin-top: 1em;
+  margin-top: 3em;
   padding: 0 1em;
   width: 100%;
   display: flex;
@@ -232,5 +233,14 @@ watch(() => endDateFilterInput.value, refreshData);
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+hr {
+  width: 100%;
+  margin: 3em 1em 2em 1em;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid #eee;
 }
 </style>
