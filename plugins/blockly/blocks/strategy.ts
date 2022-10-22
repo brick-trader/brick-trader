@@ -24,6 +24,16 @@ Blockly.Blocks["strategy"] = {
       )
       .appendField("when");
     this.appendValueInput("SIGNALS0").setCheck("Boolean[]");
+    this.appendDummyInput("ACTION_DECISION1")
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["buy", "BUY"],
+          ["sell", "SELL"],
+        ]),
+        "ACTION1",
+      )
+      .appendField("when");
+    this.appendValueInput("SIGNALS1").setCheck("Boolean[]");
     this.setColour(230);
     this.setTooltip("");
     this.setHelpUrl("");
@@ -43,7 +53,7 @@ Blockly.Blocks["strategy"] = {
   domToMutation: function (xmlElement: HTMLElement) {
     this.numAdditionalActions =
       parseInt(xmlElement.getAttribute("num_additional_actions"), 10) || 0;
-    for (let i = 1; i <= this.numAdditionalActions; i++) {
+    for (let i = 2; i <= this.numAdditionalActions; i++) {
       this.appendDummyInput()
         .appendField(
           new Blockly.FieldDropdown([
@@ -86,7 +96,7 @@ Blockly.Blocks["strategy"] = {
     containerBlock.initSvg();
 
     let connection = containerBlock.getInput("STACK").connection;
-    for (let i = 1; i <= this.numAdditionalActions; i++) {
+    for (let i = 2; i <= this.numAdditionalActions; i++) {
       const actionBlock = workspace.newBlock(
         "additional_action",
       ) as Blockly.BlockSvg;
@@ -98,11 +108,11 @@ Blockly.Blocks["strategy"] = {
     return containerBlock;
   },
   compose: function (containerBlock: Blockly.BlockSvg) {
-    for (let i = 1; i <= this.numAdditionalActions; i++) {
+    for (let i = 2; i <= this.numAdditionalActions; i++) {
       this.removeInput("ACTION_DECISION" + i);
       this.removeInput("SIGNALS" + i);
     }
-    this.numAdditionalActions = 0;
+    this.numAdditionalActions = 1;
 
     let actionBlock = containerBlock.getInputTargetBlock("STACK");
     while (actionBlock) {
@@ -128,7 +138,7 @@ Blockly.Blocks["strategy"] = {
   },
   saveConnections: function (containerBlock: Blockly.Block) {
     let actionBlock = containerBlock.getInputTargetBlock("STACK");
-    let i = 1;
+    let i = 2;
     while (actionBlock) {
       const inputSignals = this.getInput("SIGNALS" + i);
       (actionBlock as any).valueConnection_ =

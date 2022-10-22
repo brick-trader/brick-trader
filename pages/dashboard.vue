@@ -7,6 +7,8 @@ import { Stock } from "~~/stock/stock";
 import { useStrategy } from "~~/stores/strategy";
 import date from "date-and-time";
 import { useDashboard } from "~~/stores/dashboard";
+import gsap from "gsap";
+import { Power2 } from "gsap";
 
 definePageMeta({
   pageTransition: {
@@ -118,10 +120,36 @@ function generateChart(backtestData: Backtest) {
   };
 }
 
+function animateDashboardValue() {
+  if (!backtestData.value) return;
+
+  const backtestDataSnapshot = backtestData.value;
+  gsap.fromTo(
+    backtestData.value,
+    {
+      gains: backtestDataSnapshot.gains,
+      winRate: 0,
+      result: 0,
+      actionCount: 0,
+      winCount: 0,
+    },
+    {
+      gains: backtestData.value.gains,
+      winRate: backtestData.value.winRate,
+      result: backtestData.value.result,
+      actionCount: backtestData.value.actionCount,
+      winCount: backtestData.value.winCount,
+      duration: 2,
+      ease: Power2.easeOut,
+    },
+  );
+}
+
 function updateDashboard() {
   stock = new Stock(stockData.value);
   backtestData.value = backtest(strategyCode);
   chartData.value = generateChart(backtestData.value);
+  animateDashboardValue();
 }
 
 async function refreshData() {
@@ -132,6 +160,10 @@ async function refreshData() {
 // register filter listener
 watch(() => startDateFilterInput.value, refreshData);
 watch(() => endDateFilterInput.value, refreshData);
+
+onMounted(() => {
+  animateDashboardValue();
+});
 </script>
 
 <template>
@@ -147,23 +179,37 @@ watch(() => endDateFilterInput.value, refreshData);
           }
         "
       />
-      <input v-model="startDateFilterInput" type="date" />
-      <input v-model="endDateFilterInput" type="date" />
+      <input
+        v-model="startDateFilterInput"
+        type="date"
+        @click="(event) => (event.target as HTMLInputElement).showPicker()"
+      />
+      <input
+        v-model="endDateFilterInput"
+        type="date"
+        @click="(event) => (event.target as HTMLInputElement).showPicker()"
+      />
     </div>
     <hr />
     <ClientOnly v-if="backtestData">
       <div id="infos">
-        <DashboardCard title="Total Actions">
-          <p>{{ backtestData.actionCount }}</p>
+        <DashboardCard title="Total Closed Trades">
+          <p>{{ Math.round(backtestData.actionCount) }}</p>
         </DashboardCard>
         <DashboardCard title="Total Win">
-          <p>{{ backtestData.winCount }}</p>
+          <p>{{ Math.round(backtestData.winCount) }}</p>
         </DashboardCard>
         <DashboardCard title="Win Rate">
-          <p>{{ isNaN(backtestData.winRate) ? 0 : backtestData.winRate }}%</p>
+          <p>
+            {{
+              isNaN(backtestData.winRate)
+                ? 0
+                : Math.round(backtestData.winRate)
+            }}%
+          </p>
         </DashboardCard>
-        <DashboardCard title="Final Gain">
-          <p>{{ backtestData.result }}%</p>
+        <DashboardCard title="Net Profit">
+          <p>{{ Math.round(backtestData.result) }}%</p>
         </DashboardCard>
       </div>
       <div id="chart-container">
@@ -200,6 +246,7 @@ watch(() => endDateFilterInput.value, refreshData);
   border-radius: 0.5rem;
   background-color: #fff;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .container > input:focus {
@@ -218,6 +265,9 @@ watch(() => endDateFilterInput.value, refreshData);
   margin: 0 0.5em;
   flex: 1;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #infos > div > p {
