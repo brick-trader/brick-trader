@@ -10,6 +10,7 @@ import { useDashboard } from "~~/stores/dashboard";
 import gsap from "gsap";
 import { Power2 } from "gsap";
 import Loading from "~/components/Loading.vue";
+import Vue3ChartJs from "@j-t-mcc/vue3-chartjs";
 
 definePageMeta({
   pageTransition: {
@@ -24,6 +25,7 @@ const strategyState = useStrategy();
 
 if (!strategyState.isStrategyVaild()) useRouter().replace("/editor");
 
+const chartRef = ref<InstanceType<Vue3ChartJs> | null>(null);
 const dashboardState = useDashboard();
 const symbol = ref(dashboardState.symbol);
 const startDateFilterInput = ref(dashboardState.startDateFilterInput);
@@ -31,15 +33,14 @@ const endDateFilterInput = ref(dashboardState.endDateFilterInput);
 const startDateFilter = computed(() => new Date(startDateFilterInput.value));
 const endDateFilter = computed(() => new Date(endDateFilterInput.value));
 const url = computed(
-  () => `${config.public.apiBaseUrl}/tickers/${symbol.value}/historical-data`,
+  () =>
+    `${config.public.apiBaseUrl}/tickers/${
+      symbol.value
+    }/historical-data?start=${startDateFilter.value.toISOString()}&end=${endDateFilter.value.toISOString()}`,
 );
 
-const { data: stockData, refresh } = await useFetch<Ticker>(url, {
-  params: {
-    start: startDateFilter.value.toISOString(),
-    end: endDateFilter.value.toISOString(),
-  },
-});
+// useFetch options is not reactive
+const { data: stockData, refresh } = await useFetch<Ticker>(url);
 
 // prepare runtime
 let stock = new Stock(stockData.value);
@@ -51,7 +52,22 @@ if (indicatorts && stock && runtime && process.client) {
 const strategyCode = strategyState.code;
 
 const backtestData = ref(backtest(strategyCode));
-const chartData = ref(generateChart(backtestData.value));
+const chartData = generateChart(backtestData.value);
+const chartOptions = {
+  elements: {
+    point: {
+      radius: 0,
+    },
+  },
+  scales: {
+    yAxes: {
+      title: {
+        display: true,
+        text: "Net Profit (%)",
+      },
+    },
+  },
+};
 
 function calculateStrategyActions(
   actions: Action[],
@@ -91,6 +107,19 @@ function backtest(code: string): Backtest {
   const gains = indicatorts
     .applyActions(stock.closings, actions)
     .map((gain) => Math.round(gain * 100));
+
+  const deviations = gains.map((gain, i) => {
+    if (i === 0) return 0;
+    return gain - gains[i - 1];
+  });
+  const positiveDeviations = deviations
+    .filter((deviation) => deviation > 0)
+    .reduce((a, b) => a + b, 0);
+  const negativeDeviations = deviations
+    .filter((deviation) => deviation < 0)
+    .reduce((a, b) => a + b, 0);
+  const profitFactor = positiveDeviations / Math.abs(negativeDeviations);
+
   const { actionCount, winCount } = calculateStrategyActions(
     actions,
     stock.closings,
@@ -99,12 +128,7 @@ function backtest(code: string): Backtest {
   const result = Math.round(
     indicatorts.backtest(stock, [strategy])[0].gain * 100,
   );
-  const t = { gains, winRate, actionCount, winCount, result };
-
-  this.$refs.mask.style.display = "none";
-  this.$refs.loading.style.display = "none";
-  console.log(t);
-  return t;
+  return { gains, profitFactor, winRate, actionCount, result };
 }
 
 function generateChart(backtestData: Backtest) {
@@ -115,7 +139,7 @@ function generateChart(backtestData: Backtest) {
     datasets: [
       {
         label: "Gain",
-        data: backtestData.gains,
+        data: [...backtestData.gains],
         borderColor: "rgba(54, 162, 235, 1)",
         backgroundColor: "rgba(54, 162, 235, 0.2)",
         borderWidth: 1,
@@ -132,28 +156,37 @@ function animateDashboardValue() {
     backtestData.value,
     {
       gains: backtestDataSnapshot.gains,
+      profitFactor: 0,
       winRate: 0,
       result: 0,
       actionCount: 0,
-      winCount: 0,
     },
     {
       gains: backtestData.value.gains,
+      profitFactor: backtestData.value.profitFactor,
       winRate: backtestData.value.winRate,
       result: backtestData.value.result,
       actionCount: backtestData.value.actionCount,
-      winCount: backtestData.value.winCount,
       duration: 2,
       ease: Power2.easeOut,
     },
   );
 }
 
+function updateChart() {
+  if (chartRef.value === null) return;
+
+  const newChartData = generateChart(backtestData.value);
+  chartData.labels = newChartData.labels;
+  chartData.datasets = newChartData.datasets;
+  chartRef.value.update(250);
+}
+
 function updateDashboard() {
   stock = new Stock(stockData.value);
   backtestData.value = backtest(strategyCode);
-  chartData.value = generateChart(backtestData.value);
   animateDashboardValue();
+  updateChart();
 }
 
 async function refreshData() {
@@ -202,9 +235,6 @@ onMounted(() => {
         <DashboardCard title="Total Closed Trades">
           <p>{{ Math.round(backtestData.actionCount) }}</p>
         </DashboardCard>
-        <DashboardCard title="Total Win">
-          <p>{{ Math.round(backtestData.winCount) }}</p>
-        </DashboardCard>
         <DashboardCard title="Win Rate">
           <p>
             {{
@@ -214,13 +244,21 @@ onMounted(() => {
             }}%
           </p>
         </DashboardCard>
+        <DashboardCard title="Profit Factor">
+          <p>{{ backtestData.profitFactor.toFixed(2) }}</p>
+        </DashboardCard>
         <DashboardCard title="Net Profit">
           <p>{{ Math.round(backtestData.result) }}%</p>
         </DashboardCard>
       </div>
       <div id="chart-container">
         <DashboardCard title="Chart">
-          <Chart :data="chartData" />
+          <Vue3ChartJs
+            ref="chartRef"
+            type="line"
+            :data="chartData"
+            :options="chartOptions"
+          />
         </DashboardCard>
       </div>
     </ClientOnly>
