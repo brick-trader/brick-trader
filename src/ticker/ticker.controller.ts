@@ -44,6 +44,7 @@ export class TickerController {
   async getTickerWithFilteredHistoricalData(
     @Param("symbol") symbol: string,
     @Query("start") start: Date,
+    @Query("end") end: Date,
   ): Promise<
     TickerModel & {
       historicalData: HistoricalDataModel[];
@@ -57,6 +58,7 @@ export class TickerController {
       {
         date: {
           gte: start,
+          lte: end,
         },
       },
     );
