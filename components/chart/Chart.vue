@@ -11,7 +11,7 @@ const options = {
     yAxes: {
       title: {
         display: true,
-        text: "Gain (%)",
+        text: "Net Profit (%)",
       },
     },
   },
