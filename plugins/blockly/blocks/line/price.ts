@@ -7,9 +7,9 @@ Blockly.Blocks["price"] = {
       .appendField("(")
       .appendField(
         new Blockly.FieldDropdown([
-          ["open", "openings"],
           ["close", "closings"],
           ["adj close", "adjCloses"],
+          ["open", "openings"],
         ]),
         "TYPE",
       )

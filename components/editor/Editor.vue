@@ -1,11 +1,19 @@
 <template>
-  <div id="blocklyDiv" ref="blocklyDiv"></div>
-  <button @click="exportWorkspace">Export</button>
-  <button @click="importWorkspace">Import</button>
+  <div id="editor-container">
+    <div id="blocklyDiv" ref="blocklyDiv"></div>
+    <div id="button-container">
+      <button @click="exportWorkspace">Export</button>
+      <button @click="importWorkspace">Import</button>
+    </div>
+  </div>
 </template>
+
 <script setup lang="ts">
 import Blockly, { Workspace } from "blockly";
+import { useEditor } from "~~/stores/editor";
+import { useStrategy } from "~~/stores/strategy";
 
+const editorState = useEditor();
 const blocklyDiv = ref<HTMLElement>();
 
 let workspace = shallowRef<Workspace>();
@@ -74,21 +82,33 @@ function importWorkspace() {
   input.click();
 }
 
+function saveStrategyState(workspace: Blockly.Workspace) {
+  if (!workspace) return;
+  const code = Blockly.JavaScript.workspaceToCode(workspace);
+  console.log(code);
+  // TODO: remove unnecessary code
+  useStrategy().code = code;
+}
+
+function saveEditorState(workspace: Blockly.Workspace) {
+  if (!workspace) return;
+  const currentWorkspace = Blockly.serialization.workspaces.save(workspace);
+  editorState.workspaceSnapshot = currentWorkspace;
+}
+
 // in setup life hook, dom is not ready yet
 onMounted(() => {
-  // TODO: use a better way to set blocklyDiv size
-  let w = window.innerWidth * 0.95;
-  let h = window.innerHeight * 0.95;
+  const emInPx = parseFloat(
+    getComputedStyle(document.documentElement).fontSize,
+  );
 
-  blocklyDiv.value.style.width = w + "px";
-  blocklyDiv.value.style.height = h + "px";
+  // TODO: use a better way to set blocklyDiv size
+  blocklyDiv.value.style.width = window.innerWidth + "px";
+  blocklyDiv.value.style.height = window.innerHeight - 4 * emInPx + "px";
 
   window.addEventListener("resize", () => {
-    w = window.innerWidth * 0.95;
-    h = window.innerHeight * 0.95;
-
-    blocklyDiv.value.style.width = w + "px";
-    blocklyDiv.value.style.height = h + "px";
+    blocklyDiv.value.style.width = window.innerWidth + "px";
+    blocklyDiv.value.style.height = window.innerHeight - 4 * emInPx + "px";
   });
 
   const toolbox = {
@@ -134,16 +154,13 @@ onMounted(() => {
         colour: "#EC407A",
         contents: [
           {
+            kind: "label",
+            text: "Strategy Blocks",
+          },
+
+          {
             kind: "block",
             type: "strategy",
-          },
-          {
-            kind: "block",
-            type: "action",
-          },
-          {
-            kind: "block",
-            type: "apply_first_match",
             mutator: "add_action",
           },
           {
@@ -160,10 +177,6 @@ onMounted(() => {
           },
           {
             kind: "block",
-            type: "backtest",
-          },
-          {
-            kind: "block",
             type: "price",
           },
         ],
@@ -171,7 +184,7 @@ onMounted(() => {
       {
         kind: "category",
         name: "Trend Indicators",
-        colour: "#00BCD4",
+        colour: "#9b52e4",
         contents: [
           {
             kind: "block",
@@ -179,11 +192,31 @@ onMounted(() => {
           },
           {
             kind: "block",
+            type: "aroon",
+          },
+          {
+            kind: "block",
+            type: "bop",
+          },
+          {
+            kind: "block",
+            type: "cfo",
+          },
+          {
+            kind: "block",
+            type: "cmi",
+          },
+          {
+            kind: "block",
+            type: "dema",
+          },
+          {
+            kind: "block",
             type: "ema",
           },
           {
             kind: "block",
-            type: "sma",
+            type: "kdj",
           },
           {
             kind: "block",
@@ -191,11 +224,55 @@ onMounted(() => {
           },
           {
             kind: "block",
+            type: "mi",
+          },
+          {
+            kind: "block",
+            type: "mmax",
+          },
+          {
+            kind: "block",
+            type: "mmin",
+          },
+          {
+            kind: "block",
+            type: "msum",
+          },
+          {
+            kind: "block",
             type: "psar",
           },
           {
             kind: "block",
-            type: "kdj",
+            type: "qstick",
+          },
+          {
+            kind: "block",
+            type: "rma",
+          },
+          {
+            kind: "block",
+            type: "sma",
+          },
+          {
+            kind: "block",
+            type: "tema",
+          },
+          {
+            kind: "block",
+            type: "trima",
+          },
+          {
+            kind: "block",
+            type: "trix",
+          },
+          {
+            kind: "block",
+            type: "typical_price",
+          },
+          {
+            kind: "block",
+            type: "vortex",
           },
           {
             kind: "block",
@@ -206,7 +283,7 @@ onMounted(() => {
       {
         kind: "category",
         name: "Momentum Indicator",
-        colour: "#9B52E4",
+        colour: "#00BCD4",
         contents: [
           {
             kind: "block",
@@ -215,6 +292,17 @@ onMounted(() => {
           {
             kind: "block",
             type: "custom_rsi",
+          },
+        ],
+      },
+      {
+        kind: "category",
+        name: "Volume Indicator",
+        colour: "#4b5aff",
+        contents: [
+          {
+            kind: "block",
+            type: "mfi",
           },
         ],
       },
@@ -265,15 +353,27 @@ onMounted(() => {
           },
           {
             kind: "block",
-            type: "sma",
+            type: "aroon",
           },
           {
             kind: "block",
-            type: "macd",
+            type: "bop",
           },
           {
             kind: "block",
-            type: "psar",
+            type: "cfo",
+          },
+          {
+            kind: "block",
+            type: "cmi",
+          },
+          {
+            kind: "block",
+            type: "dema",
+          },
+          {
+            kind: "block",
+            type: "ema",
           },
           {
             kind: "block",
@@ -281,19 +381,71 @@ onMounted(() => {
           },
           {
             kind: "block",
+            type: "macd",
+          },
+          {
+            kind: "block",
+            type: "mi",
+          },
+          {
+            kind: "block",
+            type: "mmax",
+          },
+          {
+            kind: "block",
+            type: "mmin",
+          },
+          {
+            kind: "block",
+            type: "msum",
+          },
+          {
+            kind: "block",
+            type: "psar",
+          },
+          {
+            kind: "block",
+            type: "qstick",
+          },
+          {
+            kind: "block",
+            type: "rma",
+          },
+          {
+            kind: "block",
+            type: "sma",
+          },
+          {
+            kind: "block",
+            type: "tema",
+          },
+          {
+            kind: "block",
+            type: "trima",
+          },
+          {
+            kind: "block",
+            type: "trix",
+          },
+          {
+            kind: "block",
+            type: "typical_price",
+          },
+          {
+            kind: "block",
+            type: "vortex",
+          },
+          {
+            kind: "block",
             type: "vwma",
           },
           {
             kind: "block",
+            type: "mfi",
+          },
+          {
+            kind: "block",
             type: "strategy",
-          },
-          {
-            kind: "block",
-            type: "action",
-          },
-          {
-            kind: "block",
-            type: "apply_first_match",
             mutator: "add_action",
           },
           {
@@ -307,10 +459,6 @@ onMounted(() => {
           {
             kind: "block",
             type: "cross",
-          },
-          {
-            kind: "block",
-            type: "backtest",
           },
           {
             kind: "block",
@@ -345,5 +493,52 @@ onMounted(() => {
     },
     trashcan: true,
   });
+  workspace.value.addChangeListener(() => saveStrategyState(workspace.value));
+  workspace.value.addChangeListener(() => saveEditorState(workspace.value));
+
+  if (editorState.workspaceSnapshot) {
+    // load previous state
+    Blockly.serialization.workspaces.load(
+      editorState.workspaceSnapshot,
+      workspace.value,
+    );
+  }
 });
 </script>
+
+<style scoped>
+#editor-container {
+  height: calc(100vh - 4em);
+  overflow: hidden;
+}
+
+#button-container {
+  position: absolute;
+  bottom: 5.5em;
+  right: 0;
+  width: 7.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5em;
+}
+
+button {
+  width: 5em;
+  height: 5em;
+  color: #fff;
+  background-color: #a0a0a0;
+  border: 1px solid #a0a0a0;
+  border-radius: 5px;
+  margin-bottom: 2em;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+}
+
+button:hover {
+  opacity: 1;
+}
+</style>
