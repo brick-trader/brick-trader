@@ -161,7 +161,7 @@ watch(() => endDateFilterInput.value, refreshData);
     <hr />
     <ClientOnly v-if="backtestData">
       <div id="infos">
-        <DashboardCard title="Total Actions">
+        <DashboardCard title="Total Closed Trades">
           <p>{{ backtestData.actionCount }}</p>
         </DashboardCard>
         <DashboardCard title="Total Win">
@@ -170,7 +170,7 @@ watch(() => endDateFilterInput.value, refreshData);
         <DashboardCard title="Win Rate">
           <p>{{ isNaN(backtestData.winRate) ? 0 : backtestData.winRate }}%</p>
         </DashboardCard>
-        <DashboardCard title="Final Gain">
+        <DashboardCard title="Net Profit">
           <p>{{ backtestData.result }}%</p>
         </DashboardCard>
       </div>
@@ -227,6 +227,9 @@ watch(() => endDateFilterInput.value, refreshData);
   margin: 0 0.5em;
   flex: 1;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #infos > div > p {
