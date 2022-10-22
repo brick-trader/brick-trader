@@ -2,10 +2,15 @@ import Blockly from "blockly";
 
 Blockly.Blocks["strategy"] = {
   init: function () {
-    this.appendDummyInput().appendField(
-      new Blockly.FieldTextInput("NewStrategy"),
-      "STRATEGY_NAME",
-    );
+    const strategyNameValidator = (newValue: string) => {
+      const vaildationRegex = /^[A-Za-z][A-Za-z0-9]*$/;
+      if (!newValue.match(vaildationRegex)) return null;
+      return newValue;
+    };
+
+    const strategyNameField = new Blockly.FieldTextInput("NewStrategy");
+    strategyNameField.setValidator(strategyNameValidator);
+    this.appendDummyInput().appendField(strategyNameField, "STRATEGY_NAME");
     this.appendDummyInput().appendField("");
     this.appendDummyInput().appendField("Apply actions: ");
     this.appendDummyInput().appendField("");

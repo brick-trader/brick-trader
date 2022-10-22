@@ -17,6 +17,10 @@ definePageMeta({
 const indicatorts = await import("indicatorts");
 
 const config = useRuntimeConfig();
+const strategyState = useStrategy();
+
+if (!strategyState.isStrategyVaild()) useRouter().replace("/editor");
+
 const dashboardState = useDashboard();
 const symbol = ref(dashboardState.symbol);
 const startDateFilterInput = ref(dashboardState.startDateFilterInput);
@@ -41,11 +45,7 @@ if (indicatorts && stock && runtime && process.client) {
   console.log("Backtest runtime ready");
 }
 
-const strategyCode = useStrategy().code;
-
-if (!strategyCode && process.client) {
-  console.log("Strategy not found");
-}
+const strategyCode = strategyState.code;
 
 const backtestData = ref(backtest(strategyCode));
 const chartData = ref(generateChart(backtestData.value));
