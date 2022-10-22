@@ -8,7 +8,16 @@ export const useStrategy = defineStore("strategy", {
   state: (): StrategyState => ({
     code: null,
   }),
-  actions: {},
+  actions: {
+    isStrategyVaild() {
+      if (!this.code) return false;
+
+      const vaildationRegex =
+        /^\(\{name: \"[A-Za-z][A-Za-z0-9]*\", strategy: \(stock\) => runtime\.fn\.applyFirstMatch\(\(runtime\.fn\.(.*)\)\)\}\)$/;
+      const match = this.code.match(vaildationRegex);
+      return match !== null && !match[1].includes("[]");
+    },
+  },
 });
 
 if (import.meta.hot) {
