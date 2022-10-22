@@ -6,6 +6,7 @@ import { Backtest } from "~~/types/backtest/backtest";
 import { Stock } from "~~/stock/stock";
 import { useStrategy } from "~~/stores/strategy";
 import date from "date-and-time";
+import { useDashboard } from "~~/stores/dashboard";
 
 definePageMeta({
   pageTransition: {
@@ -16,9 +17,10 @@ definePageMeta({
 const indicatorts = await import("indicatorts");
 
 const config = useRuntimeConfig();
-const symbol = ref("2330.TW");
-const startDateFilterInput = ref("2020-01-01");
-const endDateFilterInput = ref(date.format(new Date(), "YYYY-MM-DD"));
+const dashboardState = useDashboard();
+const symbol = ref(dashboardState.symbol);
+const startDateFilterInput = ref(dashboardState.startDateFilterInput);
+const endDateFilterInput = ref(dashboardState.endDateFilterInput);
 const startDateFilter = computed(() => new Date(startDateFilterInput.value));
 const endDateFilter = computed(() => new Date(endDateFilterInput.value));
 const url = computed(
@@ -56,7 +58,7 @@ function calculateStrategyActions(
   let winCount = 0;
   let lastBuy = -1;
   for (let i = 0; i < actions.length; i++) {
-    if (actions[i] === Action.BUY) {
+    if (actions[i] === Action.BUY && lastBuy === -1) {
       lastBuy = i;
       continue;
     }
@@ -67,6 +69,10 @@ function calculateStrategyActions(
       lastBuy = -1;
       continue;
     }
+  }
+  if (lastBuy !== -1) {
+    actionCount++;
+    if (closings[closings.length - 1] - closings[lastBuy] > 0) winCount++;
   }
   return { actionCount, winCount };
 }

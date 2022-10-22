@@ -151,7 +151,7 @@ onMounted(() => {
       {
         kind: "category",
         name: "Function",
-        colour: "#EC407A",
+        colour: "#9B52E4",
         contents: [
           {
             kind: "label",
@@ -184,7 +184,7 @@ onMounted(() => {
       {
         kind: "category",
         name: "Trend Indicators",
-        colour: "#9b52e4",
+        colour: "#FF9F1C",
         contents: [
           {
             kind: "block",

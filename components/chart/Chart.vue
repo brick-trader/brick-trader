@@ -7,6 +7,14 @@ const options = {
       radius: 0,
     },
   },
+  scales: {
+    yAxes: {
+      title: {
+        display: true,
+        text: "Gain (%)",
+      },
+    },
+  },
 };
 const chartCanvas = ref<HTMLCanvasElement | null>(null);
 const props = defineProps<{
