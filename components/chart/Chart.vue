@@ -44,6 +44,6 @@ watch(
 <style scoped>
 .chart-container {
   position: relative;
-  width: 90vw;
+  width: 100%;
 }
 </style>

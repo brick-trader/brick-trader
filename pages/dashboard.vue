@@ -145,21 +145,25 @@ watch(() => endDateFilterInput.value, refreshData);
       <input v-model="endDateFilterInput" type="date" />
     </div>
     <ClientOnly v-if="backtestData">
-      <DashboardCard title="Total Actions">
-        <p>{{ backtestData.actionCount }}</p>
-      </DashboardCard>
-      <DashboardCard title="Total Win">
-        <p>{{ backtestData.winCount }}</p>
-      </DashboardCard>
-      <DashboardCard title="Win Rate">
-        <p>{{ isNaN(backtestData.winRate) ? 0 : backtestData.winRate }}%</p>
-      </DashboardCard>
-      <DashboardCard title="Final Gain">
-        <p>{{ backtestData.result }}%</p>
-      </DashboardCard>
-      <DashboardCard title="Chart">
-        <Chart :data="chartData" />
-      </DashboardCard>
+      <div id="infos">
+        <DashboardCard title="Total Actions">
+          <p>{{ backtestData.actionCount }}</p>
+        </DashboardCard>
+        <DashboardCard title="Total Win">
+          <p>{{ backtestData.winCount }}</p>
+        </DashboardCard>
+        <DashboardCard title="Win Rate">
+          <p>{{ isNaN(backtestData.winRate) ? 0 : backtestData.winRate }}%</p>
+        </DashboardCard>
+        <DashboardCard title="Final Gain">
+          <p>{{ backtestData.result }}%</p>
+        </DashboardCard>
+      </div>
+      <div id="chart-container">
+        <DashboardCard title="Chart">
+          <Chart :data="chartData" />
+        </DashboardCard>
+      </div>
     </ClientOnly>
   </div>
 </template>
@@ -172,14 +176,61 @@ watch(() => endDateFilterInput.value, refreshData);
   justify-content: center;
 }
 
-.dashboard > div {
-  margin: 0.25rem;
-}
-
 .container {
+  margin-top: 1em;
+  padding: 0 1em;
   width: 100%;
   display: flex;
   justify-content: center;
-  z-index: 50;
+}
+
+.container > input {
+  margin-left: 1em;
+  min-width: 200px;
+  padding: 0 1em;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.container > input:focus {
+  outline: 1px solid #ddd;
+}
+
+#infos {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1em 0.5em 0 0.5em;
+}
+
+#infos > div {
+  margin: 0 0.5em;
+  flex: 1;
+  height: 100%;
+}
+
+#infos > div > p {
+  padding: 0.5em 0 0.2em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  color: #888;
+}
+
+#chart-container {
+  display: flex;
+  justify-content: center;
+  margin: 1em;
+  width: 100%;
+}
+
+#chart-container > div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 </style>
