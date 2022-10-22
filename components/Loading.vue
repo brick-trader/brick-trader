@@ -23,7 +23,6 @@ const styles = computed(() => {
 .animation {
   background-color: transparent;
   width: auto;
-  height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
