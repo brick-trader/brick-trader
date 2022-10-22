@@ -12,6 +12,6 @@ Blockly.Blocks["macd"] = {
 };
 
 Blockly.JavaScript["macd"] = function (_) {
-  const code = "indicatorts.macd(stock.closings).macdLine";
+  const code = "runtime.fn.macd(stock.closings)";
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
