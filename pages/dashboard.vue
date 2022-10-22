@@ -12,7 +12,7 @@ import { Power2 } from "gsap";
 import Loading from "~/components/Loading.vue";
 import Vue3ChartJs from "@j-t-mcc/vue3-chartjs";
 
-const fetchData = ref(false);
+const fetchingData = ref(false);
 
 definePageMeta({
   pageTransition: {
@@ -184,9 +184,9 @@ function animateDashboardValue() {
  * Control Loading Screen Status
  */
 async function doRefresh(): Promise<void> {
-  fetchData.value = true;
+  fetchingData.value = true;
   await refresh();
-  fetchData.value = false;
+  fetchingData.value = false;
 }
 
 function updateChart() {
@@ -222,8 +222,8 @@ onMounted(() => {
 <template>
   <div class="dashboard">
     <div class="container">
-      <div v-if="fetchData" class="mask"></div>
-      <Loading v-if="fetchData" />
+      <div v-if="fetchingData" class="mask"></div>
+      <Loading v-if="fetchingData" />
       <DashboardStockSearch
         :default-query="symbol"
         @do-search="
