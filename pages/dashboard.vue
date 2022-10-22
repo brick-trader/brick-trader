@@ -9,6 +9,7 @@ import date from "date-and-time";
 import { useDashboard } from "~~/stores/dashboard";
 import gsap from "gsap";
 import { Power2 } from "gsap";
+import Loading from "~/components/Loading.vue";
 
 definePageMeta({
   pageTransition: {
@@ -99,6 +100,9 @@ function backtest(code: string): Backtest {
     indicatorts.backtest(stock, [strategy])[0].gain * 100,
   );
   const t = { gains, winRate, actionCount, winCount, result };
+
+  this.$refs.mask.style.display = "none";
+  this.$refs.loading.style.display = "none";
   console.log(t);
   return t;
 }
@@ -169,6 +173,8 @@ onMounted(() => {
 <template>
   <div class="dashboard">
     <div class="container">
+      <div ref="mask" class="mask"></div>
+      <Loading ref="loading" />
       <DashboardStockSearch
         :default-query="symbol"
         @do-search="
@@ -251,6 +257,7 @@ onMounted(() => {
 
 .container > input:focus {
   outline: 1px solid #ddd;
+  z-index: 1;
 }
 
 #infos {
@@ -299,5 +306,23 @@ hr {
   border-left: none;
   border-right: none;
   border-bottom: 2px solid #eee;
+}
+
+.animation {
+  z-index: 10000;
+  position: fixed;
+  margin-left: auto;
+  margin-top: 250px;
+}
+
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 100%;
+  min-width: 100%;
+  z-index: 9999;
+  background-color: #000;
+  opacity: 0.5;
 }
 </style>
