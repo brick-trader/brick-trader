@@ -9,6 +9,7 @@ import date from "date-and-time";
 import { useDashboard } from "~~/stores/dashboard";
 import gsap from "gsap";
 import { Power2 } from "gsap";
+import Loading from "~/components/Loading.vue";
 import Vue3ChartJs from "@j-t-mcc/vue3-chartjs";
 
 definePageMeta({
@@ -40,7 +41,7 @@ const url = computed(
 );
 
 // useFetch options is not reactive
-const { data: stockData, refresh } = await useFetch<Ticker>(url);
+const { data: stockData, refresh, pending } = await useFetch<Ticker>(url);
 
 // prepare runtime
 let stock = new Stock(stockData.value);
@@ -211,6 +212,8 @@ onMounted(() => {
 <template>
   <div class="dashboard">
     <div class="container">
+      <div v-if="pending" class="mask"></div>
+      <Loading v-if="pending" />
       <DashboardStockSearch
         :default-query="dashboardState.symbol"
         @do-search="
@@ -288,7 +291,7 @@ onMounted(() => {
   width: 100%;
   display: flex;
   justify-content: center;
-  z-index: 999;
+  z-index: 99;
 }
 
 .container > input {
@@ -304,6 +307,7 @@ onMounted(() => {
 
 .container > input:focus {
   outline: 1px solid #ddd;
+  z-index: 1;
 }
 
 #infos {
@@ -352,5 +356,24 @@ hr {
   border-left: none;
   border-right: none;
   border-bottom: 2px solid #eee;
+}
+
+.animation {
+  z-index: 10000;
+  position: fixed;
+  margin-left: auto;
+  margin-top: 250px;
+}
+
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+  background-color: #000;
+  opacity: 0.5;
 }
 </style>

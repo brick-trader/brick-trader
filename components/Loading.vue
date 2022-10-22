@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 const size = "250px";
-const color = "#41b883";
+const color = "#9B52E4";
 
 const styles = computed(() => {
   return {
@@ -21,7 +21,6 @@ const styles = computed(() => {
 
 <style scoped>
 .animation {
-  background-color: transparent;
   width: auto;
   display: flex;
   justify-content: center;
@@ -29,8 +28,9 @@ const styles = computed(() => {
 }
 .spinner {
   position: relative;
-  border: 4px solid var(--bg-color);
   animation: loader 2s infinite ease;
+  background-color: #ff9f1c;
+  z-index: 9999;
 }
 .spinner * {
   line-height: 0;
