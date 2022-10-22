@@ -1,4 +1,4 @@
-import indicatorts from "indicatorts";
+import * as indicatorts from "indicatorts";
 
 export function macd(closings: number[]): number[] {
   const ema12 = indicatorts.ema(12, closings);
