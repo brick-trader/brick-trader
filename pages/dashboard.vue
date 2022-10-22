@@ -120,43 +120,7 @@ function generateChart(backtestData: Backtest) {
   };
 }
 
-function updateDashboard() {
-  stock = new Stock(stockData.value);
-  backtestData.value = backtest(strategyCode);
-  chartData.value = generateChart(backtestData.value);
-
-  const backtestDataSnapshot = backtestData.value;
-  gsap.fromTo(
-    backtestData.value,
-    {
-      gains: backtestDataSnapshot.gains,
-      winRate: 0,
-      result: 0,
-      actionCount: 0,
-      winCount: 0,
-    },
-    {
-      gains: backtestData.value.gains,
-      winRate: backtestData.value.winRate,
-      result: backtestData.value.result,
-      actionCount: backtestData.value.actionCount,
-      winCount: backtestData.value.winCount,
-      duration: 2,
-      ease: Power2.easeOut,
-    },
-  );
-}
-
-async function refreshData() {
-  await refresh();
-  updateDashboard();
-}
-
-// register filter listener
-watch(() => startDateFilterInput.value, refreshData);
-watch(() => endDateFilterInput.value, refreshData);
-
-onMounted(() => {
+function animateDashboardValue() {
   if (!backtestData.value) return;
 
   const backtestDataSnapshot = backtestData.value;
@@ -179,6 +143,26 @@ onMounted(() => {
       ease: Power2.easeOut,
     },
   );
+}
+
+function updateDashboard() {
+  stock = new Stock(stockData.value);
+  backtestData.value = backtest(strategyCode);
+  chartData.value = generateChart(backtestData.value);
+  animateDashboardValue();
+}
+
+async function refreshData() {
+  await refresh();
+  updateDashboard();
+}
+
+// register filter listener
+watch(() => startDateFilterInput.value, refreshData);
+watch(() => endDateFilterInput.value, refreshData);
+
+onMounted(() => {
+  animateDashboardValue();
 });
 </script>
 
