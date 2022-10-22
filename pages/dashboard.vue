@@ -9,6 +9,7 @@ import date from "date-and-time";
 import { useDashboard } from "~~/stores/dashboard";
 import gsap from "gsap";
 import { Power2 } from "gsap";
+import Vue3ChartJs from "@j-t-mcc/vue3-chartjs";
 
 definePageMeta({
   pageTransition: {
@@ -23,6 +24,7 @@ const strategyState = useStrategy();
 
 if (!strategyState.isStrategyVaild()) useRouter().replace("/editor");
 
+const chartRef = ref<InstanceType<Vue3ChartJs> | null>(null);
 const dashboardState = useDashboard();
 const symbol = ref(dashboardState.symbol);
 const startDateFilterInput = ref(dashboardState.startDateFilterInput);
@@ -30,15 +32,14 @@ const endDateFilterInput = ref(dashboardState.endDateFilterInput);
 const startDateFilter = computed(() => new Date(startDateFilterInput.value));
 const endDateFilter = computed(() => new Date(endDateFilterInput.value));
 const url = computed(
-  () => `${config.public.apiBaseUrl}/tickers/${symbol.value}/historical-data`,
+  () =>
+    `${config.public.apiBaseUrl}/tickers/${
+      symbol.value
+    }/historical-data?start=${startDateFilter.value.toISOString()}&end=${endDateFilter.value.toISOString()}`,
 );
 
-const { data: stockData, refresh } = await useFetch<Ticker>(url, {
-  params: {
-    start: startDateFilter.value.toISOString(),
-    end: endDateFilter.value.toISOString(),
-  },
-});
+// useFetch options is not reactive
+const { data: stockData, refresh } = await useFetch<Ticker>(url);
 
 // prepare runtime
 let stock = new Stock(stockData.value);
@@ -50,7 +51,22 @@ if (indicatorts && stock && runtime && process.client) {
 const strategyCode = strategyState.code;
 
 const backtestData = ref(backtest(strategyCode));
-const chartData = ref(generateChart(backtestData.value));
+const chartData = generateChart(backtestData.value);
+const chartOptions = {
+  elements: {
+    point: {
+      radius: 0,
+    },
+  },
+  scales: {
+    yAxes: {
+      title: {
+        display: true,
+        text: "Net Profit (%)",
+      },
+    },
+  },
+};
 
 function calculateStrategyActions(
   actions: Action[],
@@ -98,9 +114,7 @@ function backtest(code: string): Backtest {
   const result = Math.round(
     indicatorts.backtest(stock, [strategy])[0].gain * 100,
   );
-  const t = { gains, winRate, actionCount, winCount, result };
-  console.log(t);
-  return t;
+  return { gains, winRate, actionCount, winCount, result };
 }
 
 function generateChart(backtestData: Backtest) {
@@ -111,7 +125,7 @@ function generateChart(backtestData: Backtest) {
     datasets: [
       {
         label: "Gain",
-        data: backtestData.gains,
+        data: [...backtestData.gains],
         borderColor: "rgba(54, 162, 235, 1)",
         backgroundColor: "rgba(54, 162, 235, 0.2)",
         borderWidth: 1,
@@ -145,11 +159,20 @@ function animateDashboardValue() {
   );
 }
 
+function updateChart() {
+  if (chartRef.value === null) return;
+
+  const newChartData = generateChart(backtestData.value);
+  chartData.labels = newChartData.labels;
+  chartData.datasets = newChartData.datasets;
+  chartRef.value.update(250);
+}
+
 function updateDashboard() {
   stock = new Stock(stockData.value);
   backtestData.value = backtest(strategyCode);
-  chartData.value = generateChart(backtestData.value);
   animateDashboardValue();
+  updateChart();
 }
 
 async function refreshData() {
@@ -214,7 +237,12 @@ onMounted(() => {
       </div>
       <div id="chart-container">
         <DashboardCard title="Chart">
-          <Chart :data="chartData" />
+          <Vue3ChartJs
+            ref="chartRef"
+            type="line"
+            :data="chartData"
+            :options="chartOptions"
+          />
         </DashboardCard>
       </div>
     </ClientOnly>
