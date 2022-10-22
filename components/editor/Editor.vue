@@ -135,21 +135,6 @@ onMounted(() => {
       },
       {
         kind: "category",
-        name: "Result",
-        colour: "#21a346",
-        contents: [
-          {
-            kind: "label",
-            text: "Result Blocks",
-          },
-          {
-            kind: "block",
-            type: "text_print",
-          },
-        ],
-      },
-      {
-        kind: "category",
         name: "Function",
         colour: "#9B52E4",
         contents: [
@@ -325,15 +310,7 @@ onMounted(() => {
           },
           {
             kind: "label",
-            text: "Result Blocks",
-          },
-          {
-            kind: "block",
-            type: "text_print",
-          },
-          {
-            kind: "label",
-            text: "Strategy Blocks",
+            text: "Momentum Indicator",
           },
           {
             kind: "block",
@@ -342,6 +319,10 @@ onMounted(() => {
           {
             kind: "block",
             type: "custom_rsi",
+          },
+          {
+            kind: "label",
+            text: "Trend Indicator",
           },
           {
             kind: "block",
@@ -440,8 +421,16 @@ onMounted(() => {
             type: "vwma",
           },
           {
+            kind: "label",
+            text: "Volume Indicator",
+          },
+          {
             kind: "block",
             type: "mfi",
+          },
+          {
+            kind: "label",
+            text: "Function",
           },
           {
             kind: "block",
