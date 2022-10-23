@@ -57,7 +57,7 @@
 
 ## Getting Started
 
-To use `brick-trader`, head over to [our website](https://github.com/brick-trader/brick-trader-frontend).
+To use `brick-trader`, head over to [our website](https://brick-trader.ppodds.cc/).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
