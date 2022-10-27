@@ -7,8 +7,6 @@ RUN npm i -g pnpm
 COPY --chown=node:node package.json ./
 COPY --chown=node:node pnpm-lock.yaml ./
 
-RUN npm pkg delete scripts.prepare
-
 RUN pnpm i --shamefully-hoist  
 COPY --chown=node:node . .
 RUN pnpm build

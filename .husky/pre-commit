@@ -2,4 +2,5 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 pnpm lint-staged
-pnpm nuxi typecheck
+cd ./apps/frontend && pnpm nuxt typecheck
+pnpm test

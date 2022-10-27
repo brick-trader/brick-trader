@@ -1,0 +1,9 @@
+.github/
+.dockerignore
+.prettierignore
+.eslintignore
+
+**/node_modules/
+
+apps/frontend/.nuxt/
+apps/frontend/.output/

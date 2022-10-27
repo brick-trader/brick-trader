@@ -25,5 +25,12 @@ jobs:
     - name: Build frontend and push
       uses: docker/build-push-action@v3
       with:
+        context: ./apps/frontend
         push: true
         tags: ppodds/brick-trader-frontend:latest,ppodds/brick-trader-frontend:${{ steps.get-version.outputs.version }}
+    - name: Build backend and push
+      uses: docker/build-push-action@v3
+      with:
+        context: ./apps/backend
+        push: true
+        tags: ppodds/brick-trader-backend:latest,ppodds/brick-trader-backend:${{ steps.get-version.outputs.version }}
