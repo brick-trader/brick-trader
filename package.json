@@ -7,14 +7,16 @@
     "apps/*"
   ],
   "scripts": {
+    "dev": "concurrently --kill-others \"pnpm frontend:dev\" \"pnpm backend:dev\"",
     "frontend:dev": "pnpm --filter frontend dev",
-    "backend:dev": "pnpm --filter backend start:dev",    
+    "backend:dev": "pnpm --filter backend start:dev",
     "backend:migrate": "pnpm --filter backend migrate"
   },
   "license": "GPL-3.0",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
+    "concurrently": "^7.5.0",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",

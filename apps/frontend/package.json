@@ -15,18 +15,18 @@
     "lint": "eslint \"./**/*.{ts,vue}\" --fix"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.36.2",
-    "@typescript-eslint/parser": "^5.36.2",
-    "eslint": "^8.23.0",
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/parser": "^5.41.0",
+    "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-vue": "^9.4.0",
+    "eslint-plugin-vue": "^9.6.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "nuxt": "3.0.0-rc.9",
     "prettier": "^2.7.1",
-    "typescript": "^4.8.3",
-    "vue-eslint-parser": "^9.0.3"
+    "typescript": "^4.8.4",
+    "vue-eslint-parser": "^9.1.0"
   },
   "lint-staged": {
     "*.{ts,js,cjs,mjs,vue}": [
