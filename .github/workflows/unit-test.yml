@@ -3,7 +3,7 @@ name: Run Tests
 on:
   workflow_call:
 jobs:
-  unit-tests:
+  unit-test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
