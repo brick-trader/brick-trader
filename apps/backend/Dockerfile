@@ -33,6 +33,6 @@ COPY --chown=node:node --from=build /app/node_modules ./node_modules
 
 USER node
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
 EXPOSE 3000
 CMD [ "node", "dist/main.js" ]

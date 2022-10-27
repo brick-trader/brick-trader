@@ -18,6 +18,6 @@ COPY --chown=node:node --from=build /app/.output ./.output
 
 USER node
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
 EXPOSE 3000
 CMD [ "node", ".output/server/index.mjs" ]
