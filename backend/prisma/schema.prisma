@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Ticker {
+  symbol String @id @unique
+
+  historicalData HistoricalData[]
+
+  name      String
+  updatedAt DateTime @updatedAt
+}
+
+model HistoricalData {
+  id Int @id @default(autoincrement())
+
+  ticker       Ticker @relation(fields: [tickerSymbol], references: [symbol])
+  tickerSymbol String
+
+  date     DateTime
+  open     Float
+  high     Float
+  low      Float
+  close    Float
+  adjClose Float
+  volume   Int
+}
