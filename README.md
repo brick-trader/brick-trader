@@ -13,17 +13,17 @@
 
 <!-- PROJECT LOGO -->
 
-![brick-trader-frontend](https://socialify.git.ci/brick-trader/brick-trader-frontend/image?font=KoHo&name=1&owner=1&pattern=Circuit%20Board&theme=Light&description=1)
+![brick-trader](https://socialify.git.ci/brick-trader/brick-trader/image?font=KoHo&name=1&owner=1&pattern=Circuit%20Board&theme=Light&description=1)
 
 <br />
 <div align="center">
 <p align="center">
-    <a href="https://github.com/brick-trader/brick-trader-frontend"><strong>Explore Usage »</strong></a>
+    <a href="https://github.com/brick-trader/brick-trader"><strong>Explore Usage »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/brick-trader/brick-trader-frontend/issues">Report Bug</a>
+    <a href="https://github.com/brick-trader/brick-trader/issues">Report Bug</a>
     ·
-    <a href="https://github.com/brick-trader/brick-trader-frontend/issues">Request Feature</a>
+    <a href="https://github.com/brick-trader/brick-trader/issues">Request Feature</a>
   </p>
 </div>
 
@@ -45,7 +45,7 @@
 
 ## Screenshots
 
-![product](https://github.com/brick-trader/brick-trader-frontend/blob/main/assets/product.png)
+![product](https://github.com/brick-trader/brick-trader/blob/main/assets/product.png)
 
 ## About The Project
 
@@ -67,7 +67,7 @@ To use `brick-trader`, head over to [our website](https://brick-trader.ppodds.cc
 
 - [ ] Add more tests.
 
-See the [open issues](https://github.com/brick-trader/brick-trader-frontend/issues)
+See the [open issues](https://github.com/brick-trader/brick-trader/issues)
 for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -98,7 +98,7 @@ create a pull request. You can also simply open an issue with the tag
 ## License
 
 Distributed under the GPL-3.0 License. See
-[LICENSE](https://github.com/brick-trader/brick-trader-frontend/blob/main/LICENSE)
+[LICENSE](https://github.com/brick-trader/brick-trader/blob/main/LICENSE)
 for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -109,25 +109,25 @@ for more information.
 
 ### Contributors
 
-<a href="https://github.com/brick-trader/brick-trader-frontend/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=brick-trader/brick-trader-frontend" />
+<a href="https://github.com/brick-trader/brick-trader/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=brick-trader/brick-trader" />
 </a>
 
 ### Project Link
 
-- <https://github.com/brick-trader/brick-trader-frontend>
+- <https://github.com/brick-trader/brick-trader>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-[contributors-shield]: https://img.shields.io/github/contributors/brick-trader/brick-trader-frontend.svg?style=for-the-badge
-[contributors-url]: https://github.com/brick-trader/brick-trader-frontend/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/brick-trader/brick-trader-frontend.svg?style=for-the-badge
-[forks-url]: https://github.com/brick-trader/brick-trader-frontend/network/members
-[stars-shield]: https://img.shields.io/github/stars/brick-trader/brick-trader-frontend.svg?style=for-the-badge
-[stars-url]: https://github.com/brick-trader/brick-trader-frontend/stargazers
-[issues-shield]: https://img.shields.io/github/issues/brick-trader/brick-trader-frontend.svg?style=for-the-badge
-[issues-url]: https://github.com/brick-trader/brick-trader-frontend/issues
-[issues-closed-shield]: https://img.shields.io/github/issues-closed/brick-trader/brick-trader-frontend.svg?style=for-the-badge
-[issues-closed-url]: https://github.com/brick-trader/brick-trader-frontend/issues?q=is%3Aissue+is%3Aclosed
-[license-shield]: https://img.shields.io/github/license/brick-trader/brick-trader-frontend.svg?style=for-the-badge
-[license-url]: https://github.com/brick-trader/brick-trader-frontend/blob/main/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/brick-trader/brick-trader.svg?style=for-the-badge
+[contributors-url]: https://github.com/brick-trader/brick-trader/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/brick-trader/brick-trader.svg?style=for-the-badge
+[forks-url]: https://github.com/brick-trader/brick-trader/network/members
+[stars-shield]: https://img.shields.io/github/stars/brick-trader/brick-trader.svg?style=for-the-badge
+[stars-url]: https://github.com/brick-trader/brick-trader/stargazers
+[issues-shield]: https://img.shields.io/github/issues/brick-trader/brick-trader.svg?style=for-the-badge
+[issues-url]: https://github.com/brick-trader/brick-trader/issues
+[issues-closed-shield]: https://img.shields.io/github/issues-closed/brick-trader/brick-trader.svg?style=for-the-badge
+[issues-closed-url]: https://github.com/brick-trader/brick-trader/issues?q=is%3Aissue+is%3Aclosed
+[license-shield]: https://img.shields.io/github/license/brick-trader/brick-trader.svg?style=for-the-badge
+[license-url]: https://github.com/brick-trader/brick-trader/blob/main/LICENSE
