@@ -7,7 +7,9 @@
     "apps/*"
   ],
   "scripts": {
-    "dev": "pnpm --filter frontend dev && pnpm --filter backend start:dev"
+    "frontend:dev": "pnpm --filter frontend dev",
+    "backend:dev": "pnpm --filter backend start:dev",    
+    "backend:migrate": "pnpm --filter backend migrate"
   },
   "license": "GPL-3.0",
   "devDependencies": {
