@@ -11,7 +11,6 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "prepare": "husky install",
     "format": "prettier --write \"./**/*.{ts,vue}\"",
     "lint": "eslint \"./**/*.{ts,vue}\" --fix"
   },
