@@ -37,12 +37,12 @@
   },
   "lint-staged": {
     "apps/frontend/*.{ts,js,cjs,mjs,vue}": [
-      "prettier --write",
-      "eslint --fix"
+      "prettier -w --config \"./apps/frontend/.prettierrc\"",
+      "eslint --fix -c \"./apps/frontend/.eslintrc.js\""
     ],
     "apps/backend/*.{ts,js,cjs,mjs}": [
-      "prettier --write",
-      "eslint --fix"
+      "prettier -w --config \"./apps/backend/.prettierrc\"",
+      "eslint --fix -c \"./apps/backend/.eslintrc.js\""
     ]
   }
 }
