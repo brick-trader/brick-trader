@@ -35,8 +35,7 @@ const endDateFilter = computed(
 );
 const url = computed(
   () =>
-    `${config.public.apiBaseUrl}/tickers/${
-      dashboardState.symbol
+    `${config.public.apiBaseUrl}/tickers/${dashboardState.symbol
     }/historical-data?start=${startDateFilter.value.toISOString()}&end=${endDateFilter.value.toISOString()}`,
 );
 
@@ -102,7 +101,12 @@ function backtest(code: string): Backtest {
 
   console.log(code);
 
-  const strategy: StrategyInfo = eval(code);
+  const strategy: StrategyInfo = Function(
+    "'use strict';return " + code
+      .replaceAll("runtime", "this.runtime")
+      .replaceAll("indicatorts", "this.indicatorts")
+  ).bind({ runtime, indicatorts })();
+  
   const actions = strategy.strategy(stock);
   // TODO: verify type
   const gains = indicatorts
@@ -214,26 +218,17 @@ onMounted(() => {
     <div class="container">
       <div v-if="pending" class="mask"></div>
       <Loading v-if="pending" />
-      <DashboardStockSearch
-        :default-query="dashboardState.symbol"
-        @do-search="
-          async (newSymbol) => {
-            dashboardState.symbol = newSymbol;
-            await refresh();
-            updateDashboard();
-          }
-        "
-      />
-      <input
-        v-model="dashboardState.startDateFilterInput"
-        type="date"
-        @click="(event) => (event.target as HTMLInputElement).showPicker()"
-      />
-      <input
-        v-model="dashboardState.endDateFilterInput"
-        type="date"
-        @click="(event) => (event.target as HTMLInputElement).showPicker()"
-      />
+      <DashboardStockSearch :default-query="dashboardState.symbol" @do-search="
+        async (newSymbol) => {
+          dashboardState.symbol = newSymbol;
+          await refresh();
+          updateDashboard();
+        }
+      " />
+      <input v-model="dashboardState.startDateFilterInput" type="date"
+        @click="(event) => (event.target as HTMLInputElement).showPicker()" />
+      <input v-model="dashboardState.endDateFilterInput" type="date"
+        @click="(event) => (event.target as HTMLInputElement).showPicker()" />
     </div>
     <hr />
     <ClientOnly v-if="backtestData">
@@ -244,18 +239,18 @@ onMounted(() => {
         <DashboardCard title="Win Rate">
           <p>
             {{
-              isNaN(backtestData.winRate)
-                ? "NaN"
-                : `${Math.round(backtestData.winRate)}%`
+                isNaN(backtestData.winRate)
+                  ? "NaN"
+                  : `${Math.round(backtestData.winRate)}%`
             }}
           </p>
         </DashboardCard>
         <DashboardCard title="Profit Factor">
           <p>
             {{
-              isNaN(backtestData.profitFactor)
-                ? "NaN"
-                : backtestData.profitFactor.toFixed(2)
+                isNaN(backtestData.profitFactor)
+                  ? "NaN"
+                  : backtestData.profitFactor.toFixed(2)
             }}
           </p>
         </DashboardCard>
@@ -265,12 +260,7 @@ onMounted(() => {
       </div>
       <div id="chart-container">
         <DashboardCard title="Chart">
-          <Vue3ChartJs
-            ref="chartRef"
-            type="line"
-            :data="chartData"
-            :options="chartOptions"
-          />
+          <Vue3ChartJs ref="chartRef" type="line" :data="chartData" :options="chartOptions" />
         </DashboardCard>
       </div>
     </ClientOnly>
@@ -294,7 +284,7 @@ onMounted(() => {
   z-index: 99;
 }
 
-.container > input {
+.container>input {
   margin-left: 1em;
   min-width: 200px;
   padding: 0 1em;
@@ -305,7 +295,7 @@ onMounted(() => {
   cursor: pointer;
 }
 
-.container > input:focus {
+.container>input:focus {
   outline: 1px solid #ddd;
   z-index: 1;
 }
@@ -318,7 +308,7 @@ onMounted(() => {
   margin: 1em 0.5em 0 0.5em;
 }
 
-#infos > div {
+#infos>div {
   margin: 0 0.5em;
   flex: 1;
   height: 100%;
@@ -327,7 +317,7 @@ onMounted(() => {
   justify-content: space-between;
 }
 
-#infos > div > p {
+#infos>div>p {
   padding: 0.5em 0 0.2em 0;
   display: flex;
   justify-content: center;
@@ -343,7 +333,7 @@ onMounted(() => {
   width: 100%;
 }
 
-#chart-container > div {
+#chart-container>div {
   display: flex;
   justify-content: center;
   width: 100%;
