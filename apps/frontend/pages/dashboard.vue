@@ -102,7 +102,13 @@ function backtest(code: string): Backtest {
 
   console.log(code);
 
-  const strategy: StrategyInfo = eval(code);
+  const strategy: StrategyInfo = Function(
+    "'use strict';return " +
+      code
+        .replaceAll("runtime", "this.runtime")
+        .replaceAll("indicatorts", "this.indicatorts"),
+  ).bind({ runtime, indicatorts })();
+
   const actions = strategy.strategy(stock);
   // TODO: verify type
   const gains = indicatorts
