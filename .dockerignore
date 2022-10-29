@@ -1,0 +1,7 @@
+**/node_modules
+**/*.env
+
+apps/backend/dist
+
+apps/frontend/.nuxt
+apps/frontend/.output
