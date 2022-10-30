@@ -10,18 +10,18 @@ COPY --chown=node:node pnpm-lock.yaml ./
 COPY --chown=node:node ./apps/backend/package.json ./apps/backend/
 
 # install dependencies
-RUN pnpm i --filter .
-RUN pnpm i --filter backend
+RUN pnpm i -F .
+RUN pnpm i -F backend
 
 # copy project files
 COPY --chown=node:node ./apps/backend/ ./apps/backend/
 
-RUN pnpm -C ./apps/backend generate
+RUN pnpm -F backend generate
 
 # build
-RUN pnpm -C ./apps/backend build
+RUN pnpm  -F backend build
 
-RUN pnpm i -P --filter backend
+RUN pnpm i -P -F backend
 
 FROM node:16.18-alpine As production
 

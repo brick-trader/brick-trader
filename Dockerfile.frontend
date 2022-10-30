@@ -9,12 +9,12 @@ COPY --chown=node:node pnpm-lock.yaml ./
 
 COPY --chown=node:node ./apps/frontend/package.json ./apps/frontend/
 
-RUN pnpm i --filter .
-RUN pnpm i --shamefully-hoist --filter frontend
+RUN pnpm i -F .
+RUN pnpm i --shamefully-hoist -F frontend
 
 COPY --chown=node:node ./apps/frontend/ ./apps/frontend/
 
-RUN pnpm -C ./apps/frontend build
+RUN pnpm -F frontend build
 
 FROM node:16.18-alpine As production
 
