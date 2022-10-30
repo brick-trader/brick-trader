@@ -19,7 +19,7 @@ COPY --chown=node:node ./apps/backend/ ./apps/backend/
 RUN pnpm -F backend generate
 
 # build
-RUN pnpm  -F backend build
+RUN pnpm -F backend build
 
 RUN pnpm i -P -F backend
 
