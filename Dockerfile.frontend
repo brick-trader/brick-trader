@@ -7,14 +7,19 @@ RUN npm i -g pnpm
 COPY --chown=node:node package.json ./
 COPY --chown=node:node pnpm-lock.yaml ./
 
-RUN pnpm i --shamefully-hoist  
-COPY --chown=node:node . .
-RUN pnpm build
+COPY --chown=node:node ./apps/frontend/package.json ./apps/frontend/
+
+RUN pnpm i -F .
+RUN pnpm i --shamefully-hoist -F frontend
+
+COPY --chown=node:node ./apps/frontend/ ./apps/frontend/
+
+RUN pnpm -F frontend build
 
 FROM node:16.18-alpine As production
 
 WORKDIR /home/node/app
-COPY --chown=node:node --from=build /app/.output ./.output
+COPY --chown=node:node --from=build /app/apps/frontend/.output ./.output
 
 USER node
 
