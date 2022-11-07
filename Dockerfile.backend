@@ -7,13 +7,13 @@ RUN npm i -g pnpm
 COPY --chown=node:node package.json ./
 COPY --chown=node:node pnpm-lock.yaml ./
 COPY --chown=node:node pnpm-workspace.yaml .
+COPY --chown=node:node .npmrc .
 
 COPY --chown=node:node ./apps/backend/package.json ./apps/backend/
 RUN npm pkg delete scripts.prepare
 
 # install dependencies
-RUN pnpm i -F . --frozen-lockfile
-RUN pnpm i -F backend --frozen-lockfile
+RUN pnpm i --frozen-lockfile
 
 # copy project files
 COPY --chown=node:node ./apps/backend/ ./apps/backend/
