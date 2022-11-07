@@ -6,6 +6,7 @@ RUN npm i -g pnpm
 
 COPY --chown=node:node package.json ./
 COPY --chown=node:node pnpm-lock.yaml ./
+COPY --chown=node:node pnpm-workspace.yaml .
 
 COPY --chown=node:node ./apps/frontend/package.json ./apps/frontend/
 
