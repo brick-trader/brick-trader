@@ -6,11 +6,14 @@ RUN npm i -g pnpm
 
 COPY --chown=node:node package.json ./
 COPY --chown=node:node pnpm-lock.yaml ./
+COPY --chown=node:node pnpm-workspace.yaml .
+COPY --chown=node:node .npmrc .
 
 COPY --chown=node:node ./apps/frontend/package.json ./apps/frontend/
 
-RUN pnpm i -F .
-RUN pnpm i --shamefully-hoist -F frontend
+RUN npm pkg delete scripts.prepare
+
+RUN pnpm i --frozen-lockfile
 
 COPY --chown=node:node ./apps/frontend/ ./apps/frontend/
 
