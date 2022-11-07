@@ -9,8 +9,10 @@ COPY --chown=node:node pnpm-lock.yaml ./
 
 COPY --chown=node:node ./apps/frontend/package.json ./apps/frontend/
 
-RUN pnpm i -F .
-RUN pnpm i --shamefully-hoist -F frontend
+RUN npm pkg delete scripts.prepare
+
+RUN pnpm i -F . --frozen-lockfile
+RUN pnpm i --shamefully-hoist -F frontend --frozen-lockfile
 
 COPY --chown=node:node ./apps/frontend/ ./apps/frontend/
 
