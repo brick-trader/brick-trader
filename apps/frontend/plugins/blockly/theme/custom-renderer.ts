@@ -59,7 +59,7 @@ class CustomConstantsProvider extends Blockly.blockRendering.ConstantProvider {
   /**
    * @override
    */
-  shapeFor(connection: RenderedConnection): Object {
+  shapeFor(connection: RenderedConnection) {
     const checks = connection.getCheck();
     switch (connection.type) {
       case Blockly.INPUT_VALUE:
