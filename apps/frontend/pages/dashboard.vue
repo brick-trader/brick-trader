@@ -43,6 +43,9 @@ const url = computed(
 // useFetch options is not reactive
 const { data: stockData, refresh, pending } = await useFetch<Ticker>(url);
 
+if (!stockData.value)
+  throw createError({ statusCode: 500, message: "Get stock data failed" });
+
 // prepare runtime
 let stock = new Stock(stockData.value);
 
@@ -52,7 +55,9 @@ if (indicatorts && stock && runtime && process.client) {
 
 const strategyCode = strategyState.code;
 
-const backtestData = ref(backtest(strategyCode));
+if (!strategyCode) useRouter().replace("/editor");
+
+const backtestData = ref(backtest(strategyCode as string));
 const chartData = generateChart(backtestData.value);
 const chartOptions = {
   elements: {
@@ -98,7 +103,7 @@ function calculateStrategyActions(
 }
 
 function backtest(code: string): Backtest {
-  if (!code) return;
+  if (!code) throw new Error("Code can't be empty");
 
   console.log(code);
 
@@ -140,7 +145,7 @@ function backtest(code: string): Backtest {
 }
 
 function generateChart(backtestData: Backtest) {
-  if (!backtestData) return;
+  if (!backtestData) throw new Error("Backtest data can't be empty");
 
   return {
     labels: stock.dates.map((d) => date.format(d, "YYYY-MM-DD")),
@@ -195,7 +200,9 @@ function updateChart() {
 }
 
 function updateDashboard() {
+  if (!stockData.value) throw new Error("Get stock data failed");
   stock = new Stock(stockData.value);
+  if (!strategyCode) throw new Error("strategy code can't be empty");
   backtestData.value = backtest(strategyCode);
   animateDashboardValue();
   updateChart();

@@ -1,4 +1,4 @@
-import Blockly from "blockly/core";
+import Blockly, { RenderedConnection } from "blockly/core";
 
 class CustomConstantsProvider extends Blockly.blockRendering.ConstantProvider {
   RECT_PREV_NEXT: {
@@ -6,13 +6,13 @@ class CustomConstantsProvider extends Blockly.blockRendering.ConstantProvider {
     height: number;
     pathLeft: string;
     pathRight: string;
-  };
+  } | null = null;
   RECT_INPUT_OUTPUT: {
     width: number;
     height: number;
     pathDown: string;
     pathUp: string;
-  };
+  } | null = null;
 
   constructor() {
     // Set up all of the constants from the base provider.
@@ -59,11 +59,13 @@ class CustomConstantsProvider extends Blockly.blockRendering.ConstantProvider {
   /**
    * @override
    */
-  shapeFor(connection) {
+  shapeFor(connection: RenderedConnection): Object {
     const checks = connection.getCheck();
     switch (connection.type) {
       case Blockly.INPUT_VALUE:
       case Blockly.OUTPUT_VALUE:
+        if (!this.RECT_INPUT_OUTPUT)
+          throw new Error("RECT_INPUT_OUTPUT not initialized");
         // Includes doesn't work in IE.
         if (checks && checks.indexOf("Number") != -1) {
           return this.RECT_INPUT_OUTPUT;
@@ -74,7 +76,8 @@ class CustomConstantsProvider extends Blockly.blockRendering.ConstantProvider {
         return this.RECT_INPUT_OUTPUT;
       case Blockly.PREVIOUS_STATEMENT:
       case Blockly.NEXT_STATEMENT:
-        return this.NOTCH;
+        // TODO: fix this
+        return this.NOTCH ?? {};
       default:
         throw Error("Unknown type");
     }

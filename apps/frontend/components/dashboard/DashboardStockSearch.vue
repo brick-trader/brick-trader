@@ -11,7 +11,9 @@ const config = useRuntimeConfig();
 
 const query = ref(props.defaultQuery ?? "");
 const currentSymbol = ref("");
-const list = ref([]);
+const list = ref<{ symbol: string; longname?: string; shortname?: string }[]>(
+  [],
+);
 
 watch(
   () => query.value,
@@ -21,12 +23,11 @@ watch(
       return;
     }
 
-    list.value = await $fetch<{ symbol: string }[]>(
-      `${config.public.apiBaseUrl}/search`,
-      {
-        params: { query: query.value },
-      },
-    );
+    list.value = await $fetch<
+      { symbol: string; longname?: string; shortname?: string }[]
+    >(`${config.public.apiBaseUrl}/search`, {
+      params: { query: query.value },
+    });
   },
 );
 

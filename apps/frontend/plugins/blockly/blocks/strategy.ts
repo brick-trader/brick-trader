@@ -51,8 +51,9 @@ Blockly.Blocks["strategy"] = {
     return container;
   },
   domToMutation: function (xmlElement: HTMLElement) {
-    this.numAdditionalActions =
-      parseInt(xmlElement.getAttribute("num_additional_actions"), 10) || 0;
+    const t = xmlElement.getAttribute("num_additional_actions");
+    if (!t) throw new Error("num_additional_actions attribute is missing");
+    this.numAdditionalActions = parseInt(t, 10) || 0;
     for (let i = 2; i <= this.numAdditionalActions; i++) {
       this.appendDummyInput()
         .appendField(
@@ -95,7 +96,9 @@ Blockly.Blocks["strategy"] = {
     ) as Blockly.BlockSvg;
     containerBlock.initSvg();
 
-    let connection = containerBlock.getInput("STACK").connection;
+    let connection = containerBlock.getInput("STACK")?.connection;
+    if (!connection)
+      throw new Error("Action container block doesn't have input STACK");
     for (let i = 2; i <= this.numAdditionalActions; i++) {
       const actionBlock = workspace.newBlock(
         "additional_action",
