@@ -21,6 +21,8 @@ let workspace = shallowRef<Workspace>();
 defineExpose({ workspace });
 
 function exportWorkspace() {
+  if (!workspace.value) return;
+
   const currentWorkspace = Blockly.serialization.workspaces.save(
     workspace.value,
   );
@@ -53,6 +55,8 @@ function importWorkspace() {
         const text = e.target?.result;
         if (text) {
           const importWorkspace = JSON.parse(text as string);
+          if (!workspace.value)
+            throw new Error("Workspace not initialized yet");
           const originalWorkspace = Blockly.serialization.workspaces.save(
             workspace.value,
           );
@@ -82,7 +86,7 @@ function importWorkspace() {
   input.click();
 }
 
-function saveStrategyState(workspace: Blockly.Workspace) {
+function saveStrategyState(workspace: Blockly.Workspace | undefined | null) {
   if (!workspace) return;
   const code = Blockly.JavaScript.workspaceToCode(workspace);
   console.log(code);
@@ -90,7 +94,7 @@ function saveStrategyState(workspace: Blockly.Workspace) {
   useStrategy().code = code;
 }
 
-function saveEditorState(workspace: Blockly.Workspace) {
+function saveEditorState(workspace: Blockly.Workspace | null | undefined) {
   if (!workspace) return;
   const currentWorkspace = Blockly.serialization.workspaces.save(workspace);
   editorState.workspaceSnapshot = currentWorkspace;
@@ -102,11 +106,14 @@ onMounted(() => {
     getComputedStyle(document.documentElement).fontSize,
   );
 
+  if (!blocklyDiv.value) throw new Error("Blockly not initialized yet");
+
   // TODO: use a better way to set blocklyDiv size
   blocklyDiv.value.style.width = window.innerWidth + "px";
   blocklyDiv.value.style.height = window.innerHeight - 4 * emInPx + "px";
 
   window.addEventListener("resize", () => {
+    if (!blocklyDiv.value) return;
     blocklyDiv.value.style.width = window.innerWidth + "px";
     blocklyDiv.value.style.height = window.innerHeight - 4 * emInPx + "px";
   });

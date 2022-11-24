@@ -36,11 +36,11 @@
     "typescript": "^4.8.4"
   },
   "lint-staged": {
-    "apps/frontend/*.{ts,js,cjs,mjs,vue}": [
+    "apps/frontend/**/*.{ts,js,cjs,mjs,vue}": [
       "prettier -w --config \"./apps/frontend/.prettierrc\"",
       "eslint --fix -c \"./apps/frontend/.eslintrc.js\""
     ],
-    "apps/backend/*.{ts,js,cjs,mjs}": [
+    "apps/backend/**/*.{ts,js,cjs,mjs}": [
       "prettier -w --config \"./apps/backend/.prettierrc\"",
       "eslint --fix -c \"./apps/backend/.eslintrc.js\""
     ]
