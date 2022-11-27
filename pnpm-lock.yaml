@@ -87,7 +87,7 @@ importers:
     specifiers:
       '@j-t-mcc/vue3-chartjs': ^1.3.0
       '@pinia/nuxt': ^0.4.3
-      blockly: ^8.0.5
+      blockly: ^9.0.0
       chart.js: ^3.9.1
       date-and-time: ^2.4.1
       eslint-plugin-vue: ^9.6.0
@@ -100,7 +100,7 @@ importers:
     dependencies:
       '@j-t-mcc/vue3-chartjs': 1.3.0_chart.js@3.9.1+vue@3.2.45
       '@pinia/nuxt': 0.4.3_zwu2zepfy3m6u2gunxlolp35gi
-      blockly: 8.0.5
+      blockly: 9.1.1
       chart.js: 3.9.1
       date-and-time: 2.4.1
       gsap: 3.11.3
@@ -3010,8 +3010,8 @@ packages:
       readable-stream: 3.6.0
     dev: true
 
-  /blockly/8.0.5:
-    resolution: {integrity: sha512-jgr3PHImkFYSC2pNWZ74TmXP1HdajxeRd2DQaAt+9I+XLl9RCWvInqNHcS+blsKBTn6zOIxHK6nLzRATbLrDSw==}
+  /blockly/9.1.1:
+    resolution: {integrity: sha512-wgeiCC7raa/VOj/kqARHnOjUKIWHKv0ptEwPuBKa6hhvwSU1jzw3jzmsbRU6ECjIF3UoQMfmO0fDu6iduhHQZA==}
     dependencies:
       jsdom: 15.2.1
     transitivePeerDependencies:
