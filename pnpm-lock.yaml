@@ -78,7 +78,7 @@ importers:
       jest: 28.1.3_pfxkpkvs62uiwmbcnbb432f4n4
       source-map-support: 0.5.21
       supertest: 6.3.1
-      ts-jest: 28.0.8_2zfq7voi7wq34ia6tokjrpo2qe
+      ts-jest: 28.0.8_xqn6xfgh5llevdlhtbp45jjr3y
       ts-loader: 9.4.1_qqxisngxjbp7lstdk7boexbu3e
       ts-node: 10.9.1_csgtisay5j2uefybgrhleyyi3u
       tsconfig-paths: 4.1.0
@@ -89,7 +89,7 @@ importers:
       '@pinia/nuxt': ^0.4.3
       blockly: ^8.0.5
       chart.js: ^3.9.1
-      date-and-time: ^2.4.1
+      date-and-time: ^3.0.0
       eslint-plugin-vue: ^9.6.0
       gsap: ^3.11.3
       indicatorts: ^1.0.10
@@ -102,7 +102,7 @@ importers:
       '@pinia/nuxt': 0.4.3_zwu2zepfy3m6u2gunxlolp35gi
       blockly: 8.0.5
       chart.js: 3.9.1
-      date-and-time: 2.4.1
+      date-and-time: 3.0.0
       gsap: 3.11.3
       indicatorts: 1.0.10
       pinia: 2.0.23_zwu2zepfy3m6u2gunxlolp35gi
@@ -3706,8 +3706,8 @@ packages:
       whatwg-url: 7.1.0
     dev: false
 
-  /date-and-time/2.4.1:
-    resolution: {integrity: sha512-fG+ClATev+wHryqxOoGcTTegr5RhYE+tz/XHUkTQ/zvpWqQ90oOxjOhuMQ02bw87Oy9N3qBENCHHHSKdWJjgTg==}
+  /date-and-time/3.0.0:
+    resolution: {integrity: sha512-uuzXp/mvv6jEMLiP5QzERSQPzHqYnv9i8NZ8BS5kYeB2sakv74EewQiCS4Ahxwq3In+9fYZhGztuDHRVzIOkFQ==}
     dev: false
 
   /date-fns/2.29.3:
@@ -8704,7 +8704,7 @@ packages:
     hasBin: true
     dev: true
 
-  /ts-jest/28.0.8_2zfq7voi7wq34ia6tokjrpo2qe:
+  /ts-jest/28.0.8_xqn6xfgh5llevdlhtbp45jjr3y:
     resolution: {integrity: sha512-5FaG0lXmRPzApix8oFG8RKjAz4ehtm8yMKOTy5HX3fY6W8kmvOrmcY0hKDElW52FJov+clhUbrKAqofnj4mXTg==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     hasBin: true
@@ -8725,7 +8725,7 @@ packages:
       esbuild:
         optional: true
     dependencies:
-      '@babel/core': 7.20.2
+      '@babel/core': 7.19.6
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
       jest: 28.1.3_pfxkpkvs62uiwmbcnbb432f4n4
