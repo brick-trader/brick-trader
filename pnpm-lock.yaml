@@ -12,7 +12,7 @@ importers:
       eslint-plugin-prettier: ^4.2.1
       husky: ^8.0.1
       lint-staged: ^13.0.3
-      prettier: ^2.7.1
+      prettier: ^3.0.0
       typescript: ^4.8.4
     devDependencies:
       '@typescript-eslint/eslint-plugin': 5.41.0_huremdigmcnkianavgfk3x6iou
@@ -20,10 +20,10 @@ importers:
       concurrently: 7.5.0
       eslint: 8.26.0
       eslint-config-prettier: 8.5.0_eslint@8.26.0
-      eslint-plugin-prettier: 4.2.1_aniwkeyvlpmwkidetuytnokvcm
+      eslint-plugin-prettier: 4.2.1_kpjvi75ywmfkpugxd3ff2pm2di
       husky: 8.0.1
       lint-staged: 13.0.3
-      prettier: 2.7.1
+      prettier: 3.0.0
       typescript: 4.8.4
 
   apps/backend:
@@ -78,7 +78,7 @@ importers:
       jest: 28.1.3_pfxkpkvs62uiwmbcnbb432f4n4
       source-map-support: 0.5.21
       supertest: 6.3.1
-      ts-jest: 28.0.8_2zfq7voi7wq34ia6tokjrpo2qe
+      ts-jest: 28.0.8_xqn6xfgh5llevdlhtbp45jjr3y
       ts-loader: 9.4.1_qqxisngxjbp7lstdk7boexbu3e
       ts-node: 10.9.1_csgtisay5j2uefybgrhleyyi3u
       tsconfig-paths: 4.1.0
@@ -4220,7 +4220,7 @@ packages:
       eslint: 8.26.0
     dev: true
 
-  /eslint-plugin-prettier/4.2.1_aniwkeyvlpmwkidetuytnokvcm:
+  /eslint-plugin-prettier/4.2.1_kpjvi75ywmfkpugxd3ff2pm2di:
     resolution: {integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -4233,7 +4233,7 @@ packages:
     dependencies:
       eslint: 8.26.0
       eslint-config-prettier: 8.5.0_eslint@8.26.0
-      prettier: 2.7.1
+      prettier: 3.0.0
       prettier-linter-helpers: 1.0.0
     dev: true
 
@@ -7625,9 +7625,9 @@ packages:
       fast-diff: 1.2.0
     dev: true
 
-  /prettier/2.7.1:
-    resolution: {integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==}
-    engines: {node: '>=10.13.0'}
+  /prettier/3.0.0:
+    resolution: {integrity: sha512-zBf5eHpwHOGPC47h0zrPyNn+eAEIdEzfywMoYn2XPi0P44Zp0tSq64rq0xAREh4auw2cJZHo9QUob+NqCQky4g==}
+    engines: {node: '>=14'}
     hasBin: true
     dev: true
 
@@ -8704,7 +8704,7 @@ packages:
     hasBin: true
     dev: true
 
-  /ts-jest/28.0.8_2zfq7voi7wq34ia6tokjrpo2qe:
+  /ts-jest/28.0.8_xqn6xfgh5llevdlhtbp45jjr3y:
     resolution: {integrity: sha512-5FaG0lXmRPzApix8oFG8RKjAz4ehtm8yMKOTy5HX3fY6W8kmvOrmcY0hKDElW52FJov+clhUbrKAqofnj4mXTg==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     hasBin: true
@@ -8725,7 +8725,7 @@ packages:
       esbuild:
         optional: true
     dependencies:
-      '@babel/core': 7.20.2
+      '@babel/core': 7.19.6
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
       jest: 28.1.3_pfxkpkvs62uiwmbcnbb432f4n4
