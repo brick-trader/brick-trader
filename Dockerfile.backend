@@ -1,4 +1,4 @@
-FROM node:16.18-alpine AS build
+FROM node:21.3-alpine AS build
 
 WORKDIR /app
 
@@ -25,7 +25,7 @@ RUN pnpm -F backend build
 
 RUN pnpm prune --prod
 
-FROM node:16.18-alpine As production
+FROM node:21.3-alpine As production
 
 RUN npm i -g pnpm
 
