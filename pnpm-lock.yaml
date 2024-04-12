@@ -92,7 +92,7 @@ importers:
       date-and-time: ^2.4.1
       eslint-plugin-vue: ^9.6.0
       gsap: ^3.11.3
-      indicatorts: ^1.0.10
+      indicatorts: ^2.0.0
       nuxt: ^3.0.0
       pinia: ^2.0.23
       vue-eslint-parser: ^9.1.0
@@ -104,7 +104,7 @@ importers:
       chart.js: 3.9.1
       date-and-time: 2.4.1
       gsap: 3.11.3
-      indicatorts: 1.0.10
+      indicatorts: 2.0.0
       pinia: 2.0.23_zwu2zepfy3m6u2gunxlolp35gi
     devDependencies:
       eslint-plugin-vue: 9.6.0_eslint@8.26.0
@@ -5214,8 +5214,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /indicatorts/1.0.10:
-    resolution: {integrity: sha512-ex7nIdL/CkLMF2Ebjfpzu/eqWHI5GV8y/k73FwPvumvoP5QNe8KHbhi2bk1KqVc5mjlPt/2c9EFiRrYwsqdLyg==}
+  /indicatorts/2.0.0:
+    resolution: {integrity: sha512-t9k53dNncWlWQY9FAQ5QzTJfTxJ0l+JLequU3k3RoDeNTXjRwDIHGyxtWhreDKLRYMgsc4uNRwzsHPku8uv2TA==}
     dev: false
 
   /inflight/1.0.6:
