@@ -23,13 +23,13 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build frontend and push
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v6
       with:
         context: ./apps/frontend
         push: true
         tags: ppodds/brick-trader-frontend:latest,ppodds/brick-trader-frontend:${{ steps.get-version.outputs.version }}
     - name: Build backend and push
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v6
       with:
         context: ./apps/backend
         push: true
