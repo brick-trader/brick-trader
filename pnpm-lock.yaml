@@ -10,7 +10,7 @@ importers:
       eslint: ^8.26.0
       eslint-config-prettier: ^8.5.0
       eslint-plugin-prettier: ^4.2.1
-      husky: ^8.0.1
+      husky: ^9.0.0
       lint-staged: ^13.0.3
       prettier: ^2.7.1
       typescript: ^4.8.4
@@ -21,7 +21,7 @@ importers:
       eslint: 8.26.0
       eslint-config-prettier: 8.5.0_eslint@8.26.0
       eslint-plugin-prettier: 4.2.1_aniwkeyvlpmwkidetuytnokvcm
-      husky: 8.0.1
+      husky: 9.1.7
       lint-staged: 13.0.3
       prettier: 2.7.1
       typescript: 4.8.4
@@ -78,7 +78,7 @@ importers:
       jest: 28.1.3_pfxkpkvs62uiwmbcnbb432f4n4
       source-map-support: 0.5.21
       supertest: 6.3.1
-      ts-jest: 28.0.8_2zfq7voi7wq34ia6tokjrpo2qe
+      ts-jest: 28.0.8_xqn6xfgh5llevdlhtbp45jjr3y
       ts-loader: 9.4.1_qqxisngxjbp7lstdk7boexbu3e
       ts-node: 10.9.1_csgtisay5j2uefybgrhleyyi3u
       tsconfig-paths: 4.1.0
@@ -5168,9 +5168,9 @@ packages:
     engines: {node: '>=12.20.0'}
     dev: true
 
-  /husky/8.0.1:
-    resolution: {integrity: sha512-xs7/chUH/CKdOCs7Zy0Aev9e/dKOMZf3K1Az1nar3tzlv0jfqnYtu235bstsWTmXOR0EfINrPa97yy4Lz6RiKw==}
-    engines: {node: '>=14'}
+  /husky/9.1.7:
+    resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
+    engines: {node: '>=18'}
     hasBin: true
     dev: true
 
@@ -6564,6 +6564,7 @@ packages:
   /multer/1.4.4-lts.1:
     resolution: {integrity: sha512-WeSGziVj6+Z2/MwQo3GvqzgR+9Uc+qt8SwHKh3gvNPiISKfsMfG4SvCOFYlxxgkXt7yIV2i1yczehm0EOKIxIg==}
     engines: {node: '>= 6.0.0'}
+    deprecated: Multer 1.x is impacted by a number of vulnerabilities, which have been patched in 2.x. You should upgrade to the latest 2.x version.
     dependencies:
       append-field: 1.0.0
       busboy: 1.6.0
@@ -8704,7 +8705,7 @@ packages:
     hasBin: true
     dev: true
 
-  /ts-jest/28.0.8_2zfq7voi7wq34ia6tokjrpo2qe:
+  /ts-jest/28.0.8_xqn6xfgh5llevdlhtbp45jjr3y:
     resolution: {integrity: sha512-5FaG0lXmRPzApix8oFG8RKjAz4ehtm8yMKOTy5HX3fY6W8kmvOrmcY0hKDElW52FJov+clhUbrKAqofnj4mXTg==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     hasBin: true
@@ -8725,7 +8726,7 @@ packages:
       esbuild:
         optional: true
     dependencies:
-      '@babel/core': 7.20.2
+      '@babel/core': 7.19.6
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
       jest: 28.1.3_pfxkpkvs62uiwmbcnbb432f4n4
