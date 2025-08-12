@@ -52,7 +52,7 @@ importers:
       ts-jest: 28.0.8
       ts-loader: ^9.4.1
       ts-node: ^10.9.1
-      tsconfig-paths: 4.1.0
+      tsconfig-paths: 4.2.0
       yahoo-finance2: ^2.3.6
     dependencies:
       '@nestjs/common': 9.1.6_x6yqyveuahcdef4z4mxykmuv6a
@@ -78,10 +78,10 @@ importers:
       jest: 28.1.3_pfxkpkvs62uiwmbcnbb432f4n4
       source-map-support: 0.5.21
       supertest: 6.3.1
-      ts-jest: 28.0.8_2zfq7voi7wq34ia6tokjrpo2qe
+      ts-jest: 28.0.8_xqn6xfgh5llevdlhtbp45jjr3y
       ts-loader: 9.4.1_qqxisngxjbp7lstdk7boexbu3e
       ts-node: 10.9.1_csgtisay5j2uefybgrhleyyi3u
-      tsconfig-paths: 4.1.0
+      tsconfig-paths: 4.2.0
 
   apps/frontend:
     specifiers:
@@ -6049,6 +6049,12 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
+  /json5/2.2.3:
+    resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
+    engines: {node: '>=6'}
+    hasBin: true
+    dev: true
+
   /jsonc-parser/3.0.0:
     resolution: {integrity: sha512-fQzRfAbIBnR0IQvftw9FJveWiHp72Fg20giDrHz6TdfB12UH/uue0D3hm57UB5KgAVuniLMCaS8P1IMj9NR7cA==}
     dev: false
@@ -6564,6 +6570,7 @@ packages:
   /multer/1.4.4-lts.1:
     resolution: {integrity: sha512-WeSGziVj6+Z2/MwQo3GvqzgR+9Uc+qt8SwHKh3gvNPiISKfsMfG4SvCOFYlxxgkXt7yIV2i1yczehm0EOKIxIg==}
     engines: {node: '>= 6.0.0'}
+    deprecated: Multer 1.x is impacted by a number of vulnerabilities, which have been patched in 2.x. You should upgrade to the latest 2.x version.
     dependencies:
       append-field: 1.0.0
       busboy: 1.6.0
@@ -8704,7 +8711,7 @@ packages:
     hasBin: true
     dev: true
 
-  /ts-jest/28.0.8_2zfq7voi7wq34ia6tokjrpo2qe:
+  /ts-jest/28.0.8_xqn6xfgh5llevdlhtbp45jjr3y:
     resolution: {integrity: sha512-5FaG0lXmRPzApix8oFG8RKjAz4ehtm8yMKOTy5HX3fY6W8kmvOrmcY0hKDElW52FJov+clhUbrKAqofnj4mXTg==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     hasBin: true
@@ -8725,7 +8732,7 @@ packages:
       esbuild:
         optional: true
     dependencies:
-      '@babel/core': 7.20.2
+      '@babel/core': 7.19.6
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
       jest: 28.1.3_pfxkpkvs62uiwmbcnbb432f4n4
@@ -8790,7 +8797,7 @@ packages:
     dependencies:
       chalk: 4.1.2
       enhanced-resolve: 5.10.0
-      tsconfig-paths: 4.1.0
+      tsconfig-paths: 4.2.0
     dev: true
 
   /tsconfig-paths/4.1.0:
@@ -8798,6 +8805,15 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       json5: 2.2.1
+      minimist: 1.2.7
+      strip-bom: 3.0.0
+    dev: true
+
+  /tsconfig-paths/4.2.0:
+    resolution: {integrity: sha512-NoZ4roiN7LnbKn9QqE1amc9DJfzvZXxF4xDavcOWt1BPkdx+m+0gJuPM+S0vCe7zTJMYUP0R8pO2XMr+Y8oLIg==}
+    engines: {node: '>=6'}
+    dependencies:
+      json5: 2.2.3
       minimist: 1.2.7
       strip-bom: 3.0.0
     dev: true
