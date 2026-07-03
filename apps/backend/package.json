@@ -34,7 +34,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.5.7",
-    "yahoo-finance2": "^2.3.6"
+    "yahoo-finance2": "^3.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.1.4",
