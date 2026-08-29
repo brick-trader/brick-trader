@@ -34,7 +34,7 @@ importers:
       '@nestjs/platform-fastify': ^9.1.6
       '@nestjs/schematics': ^9.0.3
       '@nestjs/testing': ^9.1.6
-      '@prisma/client': ^4.5.0
+      '@prisma/client': ^7.0.0
       '@types/express': ^4.17.14
       '@types/jest': 28.1.8
       '@types/node': ^16.18.2
@@ -58,10 +58,10 @@ importers:
       '@nestjs/common': 9.1.6_x6yqyveuahcdef4z4mxykmuv6a
       '@nestjs/core': 9.1.6_bx3wiubfryfbvpzqwr6ml4ajpu
       '@nestjs/platform-fastify': 9.1.6_6whalgrsvisgjemghedgkfq7dm
-      '@prisma/client': 4.5.0_prisma@4.5.0
+      '@prisma/client': 7.10.0_uamr2za5tdysrjpjzfmpfu4bgu
       class-transformer: 0.5.1
       class-validator: 0.13.2
-      nestjs-prisma: 0.18.0_cmrx3jjice5mi2ih3khk673dai
+      nestjs-prisma: 0.18.0_5sikqijhz666o2j6zlw35ukm7m
       prisma: 4.5.0
       reflect-metadata: 0.1.13
       rimraf: 3.0.2
@@ -78,7 +78,7 @@ importers:
       jest: 28.1.3_pfxkpkvs62uiwmbcnbb432f4n4
       source-map-support: 0.5.21
       supertest: 6.3.1
-      ts-jest: 28.0.8_2zfq7voi7wq34ia6tokjrpo2qe
+      ts-jest: 28.0.8_xqn6xfgh5llevdlhtbp45jjr3y
       ts-loader: 9.4.1_qqxisngxjbp7lstdk7boexbu3e
       ts-node: 10.9.1_csgtisay5j2uefybgrhleyyi3u
       tsconfig-paths: 4.1.0
@@ -1615,22 +1615,25 @@ packages:
       - vue
     dev: false
 
-  /@prisma/client/4.5.0_prisma@4.5.0:
-    resolution: {integrity: sha512-B2cV0OPI1smhdYUxsJoLYQLoMlLH06MUxgFUWQnHodGMX98VRVXKmQE/9OcrTNkqtke5RC+YU24Szxd04tZA2g==}
-    engines: {node: '>=14.17'}
-    requiresBuild: true
+  /@prisma/client-runtime-utils/7.10.0:
+    resolution: {integrity: sha512-cnCy7lUV8/CctgKVEmqAbSLAmwqJdE/qAlqTBk/0NDk59zEb2cZ0M0M0E4vVPnqbSEYudRroQDvOWfUZH6RIfw==}
+    dev: false
+
+  /@prisma/client/7.10.0_uamr2za5tdysrjpjzfmpfu4bgu:
+    resolution: {integrity: sha512-Ubw/QS9JGIBSBUsyxAUQuK/Jcu0Tsva7le7QbLd91Kix9yJvYDdj5QkwgEbbZniH80dd+sziQcALPc+HnvQC8Q==}
+    engines: {node: ^20.19 || ^22.12 || >=24.0}
     peerDependencies:
       prisma: '*'
+      typescript: '>=5.4.0'
     peerDependenciesMeta:
       prisma:
         optional: true
+      typescript:
+        optional: true
     dependencies:
-      '@prisma/engines-version': 4.5.0-43.0362da9eebca54d94c8ef5edd3b2e90af99ba452
+      '@prisma/client-runtime-utils': 7.10.0
       prisma: 4.5.0
-    dev: false
-
-  /@prisma/engines-version/4.5.0-43.0362da9eebca54d94c8ef5edd3b2e90af99ba452:
-    resolution: {integrity: sha512-o7LyVx8PPJBLrEzLl6lpxxk2D5VnlM4Fwmrbq0NoT6pr5aa1OuHD9ZG+WJY6TlR/iD9bhmo2LNcxddCMr5Rv2A==}
+      typescript: 4.8.4
     dev: false
 
   /@prisma/engines/4.5.0:
@@ -6564,6 +6567,7 @@ packages:
   /multer/1.4.4-lts.1:
     resolution: {integrity: sha512-WeSGziVj6+Z2/MwQo3GvqzgR+9Uc+qt8SwHKh3gvNPiISKfsMfG4SvCOFYlxxgkXt7yIV2i1yczehm0EOKIxIg==}
     engines: {node: '>= 6.0.0'}
+    deprecated: Multer 1.x is impacted by a number of vulnerabilities, which have been patched in 2.x. You should upgrade to the latest 2.x version.
     dependencies:
       append-field: 1.0.0
       busboy: 1.6.0
@@ -6600,7 +6604,7 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
-  /nestjs-prisma/0.18.0_cmrx3jjice5mi2ih3khk673dai:
+  /nestjs-prisma/0.18.0_5sikqijhz666o2j6zlw35ukm7m:
     resolution: {integrity: sha512-KFHIczkRbnwR97KZNgTmMIbfk/p+syjfzsHDF/GNjwu/H2c28IoxEd8kVAg+c1EzCnNFgtN7B2uFTac2M+vKcA==}
     peerDependencies:
       '@nestjs/common': ^7.0.0 || ^8.0.0 || ^9.0.0
@@ -6612,7 +6616,7 @@ packages:
       '@angular-devkit/schematics': 13.3.9
       '@nestjs/common': 9.1.6_x6yqyveuahcdef4z4mxykmuv6a
       '@nestjs/platform-express': 9.1.6_6whalgrsvisgjemghedgkfq7dm
-      '@prisma/client': 4.5.0_prisma@4.5.0
+      '@prisma/client': 7.10.0_uamr2za5tdysrjpjzfmpfu4bgu
       '@schematics/angular': 13.3.9
       prisma: 4.5.0
     transitivePeerDependencies:
@@ -8704,7 +8708,7 @@ packages:
     hasBin: true
     dev: true
 
-  /ts-jest/28.0.8_2zfq7voi7wq34ia6tokjrpo2qe:
+  /ts-jest/28.0.8_xqn6xfgh5llevdlhtbp45jjr3y:
     resolution: {integrity: sha512-5FaG0lXmRPzApix8oFG8RKjAz4ehtm8yMKOTy5HX3fY6W8kmvOrmcY0hKDElW52FJov+clhUbrKAqofnj4mXTg==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     hasBin: true
@@ -8725,7 +8729,7 @@ packages:
       esbuild:
         optional: true
     dependencies:
-      '@babel/core': 7.20.2
+      '@babel/core': 7.19.6
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
       jest: 28.1.3_pfxkpkvs62uiwmbcnbb432f4n4
