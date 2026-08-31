@@ -89,7 +89,7 @@ importers:
       '@pinia/nuxt': ^0.4.3
       blockly: ^8.0.5
       chart.js: ^3.9.1
-      date-and-time: ^2.4.1
+      date-and-time: ^4.0.0
       eslint-plugin-vue: ^9.6.0
       gsap: ^3.11.3
       indicatorts: ^1.0.10
@@ -102,7 +102,7 @@ importers:
       '@pinia/nuxt': 0.4.3_zwu2zepfy3m6u2gunxlolp35gi
       blockly: 8.0.5
       chart.js: 3.9.1
-      date-and-time: 2.4.1
+      date-and-time: 4.5.2
       gsap: 3.11.3
       indicatorts: 1.0.10
       pinia: 2.0.23_zwu2zepfy3m6u2gunxlolp35gi
@@ -3706,8 +3706,9 @@ packages:
       whatwg-url: 7.1.0
     dev: false
 
-  /date-and-time/2.4.1:
-    resolution: {integrity: sha512-fG+ClATev+wHryqxOoGcTTegr5RhYE+tz/XHUkTQ/zvpWqQ90oOxjOhuMQ02bw87Oy9N3qBENCHHHSKdWJjgTg==}
+  /date-and-time/4.5.2:
+    resolution: {integrity: sha512-sTxw4gDN0K7usVzYzgz2gVXnJiGGa/X1P0XoUvOVqmxdk3nkbBe3DwjSdKCflfbuHzXFNX/RlKQuVxU1GJS1YA==}
+    engines: {node: '>=18'}
     dev: false
 
   /date-fns/2.29.3:
@@ -6564,6 +6565,7 @@ packages:
   /multer/1.4.4-lts.1:
     resolution: {integrity: sha512-WeSGziVj6+Z2/MwQo3GvqzgR+9Uc+qt8SwHKh3gvNPiISKfsMfG4SvCOFYlxxgkXt7yIV2i1yczehm0EOKIxIg==}
     engines: {node: '>= 6.0.0'}
+    deprecated: Multer 1.x is impacted by a number of vulnerabilities, which have been patched in 2.x. You should upgrade to the latest 2.x version.
     dependencies:
       append-field: 1.0.0
       busboy: 1.6.0
