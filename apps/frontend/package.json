@@ -28,7 +28,7 @@
     "chart.js": "^3.9.1",
     "date-and-time": "^2.4.1",
     "gsap": "^3.11.3",
-    "indicatorts": "^1.0.10",
+    "indicatorts": "^2.0.0",
     "pinia": "^2.0.23"
   }
 }
